@@ -11,4 +11,16 @@
 		<result property="admin_id" column="admin_id" />
 	</resultMap>
 	
+	<!-- INSERT -->
+	<!-- 게시판 글 입력 -->
+	<insert id="insertBoard" parameterType="com.bada_admin.model.NoticeFaq" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			noti_faq(
+				category, subject, content, reg_date, edit_date, admin_id
+			)
+		VALUES(
+			#{category}, #{subject}, #{content}, now(), now(), #{admin_id}
+		)
+	</insert>
+	
 </mapper>

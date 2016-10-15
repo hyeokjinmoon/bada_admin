@@ -1,0 +1,6 @@
+package com.bada_admin.controller.board_manage;
+
+public class Snippet {
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/common_admin.css">
+}
+

@@ -5,28 +5,6 @@
 
     <head>
     	<%@ include file="/WEB-INF/inc/head.jsp" %>
-        
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/sweetalert.css" />
-        <script src="${pageContext.request.contextPath}/assets/js/sweetalert.min.js"></script>
-        <script src="//cdn.ckeditor.com/4.5.11/standard/ckeditor.js"></script>
-        <script type="text/javascript">
-            $(function () {
-                $("#n_register").click(function () {
-                    swal({
-                        title: "공지사항 등록",
-                        text: "이대로 등록하시겠습니까?",
-                        showCancelButton: true,
-                        closeOnConfirm: false,
-                        showLoaderOnConfirm: true
-                    }, function () {
-                        setTimeout(function () {
-                            swal("등록되었습니다.");
-                        }, 1000);
-                    });
-                });
-            });
-        </script>
-
     </head>
 
     <body>
@@ -40,23 +18,24 @@
 
                     <!-- 작성 영역 -->
                     <div class="page-header">
-                        <h1>공지사항 작성</h1>
+                        <h1>${boardName} 작성</h1>
                     </div>
-                    <form class="form-horizontal" method="post" action="">
+                    <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/board_manage/board_write_ok.do">
+                        <input type="hidden" name="category" value="${category}"/>
                         <div class="form-group">
-                            <label for="n_title" class="col-md-2 text-right">제목</label>
+                            <label for="subject" class="col-md-2 text-right">제목</label>
                             <div class="col-md-8">
-                                <input type="text" name="n_title" id="n_title" class="form-control"></div>
+                                <input type="text" name="subject" id="subject" class="form-control"></div>
                             </div>
                             <div class="form-group">
-                                <label for="n_content" class="col-md-2 text-right">내용</label>
+                                <label for="content" class="col-md-2 text-right">내용</label>
                                 <div class="col-md-8">
-                                    <textarea name="n_content" id="n_content" rows="10" class="form-control ckeditor"></textarea>
+                                    <textarea name="content" id="content" rows="10" class="form-control ckeditor"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-8">
-                                    <button type="button" class="btn btn-info pull-right" id="n_register">작성완료</button>
+                                    <button type="submit" class="btn btn-info pull-right" id="register">작성완료</button>
                                 </div>
                             </div>
                         </form>

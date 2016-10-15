@@ -1,0 +1,21 @@
+package com.bada_admin.controller.board_manage;
+
+public class BoardCommon {
+	
+	private static BoardCommon current;
+	
+	public static BoardCommon getInstance() {
+		if(current == null) {
+			current = new BoardCommon();
+		}
+		return current;
+	}
+	
+	public static void freeInstance() {
+		current = null;
+	}
+	
+	private BoardCommon(){
+		super();
+	}
+}

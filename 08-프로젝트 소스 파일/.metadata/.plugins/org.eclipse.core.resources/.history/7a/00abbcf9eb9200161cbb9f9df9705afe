@@ -1,0 +1,5 @@
+package com.bada_admin.controller.board_manage;
+
+public class BoardWriteOk {
+
+}

@@ -1332,3 +1332,9 @@ org.xml.sax.SAXParseException; lineNumber: 117; columnNumber: 62; 요소 유형 
 
 !ENTRY org.eclipse.jface.text 2 0 2016-10-15 22:46:26.947
 !MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'
+
+!ENTRY org.eclipse.jface.text 2 0 2016-10-16 00:37:33.963
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.number'
+
+!ENTRY org.eclipse.jface.text 2 0 2016-10-16 00:37:33.963
+!MESSAGE Duplicate template id: 'org.eclipse.wst.xslt.templates.xpath.round'

@@ -1,0 +1,24 @@
+package com.bada_admin.service.impl;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.logging.log4j.Logger;
+
+import com.bada_admin.model.NoticeFaq;
+import com.bada_admin.service.NoticeFaqService;
+
+public class NoticeFaqServiceImpl implements NoticeFaqService {
+	SqlSession sqlSession;
+	Logger logger;
+	
+	public NoticeFaqServiceImpl(SqlSession sqlSession, Logger logger) {
+		this.sqlSession = sqlSession;
+		this.logger = logger;
+	}
+	
+	@Override
+	public void insertBoard(NoticeFaq noticeFaq) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

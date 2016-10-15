@@ -20,7 +20,7 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>공지사항 목록</h1>
+                  <h1>${boardName} 목록</h1>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -88,7 +88,7 @@
                         </tfoot>
                     </table>
                     <div class="delete-btn">
-                        <a href="" class="btn btn-primary" id="button">글작성</a>
+                        <a href="${pageContext.request.contextPath}/board_manage/board_write.do?category=${category}" class="btn btn-primary" id="button">글작성</a>
                      </div>
                 </div>
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>
