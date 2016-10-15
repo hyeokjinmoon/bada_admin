@@ -1,0 +1,32 @@
+package com.bada_admin.service.impl;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.logging.log4j.Logger;
+
+import com.bada_admin.model.Member;
+import com.bada_admin.service.MemberService;
+
+public class MemberServiceImpl implements MemberService {
+
+	SqlSession sqlSessoin;
+	Logger logger;
+	
+	public MemberServiceImpl(SqlSession sqlSession, Logger logger) {
+		this.sqlSessoin = sqlSession;
+		this.logger = logger;
+	}
+	
+	@Override
+	public Member selectAdminLoginInfo(Member member) throws Exception {
+		Member result = null;
+		try{
+			
+		} catch (NullPointerException e) {
+			
+		} catch (Exception e) {
+			
+		}
+		return result;
+	}
+
+}

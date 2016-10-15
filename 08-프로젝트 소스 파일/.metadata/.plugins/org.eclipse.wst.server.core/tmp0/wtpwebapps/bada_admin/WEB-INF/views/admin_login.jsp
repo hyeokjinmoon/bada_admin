@@ -22,12 +22,12 @@
         <!-- 컨테이너 영역 -->
         <div class="container">
 
-            <form class="form-login" method="post" action="">
+            <form class="form-login" method="post" action="${pageContext.request.contextPath}/login_ok.do">
                 <h2 class="form-login-heading text-center">BaDa ADMIN</h2>
-                <label for="admin_id" class="sr-only">Email address</label>
-                <input type="text" id="admin_id" class="form-control" placeholder="아이디">
-                <label for="admin_pw" class="sr-only">Password</label>
-                <input type="password" id="admin_pw" class="form-control" placeholder="비밀번호">
+                <label for="user_id" class="sr-only">아이디</label>
+                <input type="text" name="user_id" id="user_id" class="form-control" placeholder="아이디">
+                <label for="user_pw" class="sr-only">비밀번호</label>
+                <input type="password" name="user_pw" id="user_pw" class="form-control" placeholder="비밀번호">
                 <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
             </form>
 		</div>

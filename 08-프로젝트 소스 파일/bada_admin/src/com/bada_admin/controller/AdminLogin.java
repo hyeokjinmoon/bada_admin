@@ -7,16 +7,27 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bada_admin.helper.BaseController;
+import org.apache.logging.log4j.LogManager;
 
-@WebServlet("/admin_login.do")
+import com.bada_admin.helper.BaseController;
+import com.bada_admin.helper.WebHelper;
+
+@WebServlet("/index")
 public class AdminLogin extends BaseController {
 
 	private static final long serialVersionUID = 7976784466598066397L;
+	WebHelper web;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		logger = LogManager.getFormatterLogger(request.getRequestURI());
+		web = WebHelper.getInstance(request, response);
+		
+		if(web.getSession("loginInfo") != null) {
+			web.redirect(web.getRootPath() + "/board_manage/dashboard.do", "이미 로그인중입니다.");
+			return null;
+		}
+		
 		return "admin_login";
 	}
 

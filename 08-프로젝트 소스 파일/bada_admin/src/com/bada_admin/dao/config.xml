@@ -17,9 +17,13 @@
 	</environments>
 	
 	<mappers>
-		<!-- <mapper resource="study/jsp/mysite/dao/mapper/MemberMapper.xml"/>
-		<mapper resource="study/jsp/mysite/dao/mapper/BBSDocumentMapper.xml"/>
-		<mapper resource="study/jsp/mysite/dao/mapper/BBSCommentMapper.xml"/>
-		<mapper resource="study/jsp/mysite/dao/mapper/BBSFileMapper.xml"/> -->
+		<mapper resource="com/bada_admin/dao/mapper/BookMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/CartMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/MemberMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/MessageMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/NoticeFaqMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/OrderMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/QnaMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/SalesRequestMapper.xml"/>
 	</mappers>
 </configuration>

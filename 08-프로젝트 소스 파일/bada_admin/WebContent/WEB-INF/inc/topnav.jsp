@@ -14,8 +14,20 @@
                 <span class="small">ADMIN</span>
             </a>
         </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
+        <div class="navbar-right" style="margin-right: 50px;">
+	    	<a href="#" class="dropdown-toggle navbar-link navbar-btn btn navbar-admin" data-toggle="dropdown">${loginInfo.name} 님 <span class="caret"></span></a>
+			<ul class="dropdown-menu">
+				<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+			</ul>
+      	</div>
+		<div id="navbar" class="navbar-collapse collapse">
+        	<ul class="nav navbar-nav navbar-right">
+        		<li>
+        			<a href="#" class="dropdown-toggle navbar-link" data-toggle="dropdown">${loginInfo.name} 님 <span class="caret"></span></a>
+					<ul class="dropdown-menu">
+						<li><a href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+					</ul>
+        		</li>
                 <li>
                     <a href="${pageContext.request.contextPath}/board_manage/dashboard.do">대시보드</a>
                 </li>
@@ -57,8 +69,8 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#collapse-nav-item-user" data-toggle="collapse">회원 관리</a>
-                    <ul class="nav navbar-nav-inner collapse" id="collapse-nav-item-user">
+                    <a href="#collapse-nav-item-member" data-toggle="collapse">회원 관리</a>
+                    <ul class="nav navbar-nav-inner collapse" id="collapse-nav-item-member">
                         <li>
                             <a href="${pageContext.request.contextPath}/member_manage/member_list.do">회원목록</a>
                         </li>
