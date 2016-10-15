@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+	<resultMap type="com.bada_admin.model.Member" id="member" >
+		<result property="id" column="id" />
+		<result property="user_id" column="user_id" />
+		<result property="user_pw" column="user_pw" />
+		<result property="name" column="name" />
+		<result property="email" column="email" />
+		<result property="tel" column="tel" />
+		<result property="postcode" column="postcode" />
+		<result property="addr1" column="addr1" />
+		<result property="addr2" column="addr2" />
+		<result property="profile_img" column="profile_img" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="is_admin" column="is_admin" />
+		<result property="is_active" column="is_active"/>
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 로그인 정보 -->
+	<select id="selectLoginInfo" parameterType="com.bada_admin.model.Member" resultMap="member">
+		SELECT
+			id, user_id, user_pw, name, email, tel, posecode, addr1, addr2, profile_img, DATE_FORMAT(reg_date, '%Y-%m-%d %T') AS reg_date, DATE_FORMAT(edit_date, '%Y-%m-%d %T') AS edit_date, is_admin, is_active
+		FROM
+			member
+		WHERE
+			user_id=#{user_id} AND user_pw=password(#{user_pw})
+		ORDER BY
+			id DESC
+		LIMIT
+			0, 1
+	</select>
+	<!-- 관리자 로그인 정보 -->
+	<select id="selectLoginInfo" parameterType="com.bada_admin.model.Member" resultMap="member">
+		SELECT
+			id, user_id, user_pw, name, email, tel, posecode, addr1, addr2, profile_img, DATE_FORMAT(reg_date, '%Y-%m-%d %T') AS reg_date, DATE_FORMAT(edit_date, '%Y-%m-%d %T') AS edit_date, is_admin, is_active
+		FROM
+			member
+		WHERE
+			user_id=#{user_id} AND user_pw=password(#{user_pw}) AND is_admin='Y'
+		ORDER BY
+			id DESC
+		LIMIT
+			0, 1
+	</select>
+	<!-- 아이디 중복 검사 -->
+	<select id="selectUserIdCount" parameterType="com.bada_admin.model.Member" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			member
+		WHERE
+			user_id=#{user_id}
+	</select>
+	<!-- 이메일 중복 검사 -->
+	<select id="selectEmailCount" parameterType="com.bada_admin.model.Member" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			member
+		WHERE
+			email=#{email}
+	</select>
+	<!-- 비밀번호 확인 -->
+	<select id="selectUserPasswordCount" parameterType="com.bada_admin.model.Member" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			member
+		WHERE
+			id=#{id} AND user_pw=password(#{user_pw})
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 회원가입 -->
+	<insert id="insertMember" parameterType="com.bada_admin.model.Member" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			member(
+				user_id, user_pw, name, email, tel, posecode, addr1, addr2, profile_img, reg_date, edit_date, is_admin, is_active
+			)
+		VALUES(
+			#{user_id}, #{user_pw}, #{name}, #{email}, #{tel}, #{posecode}, #{addr1}, #{addr2}, #{profile_img}, now(), now(), 'F', 'T'
+		)
+	</insert>
+	
+	<!-- UPDATE -->
+	<!-- 회원 정보 수정 -->
+	<update id="updateMember" parameterType="com.bada_admin.model.Member">
+		UPDATE
+			member
+		SET
+			user_pw=password(#{user_pw}), name=#{name}, email=#{email}, tel=#{tel}, posecode=#{postcode}, addr1=#{addr1}, addr2=#{addr2}, profile_img=#{profile_img}, edit_date=now()
+	</update>
+	
+</mapper>

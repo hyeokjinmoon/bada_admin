@@ -36,7 +36,8 @@ CREATE TABLE IF NOT EXISTS `bada`.`member` (
   `profile_img` VARCHAR(255) NULL COMMENT '프로필 이미지',
   `reg_date` DATETIME NOT NULL COMMENT '등록일',
   `edit_date` DATETIME NOT NULL COMMENT '정보 수정일',
-  `is_admin` CHAR(1) NOT NULL COMMENT '어드민 플래그\n어드민=‘Y’\n일반회원=’N’',
+  `is_admin` CHAR(1) NOT NULL COMMENT '어드민 플래그\n어드민=‘T’\n일반회원=’F’',
+  `is_active` CHAR(1) NOT NULL COMMENT '회원 활성화 상태\n활성=’T’\n비활성=‘F’',
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 COMMENT = '회원테이블';
@@ -101,24 +102,24 @@ DROP TABLE IF EXISTS `bada`.`qna` ;
 CREATE TABLE IF NOT EXISTS `bada`.`qna` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '일련번호',
   `subject` VARCHAR(50) NOT NULL COMMENT '제목',
-  `req_type` CHAR(1) NOT NULL COMMENT '문의 종류\n',
+  `req_type` CHAR(1) NOT NULL COMMENT '문의 종류\n판매=’S’\n환불=‘D’\n배송=‘R’\n기타=‘E’',
   `content` TEXT NOT NULL COMMENT '내용',
   `answer` TEXT NULL COMMENT '답변 내용',
   `answer_status` CHAR(1) NOT NULL COMMENT '답변 상태 \n답변=‘A’,\n미답변=’N’',
   `reg_date` DATETIME NOT NULL COMMENT '등록일',
   `edit_date` DATETIME NOT NULL COMMENT '수정일',
   `request_id` INT NOT NULL COMMENT '질문자 일련번호',
-  `answer_id1` INT NOT NULL,
+  `answer_id` INT NOT NULL COMMENT '답변자 일련번호',
   PRIMARY KEY (`id`),
   INDEX `fk_qna_member1_idx` (`request_id` ASC),
-  INDEX `fk_qna_member2_idx` (`answer_id1` ASC),
+  INDEX `fk_qna_member2_idx` (`answer_id` ASC),
   CONSTRAINT `fk_qna_member1`
     FOREIGN KEY (`request_id`)
     REFERENCES `bada`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_qna_member2`
-    FOREIGN KEY (`answer_id1`)
+    FOREIGN KEY (`answer_id`)
     REFERENCES `bada`.`member` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -135,7 +136,7 @@ CREATE TABLE IF NOT EXISTS `bada`.`order` (
   `id` INT NOT NULL AUTO_INCREMENT COMMENT '주문 일련번호',
   `order_date` DATETIME NOT NULL COMMENT '주문일',
   `buyer_id` INT NOT NULL COMMENT '구매자 일련번호',
-  `deposit_status` CHAR(1) NOT NULL COMMENT '입금 상태\n입금대기=‘W’,\n입금확인=‘V’,\n입금완료=‘C’',
+  `deposit_status` CHAR(1) NOT NULL COMMENT '입금 상태\n입금대기=‘W’,\n입금완료=‘C’',
   `delivery_status` CHAR(1) NOT NULL COMMENT '배송상태\n배송대기=‘W’\n배송중=’S’\n배송완료=‘C’',
   `buyer_addr` VARCHAR(255) NOT NULL COMMENT '구매자 주소',
   `seller_addr` VARCHAR(255) NOT NULL COMMENT '판매자 주소',
@@ -168,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `bada`.`cart` (
   `seller` CHAR(1) NOT NULL COMMENT '판매자 \n회원=‘M’, \n바다=‘B’',
   `ok_status` CHAR(1) NOT NULL COMMENT '승인상태 \n승인=‘O’, \n거절=‘R’,\n승인대기=‘W’',
   `seller_id` INT NOT NULL COMMENT '판매자 일련번호\n',
-  `book_status` CHAR(1) NOT NULL COMMENT '제품 상태\n구매대기=‘W’\n구매완료=‘C’',
+  `book_status` CHAR(1) NOT NULL COMMENT '제품 상태\n판매중=‘W’\n판매완료=‘C’',
   `order_id` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_cart_order1_idx` (`order_id` ASC),
