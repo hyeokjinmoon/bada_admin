@@ -124,7 +124,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
-      <Context docBase="/Users/moonhyoekjin/Desktop/Study/bada/bada_admin/08-프로젝트 소스/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/moonhyoekjin/Desktop/Study/bada/bada_admin/08-프로젝트 소스/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/bada_admin" path="/bada_admin" reloadable="true" source="org.eclipse.jst.jee.server:bada_admin"/></Host>
+      <Context docBase="/Users/moonhyoekjin/Desktop/Study/bada/bada_admin/08-프로젝트 소스 파일/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/ROOT" path="" reloadable="false"/><Context docBase="/Users/moonhyoekjin/Desktop/Study/bada/bada_admin/08-프로젝트 소스 파일/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/bada_admin" path="/bada_admin" reloadable="true" source="org.eclipse.jst.jee.server:bada_admin"/></Host>
     </Engine>
   </Service>
 </Server>
