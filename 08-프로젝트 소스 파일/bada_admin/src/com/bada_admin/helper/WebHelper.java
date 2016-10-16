@@ -156,7 +156,7 @@ public class WebHelper {
 		} catch (NumberFormatException e) {
 			// 형변환에 실패할 경우 catch블록으로 제어가 이동하고,result값은 미리 설정해 둔
 			// defaultValue인 상태를 유지한다.
-			e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 		return result;

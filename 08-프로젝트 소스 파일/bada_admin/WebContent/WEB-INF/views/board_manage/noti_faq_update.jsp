@@ -20,25 +20,26 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>공지사항 수정</h1>
+                  <h1>${boardName} &nbsp;<small> 수정</small></h1>
                 </div>
-                <form class="form-horizontal" id="myform" action="noti_faq_update.do">
+                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/board_manage/noti_faq_update_ok.do">
+                	<input type="hidden" name="id" value="${noticeFaqUpdate.id}"/>
                 	<input type="hidden" name="category" value="${category}"/>
                     <div class="form-group">
-                        <label for="subject" class="col-md-2">제목</label>
-                        <div class="col-md-8"><input type="text" name="subject" id="subject" class="form-control"></div>
+                        <label for="subject" class="col-md-2 text-right">제목</label>
+                        <div class="col-md-8"><input type="text" name="subject" id="subject" class="form-control" value="${noticeFaqUpdate.subject}"></div>
                     </div>
                     <div class="form-group">
-                        <label for="content" class="col-md-2">공지사항 내용</label>
+                        <label for="content" class="col-md-2 text-right">내용</label>
                         <div class="col-md-8">
-                            <textarea name="content" id="content" rows="10" class="form-control ckeditor"></textarea>
+                            <textarea name="content" id="content" rows="10" class="form-control ckeditor">${noticeFaqUpdate.content}</textarea>
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-8">
-                            <button type="button" class="btn btn-info btn-lg" id="update">수정완료</button>
-                        </div>
-                    </div>
+                                <div class="col-md-offset-2 col-md-8">
+                                    <button type="submit" class="btn btn-info pull-right">수정완료</button>
+                                </div>
+                            </div>
                 </form>
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->

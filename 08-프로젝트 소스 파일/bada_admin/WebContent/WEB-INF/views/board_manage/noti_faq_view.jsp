@@ -53,8 +53,8 @@
                 </div>
                 <div class="text-right">
 	                <a href="${pageContext.request.contextPath}/board_manage/noti_faq_list.do?category=${category}" class="btn btn-primary">목록</a>
-	                <a href="${pageContext.request.contextPath}/board_manage/noti_faq_update.do?category=${category}" class="btn btn-warning">수정</a>
-	                <a href="${pageContext.request.contextPath}/board_manage/noti_faq_delete.do?category=${category}" class="btn btn-danger">삭제</a>
+	                <a href="${pageContext.request.contextPath}/board_manage/noti_faq_update.do?category=${category}&id=${noticeFaqView.id}" class="btn btn-warning">수정</a>
+	                <a href="${pageContext.request.contextPath}/board_manage/noti_faq_delete.do?category=${category}&id=${noticeFaqView.id}" class="btn btn-danger">삭제</a>
                 </div>
                 <!-- 작성 영역 끝 -->
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>
@@ -63,7 +63,7 @@
         </div>
     </div>
     <!-- 컨테이너 끝 -->
-       
+    
 </body>
 
 </html>

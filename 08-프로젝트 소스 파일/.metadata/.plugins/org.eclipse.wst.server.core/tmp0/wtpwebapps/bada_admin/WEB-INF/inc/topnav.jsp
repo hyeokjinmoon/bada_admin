@@ -61,10 +61,10 @@
                             <a href="${pageContext.request.contextPath}/board_manage/qna_list.do">1:1문의</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/board_manage/nori_faq_list.do?category=notice">공지사항</a>
+                            <a href="${pageContext.request.contextPath}/board_manage/noti_faq_list.do?category=notice">공지사항</a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/board_manage/nori_faq_list.do?category=faq">자주묻는질문</a>
+                            <a href="${pageContext.request.contextPath}/board_manage/noti_faq_list.do?category=faq">자주묻는질문</a>
                         </li>
                     </ul>
                 </li>

@@ -1,5 +1,7 @@
 package com.bada_admin.service.impl;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.Logger;
 
@@ -44,7 +46,7 @@ public class NoticeFaqServiceImpl implements NoticeFaqService {
 			}
 		} catch(NullPointerException e) {
 			e.printStackTrace();
-			throw new Exception("조회 할 게시물이 없습니다.");
+			throw new Exception("조회할 게시물이 없습니다.");
 		} catch(Exception e) {
 			e.printStackTrace();
 			throw new Exception("게시물 조회에 실패했습니다.");
@@ -73,6 +75,73 @@ public class NoticeFaqServiceImpl implements NoticeFaqService {
 			throw new Exception("다음 글 조회에 실패했습니다.");
 		}
 		return result;
+	}
+
+	@Override
+	public List<NoticeFaq> selectNoticeFaqList(NoticeFaq noticeFaq) throws Exception {
+		List<NoticeFaq> result = null;
+		try {
+			result = sqlSession.selectList("NoticeFaqMapper.selectNoticeFaqList", noticeFaq);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 게시물 목록이 없습니다.");
+		} catch (Exception e) {
+			throw new Exception("게시물 목록 조회에 실패했습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int selectNoticeFaqCount(NoticeFaq noticeFaq) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("NoticeFaqMapper.selectNoticeFaqCount", noticeFaq);
+		} catch (Exception e){
+			throw new Exception("게시물 수 조회에 실패했습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public void updateNoticeFaq(NoticeFaq noticeFaq) throws Exception {
+		try {
+			int result = sqlSession.update("NoticeFaqMapper.updateNoticeFaq", noticeFaq);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			e.printStackTrace();
+			throw new Exception("수정할 게시물이 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("게시물 수정에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteNoticeFaq(NoticeFaq noticeFaq) throws Exception {
+		try {
+			int result = sqlSession.delete("NoticeFaqMapper.deleteNoticeFaq", noticeFaq);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제할 게시물이 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("게시물 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		
 	}
 
 }

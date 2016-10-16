@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeFaqMapper">
+	<resultMap type="com.bada_admin.model.NoticeFaq" id="notice_faq">
+		<result property="id" column="id" />
+		<result property="category" column="category" />
+		<result property="subject" column="subject" />
+		<result property="content" column="content" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="admin_id" column="admin_id" />
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 게시물 보기 -->
+	<select id="selectNoticeFaqView" parameterType="com.bada_admin.model.NoticeFaq" resultMap="notice_faq">
+		SELECT
+			id, category, subject, content, DATE_FORMAT(edit_date, '%Y-%m-%d') AS edit_date
+		FROM
+			noti_faq
+		WHERE
+			category=#{category} AND id=#{id}
+	</select>
+	<!-- 이전 게시물 -->
+	<select id="selectPrevNoticeFaqView" parameterType="com.bada_admin.model.NoticeFaq" resultMap="notice_faq">
+		<![CDATA[
+		SELECT
+			id, category, subject, content, DATE_FORMAT(edit_date, '%Y-%m-%d') AS edit_date
+		FROM 
+			noti_faq
+		WHERE
+			category=#{category} AND id < #{id}
+		ORDER BY
+			id DESC
+		LIMIT
+			0, 1
+		]]>
+	</select>
+	<!-- 다음 게시물 -->
+	<select id="selectNextNoticeFaqView" parameterType="com.bada_admin.model.NoticeFaq" resultMap="notice_faq">
+		<![CDATA[
+		SELECT
+			id, category, subject, content, DATE_FORMAT(edit_date, '%Y-%m-%d') AS edit_date
+		FROM 
+			noti_faq
+		WHERE
+			category=#{category} AND id > #{id}
+		ORDER BY
+			id ASC
+		LIMIT
+			0, 1
+		]]>
+	</select>
+	<!-- 게시물 리스트 -->
+	<select id="selectNoticeFaqList" parameterType="com.bada_admin.model.NoticeFaq" resultMap="notice_faq">
+		SELECT
+			id, category, subject, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date
+		FROM
+			noti_faq
+		WHERE
+			category=#{category}
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 게시물 총 갯수 -->
+	<select id="selectNoticeFaqCount" parameterType="com.bada_admin.model.NoticeFaq" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			noti_faq
+		WHERE
+			category=#{category}
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 게시판 글 입력 -->
+	<insert id="insertNoticeFaq" parameterType="com.bada_admin.model.NoticeFaq" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			noti_faq(
+				category, subject, content, reg_date, edit_date, admin_id
+			)
+		VALUES(
+			#{category}, #{subject}, #{content}, now(), now(), #{admin_id}
+		)
+	</insert>
+	
+</mapper>

@@ -47,14 +47,14 @@ public class NoticeFaqView extends BaseController {
 		
 		String category = web.getString("category");
 		request.setAttribute("category", category);
-		int board_id = web.getInt("id");
-		logger.debug("id : " + board_id);
+		int id = web.getInt("id");
+		logger.debug("id : " + id);
 		logger.debug("category : " + category);
 		
 		try {
 			String boardName = board.getBoardName(category);
 			request.setAttribute("boardName", boardName);
-			logger.debug("boardName : ", boardName);
+			logger.debug("boardName : " + boardName);
 		} catch (Exception e) {
 			sqlSession.close();
 			web.redirect(null, e.getLocalizedMessage());
@@ -63,7 +63,7 @@ public class NoticeFaqView extends BaseController {
 		
 		NoticeFaq noticeFaq = new NoticeFaq();
 		noticeFaq.setCategory(category);
-		noticeFaq.setId(board_id);
+		noticeFaq.setId(id);
 		
 		NoticeFaq noticeFaqView = null;
 		NoticeFaq prevNoticeFaqView = null;

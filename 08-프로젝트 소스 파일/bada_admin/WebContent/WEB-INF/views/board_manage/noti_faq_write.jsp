@@ -20,7 +20,7 @@
 
                     <!-- 작성 영역 -->
                     <div class="page-header">
-                        <h1>${boardName} 작성</h1>
+                        <h1>${boardName} &nbsp;<small> 작성</small></h1>
                     </div>
                     <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/board_manage/noti_faq_write_ok.do">
                         <input type="hidden" name="category" value="${category}"/>
@@ -37,7 +37,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-8">
-                                    <button type="submit" class="btn btn-info pull-right" id="register">작성완료</button>
+                                    <button type="submit" class="btn btn-info pull-right">작성완료</button>
                                 </div>
                             </div>
                         </form>
