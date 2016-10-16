@@ -16,9 +16,9 @@ public class NoticeFaqServiceImpl implements NoticeFaqService {
 	}
 	
 	@Override
-	public void insertBoard(NoticeFaq noticeFaq) throws Exception {
+	public void insertNoticeFaq(NoticeFaq noticeFaq) throws Exception {
 		try {
-			int result = sqlSession.insert("NoticeFaqMapper.insertBoard", noticeFaq);
+			int result = sqlSession.insert("NoticeFaqMapper.insertNoticeFaq", noticeFaq);
 			if(result == 0) {
 				throw new NullPointerException();
 			}
@@ -32,6 +32,47 @@ public class NoticeFaqServiceImpl implements NoticeFaqService {
 		} finally {
 			sqlSession.commit();
 		}
+	}
+
+	@Override
+	public NoticeFaq selectNoticeFaqView(NoticeFaq noticeFaq) throws Exception {
+		NoticeFaq result = null;
+		try {
+			result = sqlSession.selectOne("NoticeFaqMapper.selectNoticeFaqView", noticeFaq);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch(NullPointerException e) {
+			e.printStackTrace();
+			throw new Exception("조회 할 게시물이 없습니다.");
+		} catch(Exception e) {
+			e.printStackTrace();
+			throw new Exception("게시물 조회에 실패했습니다.");
+		}
+		
+		return result;
+	}
+
+	@Override
+	public NoticeFaq selectPrevNoticeFaqView(NoticeFaq noticeFaq) throws Exception {
+		NoticeFaq result = null;
+		try {
+			result = sqlSession.selectOne("NoticeFaqMapper.selectPrevNoticeFaqView", noticeFaq);
+		} catch (Exception e) {
+			throw new Exception("이전 글 조회에 실패했습니다.");
+		} 
+		return result;
+	}
+
+	@Override
+	public NoticeFaq selectNextNoticeFaqView(NoticeFaq noticeFaq) throws Exception {
+		NoticeFaq result = null;
+		try {
+			result = sqlSession.selectOne("NoticeFaqMapper.selectNextNoticeFaqView", noticeFaq);
+		} catch (Exception e) {
+			throw new Exception("다음 글 조회에 실패했습니다.");
+		}
+		return result;
 	}
 
 }
