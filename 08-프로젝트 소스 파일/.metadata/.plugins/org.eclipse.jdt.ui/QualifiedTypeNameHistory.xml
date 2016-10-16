@@ -2,16 +2,25 @@
 <qualifiedTypeNameHistroy>
 <fullyQualifiedTypeName name="com.bada_admin.service.MemberService"/>
 <fullyQualifiedTypeName name="com.bada_admin.service.impl.MemberServiceImpl"/>
+<fullyQualifiedTypeName name="com.bada_admin.controller.board_manage.BoardCommon"/>
+<fullyQualifiedTypeName name="com.bada_admin.helper.RegexHelper"/>
+<fullyQualifiedTypeName name="java.lang.NullPointerException"/>
+<fullyQualifiedTypeName name="com.bada_admin.model.Member"/>
+<fullyQualifiedTypeName name="com.sun.xml.internal.bind.v2.schemagen.xmlschema.List"/>
 <fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
-<fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
-<fullyQualifiedTypeName name="org.apache.logging.log4j.Logger"/>
-<fullyQualifiedTypeName name="com.bada_admin.dao.MyBatisConnectionFactory"/>
-<fullyQualifiedTypeName name="org.apache.logging.log4j.LogManager"/>
+<fullyQualifiedTypeName name="com.bada_admin.controller.board_manage.NoticeFaqCommon"/>
 <fullyQualifiedTypeName name="com.bada_admin.service.NoticeFaqService"/>
 <fullyQualifiedTypeName name="com.bada_admin.service.impl.NoticeFaqServiceImpl"/>
 <fullyQualifiedTypeName name="com.bada_admin.model.NoticeFaq"/>
 <fullyQualifiedTypeName name="com.bada_admin.helper.WebHelper"/>
-<fullyQualifiedTypeName name="com.bada_admin.controller.board_manage.BoardCommon"/>
-<fullyQualifiedTypeName name="com.bada_admin.model.Member"/>
-<fullyQualifiedTypeName name="com.bada_admin.helper.RegexHelper"/>
+<fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
+<fullyQualifiedTypeName name="org.apache.logging.log4j.Logger"/>
+<fullyQualifiedTypeName name="com.bada_admin.service.QnaService"/>
+<fullyQualifiedTypeName name="com.bada_admin.dao.MyBatisConnectionFactory"/>
+<fullyQualifiedTypeName name="org.apache.logging.log4j.LogManager"/>
+<fullyQualifiedTypeName name="com.bada_admin.controller.board_manage.QnaCommon"/>
+<fullyQualifiedTypeName name="com.bada_admin.service.impl.QnaServiceImpl"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="com.bada_admin.helper.PageHelper"/>
+<fullyQualifiedTypeName name="com.bada_admin.model.Qna"/>
 </qualifiedTypeNameHistroy>

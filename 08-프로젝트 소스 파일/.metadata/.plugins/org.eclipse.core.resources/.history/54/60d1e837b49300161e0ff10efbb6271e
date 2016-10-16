@@ -1,0 +1,60 @@
+package com.bada_admin.controller.board_manage;
+
+public class QnaCommon {
+	
+	private static QnaCommon current;
+	
+	public static QnaCommon getInstance() {
+		if(current == null) {
+			current = new QnaCommon();
+		}
+		return current;
+	}
+	
+	public void freeInstance() {
+		current = null;
+	}
+	
+	private QnaCommon(){
+		super();
+	}
+	
+	
+	
+	private String requestType;
+	private String answerStatus;
+	
+	public String getRequestType(String type) throws Exception {
+		requestType = null;
+		if(type.equals("S")) {
+			requestType = "판매";
+		} else if(type.equals("D")) {
+			requestType = "환불";
+		} else if(type.equals("R")) {
+			requestType = "배송";
+		} else if(type.equals("E")) {
+			requestType = "기타";
+		}
+		
+		if(requestType == null) {
+			throw new Exception("지원하지 않는 문의 종류입니다.");
+		}
+		
+		return requestType;
+	}
+	
+	public String getAnswerStatus(String status) throws Exception {
+		answerStatus = null;
+		if(status.equals("A")) {
+			answerStatus = "답변완료";
+		} else if(status.equals("N")) {
+			answerStatus = "미답변";
+		}
+		
+		if(answerStatus == null) {
+			throw new Exception("지원하지 않는 답변 상태입니다.");
+		}
+		
+		return answerStatus;
+	}
+}

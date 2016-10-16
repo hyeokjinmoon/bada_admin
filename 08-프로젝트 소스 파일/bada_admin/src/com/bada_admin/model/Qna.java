@@ -10,7 +10,7 @@ public class Qna {
 	private String reg_date;
 	private String edit_date;
 	private int request_id;
-	private int answer_id1;
+	private int answer_id;
 	private int limitStart;
 	private int listCount;
 	
@@ -41,8 +41,8 @@ public class Qna {
 	public int getRequest_id() {
 		return request_id;
 	}
-	public int getAnswer_id1() {
-		return answer_id1;
+	public int getAnswer_id() {
+		return answer_id;
 	}
 	public int getLimitStart() {
 		return limitStart;
@@ -77,8 +77,8 @@ public class Qna {
 	public void setRequest_id(int request_id) {
 		this.request_id = request_id;
 	}
-	public void setAnswer_id1(int answer_id1) {
-		this.answer_id1 = answer_id1;
+	public void setAnswer_id(int answer_id) {
+		this.answer_id = answer_id;
 	}
 	public void setLimitStart(int limitStart) {
 		this.limitStart = limitStart;
@@ -90,7 +90,7 @@ public class Qna {
 	public String toString() {
 		return "Qna [id=" + id + ", subject=" + subject + ", req_type=" + req_type + ", content=" + content
 				+ ", answer=" + answer + ", answer_status=" + answer_status + ", reg_date=" + reg_date + ", edit_date="
-				+ edit_date + ", request_id=" + request_id + ", answer_id1=" + answer_id1 + ", limitStart=" + limitStart
+				+ edit_date + ", request_id=" + request_id + ", answer_id=" + answer_id + ", limitStart=" + limitStart
 				+ ", listCount=" + listCount + "]";
 	}
 	

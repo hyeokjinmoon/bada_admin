@@ -1,0 +1,40 @@
+package com.bada_admin.controller.board_manage;
+
+public class QnaCommon {
+	
+	private static QnaCommon current;
+	
+	public static QnaCommon getInstance() {
+		if(current == null) {
+			current = new QnaCommon();
+		}
+		return current;
+	}
+	
+	public void freeInstance() {
+		current = null;
+	}
+	
+	private QnaCommon(){
+		super();
+	}
+	
+	public String getRequestType(String type) throws Exception {
+		String requestType = null;
+		if(type.equals("S")) {
+			requestType = "판매";
+		} else if(type.equals("D")) {
+			requestType = "환불";
+		} else if(type.equals("R")) {
+			requestType = "배송";
+		} else if(type.equals("E")) {
+			requestType = "기타";
+		}
+		
+		if(requestType == null) {
+			throw new Exception("존재하지 않는 문의 종류입니다.");
+		}
+		
+		return requestType;
+	}
+}

@@ -18,7 +18,7 @@
         <%@ include file="/WEB-INF/inc/sidenav.jsp" %>
         <div class="row">
             <!-- 메인 컨텐츠 영역 -->
-            <div class="col-sm-offset-2 col-md-offset-2 main-content clearfix">
+            <div class="col-sm-offset-2 col-md-offset-2 main-content">
 
                 <!-- 작성 영역 -->
                 <div class="page-header">

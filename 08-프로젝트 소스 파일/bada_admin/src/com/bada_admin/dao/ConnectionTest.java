@@ -4,28 +4,31 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.bada_admin.model.NoticeFaq;
-import com.bada_admin.service.NoticeFaqService;
-import com.bada_admin.service.impl.NoticeFaqServiceImpl;
+import com.bada_admin.model.Qna;
+import com.bada_admin.service.QnaService;
+import com.bada_admin.service.impl.QnaServiceImpl;
 
 public class ConnectionTest {
 	public static void main(String[] args) {
 		SqlSession sqlSession = MyBatisConnectionFactory.getSqlSession();
 		Logger logger = LogManager.getFormatterLogger(ConnectionTest.class.getName());
-		NoticeFaqService service = new NoticeFaqServiceImpl(sqlSession, logger);
+		QnaService service = new QnaServiceImpl(sqlSession, logger);
 		
-		NoticeFaq noticeFaq = new NoticeFaq();
-		noticeFaq.setCategory("notice");
-		noticeFaq.setId(4);
+		Qna qna = new Qna();
 		
-		NoticeFaq result = null;
+		qna.setContent("문의 테스트");
+		qna.setReq_type("E");
+		qna.setRequest_id(2);
+		qna.setAnswer_status("N");
 		try {
-			result = service.selectNoticeFaqView(noticeFaq);
+			
+			service.insertQna(qna);
+			
 		} catch (Exception e) {
 			sqlSession.close();
 			System.out.println(e.getLocalizedMessage());
 		}
-		System.out.println(result.toString());
+		
 		sqlSession.close();
 	}
 	

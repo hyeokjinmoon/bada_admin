@@ -11,7 +11,40 @@
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
 		<result property="request_id" column="request_id" />
-		<result property="answer_id1" column="answer_id1" />
+		<result property="answer_id" column="answer_id" />
 	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 문의 리스트 검색 -->
+	<select id="selectQnaList" parameterType="com.bada_admin.model.Qna" resultMap="qna">
+		SELECT
+			id, subject, req_type, content, answer, answer_status, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date, 
+			DATE_FORMAT(edit_date, '%Y-%m-%d') AS edit_date, request_id, answer_id
+		FROM
+			qna
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 총 문의 수 -->
+	<select id="selectQnaCount" parameterType="com.bada_admin.model.Qna" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			qna
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 문의 입력 -->
+	<insert id="insertQna" parameterType="com.bada_admin.model.Qna" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			qna(
+				subject, req_type, content, answer_status, reg_date, edit_date, request_id	
+			)
+		VALUES(
+			#{subject}, #{req_type}, #{content}, #{answer_status}, now(), now(), #{request_id}
+		)
+	</insert>
 	
 </mapper>

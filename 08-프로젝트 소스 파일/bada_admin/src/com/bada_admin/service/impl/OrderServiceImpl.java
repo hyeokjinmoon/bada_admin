@@ -1,7 +1,7 @@
 package com.bada_admin.service.impl;
 
-import com.bada_admin.service.QnaService;
+import com.bada_admin.service.OrderService;
 
-public class OrderServiceImpl implements QnaService {
+public class OrderServiceImpl implements OrderService {
 
 }

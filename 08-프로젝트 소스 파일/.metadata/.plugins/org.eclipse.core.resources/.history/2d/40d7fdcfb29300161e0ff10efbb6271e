@@ -1,0 +1,8 @@
+package com.bada_admin.service;
+
+import com.bada_admin.model.Qna;
+
+public interface QnaService {
+	
+	public void insertQna(Qna qna) throws Exception;
+}
