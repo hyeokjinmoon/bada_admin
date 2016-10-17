@@ -37,7 +37,7 @@
                             <c:forEach var="noticeFaq" items="${noticeFaqList}">
                             	<tr align="center">
 	                                <td>${noticeFaq.id }</td>
-	                                <td><a href="${pageContext.request.contextPath}/board_manage/noti_faq_view.do?category=${category}&id=${noticeFaq.id}">${noticeFaq.subject }</a></td>
+	                                <td class="subject"><a href="${pageContext.request.contextPath}/board_manage/noti_faq_view.do?category=${category}&id=${noticeFaq.id}">${noticeFaq.subject }</a></td>
 	                                <td>${noticeFaq.reg_date }</td>
 	                            </tr>
                             </c:forEach>

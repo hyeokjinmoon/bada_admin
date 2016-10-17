@@ -95,3 +95,8 @@
 .navbar-fixed-top .navbar-collapse {
 	max-height: 100%;
 }
+.subject{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}

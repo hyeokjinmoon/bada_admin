@@ -24,6 +24,7 @@
 		<mapper resource="com/bada_admin/dao/mapper/NoticeFaqMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/OrderMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/QnaMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/QnaMemberJoinMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/SalesRequestMapper.xml"/>
 	</mappers>
 </configuration>

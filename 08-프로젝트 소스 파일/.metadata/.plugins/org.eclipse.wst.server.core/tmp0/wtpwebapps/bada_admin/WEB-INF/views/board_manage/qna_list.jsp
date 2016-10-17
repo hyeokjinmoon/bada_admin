@@ -23,7 +23,7 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>1:1문의</h1>
+                  <h1>1:1문의 &nbsp;<small> 목록</small></h1>
                 </div>
                  <div class="table-responsive">
                     <table class="table table-hover table-bordered">
@@ -37,34 +37,39 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <c:forEach var="qna" items="${qnaList}">
+                            <c:forEach var="qnaMemberJoin" items="${qnaMemberJoinList}">
                             	<tr align="center">
 
-	                                <td>${qna.request_id}</td>
+	                                <td>${qnaMemberJoin.request_name}</td>
 	                               	<td>
 		                               	<c:choose>
-		                               		<c:when test="${qna.req_type == 'S'}">
+		                               		<c:when test="${qnaMemberJoin.req_type == 'S'}">
 		                               			판매
 		                               		</c:when>
-		                                	<c:when test="${qna.req_type == 'D'}">
+		                                	<c:when test="${qnaMemberJoin.req_type == 'D'}">
 		                               			환불
 		                               		</c:when>
-		                               		<c:when test="${qna.req_type == 'R'}">
+		                               		<c:when test="${qnaMemberJoin.req_type == 'R'}">
 		                               			배송
 		                               		</c:when>
-		                               		<c:when test="${qna.req_type == 'E'}">
+		                               		<c:when test="${qnaMemberJoin.req_type == 'E'}">
 		                               			기타
 		                               		</c:when>
 		                                </c:choose>
 	                                </td>
-	                                <td><a href="#">${qna.subject}</a></td>
-	                                <td>${qna.reg_date}  </td>
+	                                <td class="subject">
+                               	    	<c:url var="viewUrl" value="/board_manage/qna_view.do">
+						            		<c:param name="id" value="${qnaMemberJoin.id}" />
+						            	</c:url>
+	                                	<a href="${viewUrl}">${qnaMemberJoin.subject}</a>
+                                	</td>
+	                                <td>${qnaMemberJoin.reg_date}</td>
 	                                <td>
 	                                	<c:choose>
-	                                		<c:when test="${qna.answer_status == 'A'}">
+	                                		<c:when test="${qnaMemberJoin.answer_status == 'A'}">
 	                                			답변 완료
 	                                		</c:when>
-	                                		<c:when test="${qna.answer_status == 'N'}">
+	                                		<c:when test="${qnaMemberJoin.answer_status == 'N'}">
 	                                			미답변
 	                                		</c:when>
 	                                	</c:choose>

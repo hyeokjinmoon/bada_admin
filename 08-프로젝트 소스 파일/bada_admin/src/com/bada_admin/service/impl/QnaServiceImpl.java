@@ -62,4 +62,58 @@ public class QnaServiceImpl implements QnaService {
 		return result;
 	}
 
+	@Override
+	public void updateQnaAnswer(Qna qna) throws Exception {
+		try {
+			int result = sqlSession.update("QnaMapper.updateQnaAnswer", qna);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.close();
+			throw new Exception("답변할 문의가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("문의 답변에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void updateAnswer(Qna qna) throws Exception {
+		try {
+			int result = sqlSession.update("QnaMapper.updateAnswer", qna);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.close();
+			throw new Exception("수정할 문의가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("문의 답변 수정에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteQna(Qna qna) throws Exception {
+		try {
+			int result = sqlSession.delete("QnaMapper.deleteQna", qna);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.close();
+			throw new Exception("삭제할 문의가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("문의 답변 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
 }

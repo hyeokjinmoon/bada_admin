@@ -47,4 +47,33 @@
 		)
 	</insert>
 	
+	<!-- UPDATE -->
+	<!-- 문의 답변 -->
+	<update id="updateQnaAnswer" parameterType="com.bada_admin.model.Qna">
+		 UPDATE
+		 	qna
+		 SET
+		 	answer=#{answer}, answer_status='A', edit_date=now(), answer_id=#{answer_id}
+		 WHERE
+		 	id=#{id}
+	</update>
+	<!-- 답변 수정 -->
+	<update id="updateAnswer" parameterType="com.bada_admin.model.Qna">
+		UPDATE
+			qna
+		SET
+			answer=#{answer}, edit_date=now()
+		WHERE
+			id=#{id}
+	</update>
+	
+	<!-- DELETE -->
+	<!-- 문의 삭제 -->
+	<delete id="deleteQna" parameterType="com.bada_admin.model.Qna">
+		DELETE FROM
+			qna
+		WHERE
+			id=#{id}
+	</delete>
+	
 </mapper>

@@ -1,0 +1,25 @@
+package com.bada_admin.service.impl;
+
+import java.util.List;
+
+import org.apache.ibatis.session.SqlSession;
+import org.apache.logging.log4j.Logger;
+
+import com.bada_admin.model.QnaMemberJoin;
+import com.bada_admin.service.QnaMemberService;
+
+public class QnaMemberServiceImpl implements QnaMemberService {
+	SqlSession sqlSession;
+	Logger logger;
+	
+	public QnaMemberServiceImpl(SqlSession sqlSession, Logger logger) {
+		this.sqlSession = sqlSession;
+		this.logger = logger;
+	}
+	@Override
+	public List<QnaMemberJoin> selectQnaMemberJoinList(QnaMemberJoin qnaMemberJoin) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

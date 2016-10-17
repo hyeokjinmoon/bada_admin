@@ -20,26 +20,30 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>1:1문의 답변<small>No.1</small></h1>
+                  <h1>1:1문의 답변 &nbsp;&nbsp;<small>글 번호 : ${qna.id}</small></h1>
                 </div>
                 
-                <div class="panel panel-default">
+                <div class="panel panel-success">
                     <div class="panel-heading clearfix">
-                        <h3 class="panel-title pull-left">중고상품 등급 판정 기준은 무엇입니까?</h3>
-                        <span class="pull-right">2016-10-10 12:00</span>
+                        <h3 class="panel-title pull-left">${qna.subject}</h3>
+                        <span class="pull-right">${qna.reg_date}</span>
+                        <span class="pull-right">작성자 : ${qna.request_name} &nbsp;&nbsp;</span>
                     </div>
-                    <div class="panel-body">
-                    중고상품의 등급은 육안으로 확인 등 다양한 방법으로 판별합니다.
+                    <div class="panel-body" style="min-height: 200px;">
+                    ${qna.content}
                     </div>
                 </div>
-                <div class="form-group">
-                	<textarea name="q_content" id="q_content" cols="30" rows="10" class="ckeditor">답변내용 작성</textarea>
-                </div>
-                <div class="pull-right">
-	                <a href="#" class="btn btn-primary">목록</a>
-	                <a href="#" class="btn btn-info">답변완료</a>
-	                <button type="reset" class="btn btn-warning">취소</button>
-                </div>
+                <form action="${pageContext.request.contextPath}/board_manage/qna_answer_ok.do" method="post">
+                	<input type="hidden" name="id" value="${qna.id}"/>
+                	<div class="form-group">
+	                	<textarea name="answer" id="answer" cols="30" rows="10" class="ckeditor"></textarea>
+	                </div>
+	                <div class="text-right">
+		                <a href="${pageContext.request.contextPath}/board_manage/qna_list.do" class="btn btn-primary">목록</a>
+		                <button type="submit" class="btn btn-info">답변완료</button>
+		                <button type="reset" class="btn btn-warning">취소</button>
+		            </div>
+	            </form>
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->
             </div>

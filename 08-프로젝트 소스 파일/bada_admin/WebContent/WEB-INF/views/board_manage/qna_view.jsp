@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -19,26 +21,33 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>1:1문의 <small>No.1</small></h1>
+                  <h1>1:1문의 &nbsp;&nbsp;<small>글 번호 : ${qna.id}</small></h1>
                 </div>
                 
-                <div class="panel panel-default">
+                <div class="panel panel-info">
                     <div class="panel-heading clearfix">
-                        <h3 class="panel-title pull-left">중고상품 등급 판정 기준은 무엇입니까?</h3>
-                        <span class="pull-right">2016-10-10 12:00</span>
+                        <h3 class="panel-title pull-left">${qna.subject }</h3>
+                        <div class="text-right">
+                        	<span>작성자 : ${qna.request_name} &nbsp;&nbsp;</span>
+                        	<span>${qna.reg_date}</span>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                    중고상품의 등급은 육안으로 확인 등 다양한 방법으로 판별합니다.
+                    <div class="panel-body" style="min-height: 200px;">
+                    ${qna.content}
                     </div>
-                    <div class="panel-footer">
-					답변 내용
-					</div>
+                    <c:choose>
+	                    <c:when test="${qna.answer != null}">
+		                    <div class="panel-footer">
+		                    	<p>${qna.answer}</p>
+							</div>
+						</c:when>
+					</c:choose>
                 </div>
-                <div class="pull-right">
-	                <a href="#" class="btn btn-primary">목록</a>
-	                <a href="#" class="btn btn-info">답변</a>
-	                <a href="#" class="btn btn-warning">수정</a>
-	                <a href="#" class="btn btn-danger">삭제</a>
+                <div class="text-right">
+	                <a href="${pageContext.request.contextPath}/board_manage/qna_list.do" class="btn btn-primary">목록</a>
+	                <a href="${pageContext.request.contextPath}/board_manage/qna_answer.do?id=${qna.id}&answer_status=${qna.answer_status}" class="btn btn-info">답변하기</a>
+	                <a href="${pageContext.request.contextPath}/board_manage/qna_update.do?id=${qna.id}" class="btn btn-warning">답변수정</a>
+	                <a href="${pageContext.request.contextPath}/board_manage/qna_delete.do?id=${qna.id}" class="btn btn-danger">삭제</a>
                 </div>
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->

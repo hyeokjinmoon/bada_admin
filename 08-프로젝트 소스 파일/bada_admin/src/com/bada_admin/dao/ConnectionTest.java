@@ -15,15 +15,16 @@ public class ConnectionTest {
 		QnaService service = new QnaServiceImpl(sqlSession, logger);
 		
 		Qna qna = new Qna();
-		
+
+		qna.setSubject("문의 테스트");
 		qna.setContent("문의 테스트");
 		qna.setReq_type("E");
 		qna.setRequest_id(2);
 		qna.setAnswer_status("N");
 		try {
-			
-			service.insertQna(qna);
-			
+			for(int i = 1; i <= 10; i++){
+				service.insertQna(qna);
+			}
 		} catch (Exception e) {
 			sqlSession.close();
 			System.out.println(e.getLocalizedMessage());
