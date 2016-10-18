@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
+import com.bada_admin.helper.RegexHelper;
 import com.bada_admin.helper.WebHelper;
 import com.bada_admin.model.Member;
 import com.bada_admin.model.Qna;
@@ -26,12 +27,15 @@ public class QnaAnswerOk extends BaseController {
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
+	RegexHelper regex;
 	QnaService qnaService;
+	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		web = WebHelper.getInstance(request, response);
+		regex = RegexHelper.getInstance();
 		qnaService = new QnaServiceImpl(sqlSession, logger);
 		
 		Member loginInfo = (Member) web.getSession("loginInfo");
@@ -49,6 +53,12 @@ public class QnaAnswerOk extends BaseController {
 		qna.setId(id);
 		qna.setAnswer(answer);
 		qna.setAnswer_id(answer_id);
+		
+		if(!regex.isValue(answer)) {
+			sqlSession.close();
+			web.redirect(null, "답변을 적어주세요.");
+			return null;
+		}
 		
 		try {
 			qnaService.updateQnaAnswer(qna);

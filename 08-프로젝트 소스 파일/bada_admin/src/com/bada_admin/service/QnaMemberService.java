@@ -9,4 +9,6 @@ public interface QnaMemberService {
 	public List<QnaMemberJoin> selectQnaMemberJoinList(QnaMemberJoin qnaMemberJoin) throws Exception;
 	
 	public QnaMemberJoin selectQnaMemberJoin(QnaMemberJoin qnaMemberJoin) throws Exception;
+	
+	public String selectAnswerStatus(QnaMemberJoin	qnaMemberJoin) throws Exception;
 }

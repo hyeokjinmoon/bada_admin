@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
 import com.bada_admin.helper.WebHelper;
+import com.bada_admin.model.Member;
 import com.bada_admin.model.QnaMemberJoin;
 import com.bada_admin.service.QnaMemberService;
 import com.bada_admin.service.impl.QnaMemberServiceImpl;
@@ -33,7 +34,8 @@ public class QnaView extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		qnaMemberService = new QnaMemberServiceImpl(sqlSession, logger);
 		
-		if(web.getSession("loginInfo") == null) {
+		Member loginInfo = (Member) web.getSession("loginInfo");
+		if(loginInfo == null) {
 			sqlSession.close();
 			web.redirect(web.getRootPath() + "/index", "로그인 후에 이용가능합니다.");
 			return null;
@@ -46,6 +48,10 @@ public class QnaView extends BaseController {
 		
 		QnaMemberJoin qna = null;
 		try {
+			if(qnaMemberService.selectAnswerStatus(qnaMemberJoin).equals("A")) {
+				qnaMemberJoin.setAnswer_id(loginInfo.getId());
+			}
+			
 			qna = qnaMemberService.selectQnaMemberJoin(qnaMemberJoin);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());

@@ -56,5 +56,14 @@
 		WHERE
 			q.id=#{id}
 	</select>
+	<!-- 문의 상태 가져오기 -->
+	<select id="selectAnswerStatus" parameterType="com.bada_admin.model.QnaMemberJoin" resultType="string">
+		SELECT
+			answer_status
+		FROM
+			qna
+		WHERE
+			id=#{id}
+	</select>
 	
 </mapper>

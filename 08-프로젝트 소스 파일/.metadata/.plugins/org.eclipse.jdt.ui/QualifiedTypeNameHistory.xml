@@ -13,17 +13,17 @@
 <fullyQualifiedTypeName name="com.bada_admin.controller.board_manage.QnaCommon"/>
 <fullyQualifiedTypeName name="com.bada_admin.helper.PageHelper"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
+<fullyQualifiedTypeName name="com.bada_admin.service.QnaMemberService"/>
+<fullyQualifiedTypeName name="com.bada_admin.model.Member"/>
 <fullyQualifiedTypeName name="org.apache.logging.log4j.Logger"/>
 <fullyQualifiedTypeName name="com.bada_admin.helper.WebHelper"/>
-<fullyQualifiedTypeName name="com.bada_admin.service.QnaService"/>
 <fullyQualifiedTypeName name="com.bada_admin.dao.MyBatisConnectionFactory"/>
 <fullyQualifiedTypeName name="org.apache.logging.log4j.LogManager"/>
-<fullyQualifiedTypeName name="com.bada_admin.service.impl.QnaServiceImpl"/>
-<fullyQualifiedTypeName name="com.bada_admin.model.Qna"/>
-<fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
-<fullyQualifiedTypeName name="com.bada_admin.service.QnaMemberService"/>
 <fullyQualifiedTypeName name="com.bada_admin.service.impl.QnaMemberServiceImpl"/>
 <fullyQualifiedTypeName name="com.bada_admin.model.QnaMemberJoin"/>
-<fullyQualifiedTypeName name="com.bada_admin.model.Member"/>
+<fullyQualifiedTypeName name="javax.servlet.annotation.WebServlet"/>
+<fullyQualifiedTypeName name="com.bada_admin.service.QnaService"/>
+<fullyQualifiedTypeName name="com.bada_admin.service.impl.QnaServiceImpl"/>
+<fullyQualifiedTypeName name="com.bada_admin.model.Qna"/>
+<fullyQualifiedTypeName name="org.apache.ibatis.session.SqlSession"/>
 </qualifiedTypeNameHistroy>

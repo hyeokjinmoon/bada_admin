@@ -38,6 +38,7 @@
                     <c:choose>
 	                    <c:when test="${qna.answer != null}">
 		                    <div class="panel-footer">
+		                    	<p>답변자 : ${qna.answer_name}</p>
 		                    	<p>${qna.answer}</p>
 							</div>
 						</c:when>
@@ -46,7 +47,7 @@
                 <div class="text-right">
 	                <a href="${pageContext.request.contextPath}/board_manage/qna_list.do" class="btn btn-primary">목록</a>
 	                <a href="${pageContext.request.contextPath}/board_manage/qna_answer.do?id=${qna.id}&answer_status=${qna.answer_status}" class="btn btn-info">답변하기</a>
-	                <a href="${pageContext.request.contextPath}/board_manage/qna_update.do?id=${qna.id}" class="btn btn-warning">답변수정</a>
+	                <a href="${pageContext.request.contextPath}/board_manage/qna_update.do?id=${qna.id}&answer_status=${qna.answer_status}" class="btn btn-warning">답변수정</a>
 	                <a href="${pageContext.request.contextPath}/board_manage/qna_delete.do?id=${qna.id}" class="btn btn-danger">삭제</a>
                 </div>
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>

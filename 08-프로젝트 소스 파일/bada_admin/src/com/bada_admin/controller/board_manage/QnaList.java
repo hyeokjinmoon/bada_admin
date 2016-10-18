@@ -58,7 +58,7 @@ public class QnaList extends BaseController {
 		
 		try {
 			totalCount = qnaService.selectQnaCount(null);
-			pageHelper.pageProcess(page, totalCount, 7, 10);
+			pageHelper.pageProcess(page, totalCount, 7, 5);
 			
 			qnaMemberJoin.setLimitStart(pageHelper.getLimitStart());
 			qnaMemberJoin.setListCount(pageHelper.getListCount());

@@ -63,7 +63,6 @@ public class NoticeFaqWriteOk extends BaseController {
 			return null;
 		}
 		
-		
 		NoticeFaq noticeFaq = new NoticeFaq();
 		noticeFaq.setCategory(category);
 		noticeFaq.setSubject(subject);

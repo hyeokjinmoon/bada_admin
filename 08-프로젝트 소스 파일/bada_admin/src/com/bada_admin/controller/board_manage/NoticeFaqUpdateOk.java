@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
+import com.bada_admin.helper.RegexHelper;
 import com.bada_admin.helper.WebHelper;
 import com.bada_admin.model.NoticeFaq;
 import com.bada_admin.service.NoticeFaqService;
@@ -25,6 +26,7 @@ public class NoticeFaqUpdateOk extends BaseController {
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
+	RegexHelper regex;
 	NoticeFaqCommon board;
 	NoticeFaqService noticeFaqService;
 	
@@ -33,6 +35,7 @@ public class NoticeFaqUpdateOk extends BaseController {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		web = WebHelper.getInstance(request, response);
+		regex = RegexHelper.getInstance();
 		board = NoticeFaqCommon.getInstance();
 		noticeFaqService = new NoticeFaqServiceImpl(sqlSession, logger);
 		
@@ -57,6 +60,16 @@ public class NoticeFaqUpdateOk extends BaseController {
 		int id = web.getInt("id");
 		String subject = web.getString("subject");
 		String content = web.getString("content");
+		
+		if(!regex.isValue(subject)) {
+			web.redirect(null, "제목을 입력해주세요.");
+			return null;
+		}
+		
+		if(!regex.isValue(content)) {
+			web.redirect(null, "공지사항 내용을 입력해주세요.");
+			return null;
+		}
 		
 		logger.debug("category : " + category);
 		logger.debug("id : " + id);

@@ -41,6 +41,13 @@ public class QnaUpdate extends BaseController {
 		}
 		
 		int id = web.getInt("id");
+		String answer_status = web.getString("answer_status");
+		
+		if(answer_status.equals("N")) {
+			sqlSession.close();
+			web.redirect(null, "아직 답변되지 않은 문의 입니다.");
+			return null;
+		}
 		
 		QnaMemberJoin qnaMemberJoin = new QnaMemberJoin();
 		qnaMemberJoin.setId(id);

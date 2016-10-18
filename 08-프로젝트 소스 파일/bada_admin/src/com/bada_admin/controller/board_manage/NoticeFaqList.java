@@ -71,7 +71,7 @@ public class NoticeFaqList extends BaseController {
 		try {
 			totalCount = noticeFaqService.selectNoticeFaqCount(noticeFaq);
 			
-			pageHelper.pageProcess(page, totalCount, 7, 10);
+			pageHelper.pageProcess(page, totalCount, 7, 5);
 			
 			noticeFaq.setLimitStart(pageHelper.getLimitStart());
 			noticeFaq.setListCount(pageHelper.getListCount());

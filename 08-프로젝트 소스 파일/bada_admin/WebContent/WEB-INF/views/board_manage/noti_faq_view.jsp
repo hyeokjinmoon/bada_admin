@@ -24,7 +24,7 @@
                   <h1>${boardName} &nbsp;&nbsp;<small>글 번호 : ${noticeFaqView.id}</small></h1>
                 </div>
                 
-                <div class="panel panel-default">
+                <div class="panel panel-success">
                     <div class="panel-heading clearfix">
                         <h3 class="panel-title pull-left">${noticeFaqView.subject}</h3>
                         <span class="pull-right">최종수정일 : ${noticeFaqView.edit_date}</span>

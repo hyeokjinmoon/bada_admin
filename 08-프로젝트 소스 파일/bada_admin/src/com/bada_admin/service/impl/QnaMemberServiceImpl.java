@@ -52,4 +52,15 @@ public class QnaMemberServiceImpl implements QnaMemberService {
 		return result;
 	}
 
+	@Override
+	public String selectAnswerStatus(QnaMemberJoin qnaMemberJoin) throws Exception {
+		String result = null;
+		try {
+			result = sqlSession.selectOne("QnaMemberJoinMapper.selectAnswerStatus", qnaMemberJoin);
+		} catch (Exception e) {
+			throw new Exception("답변 상태 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

@@ -13,6 +13,7 @@ import org.apache.logging.log4j.Logger;
 
 import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
+import com.bada_admin.helper.RegexHelper;
 import com.bada_admin.helper.WebHelper;
 import com.bada_admin.model.Qna;
 import com.bada_admin.service.QnaService;
@@ -25,6 +26,7 @@ public class QnaUpdateOk extends BaseController {
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
+	RegexHelper regex;
 	QnaService qnaService;
 	
 	@Override
@@ -32,6 +34,7 @@ public class QnaUpdateOk extends BaseController {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		web = WebHelper.getInstance(request, response);
+		regex = RegexHelper.getInstance();
 		qnaService = new QnaServiceImpl(sqlSession, logger);
 		
 		if(web.getSession("loginInfo") == null) {
@@ -42,6 +45,12 @@ public class QnaUpdateOk extends BaseController {
 		
 		int id = web.getInt("id");
 		String answer = web.getString("answer");
+		
+		if(!regex.isValue(answer)) {
+			sqlSession.close();
+			web.redirect(null, "답변을 적어주세요.");
+			return null;
+		}
 		
 		Qna qna = new Qna();
 		qna.setId(id);
