@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MessageMapper">
+	<resultMap type="com.bada_admin.model.Message" id="message">
+		<result property="id" column="id" />
+		<result property="content" column="content" />
+		<result property="reg_date" column="reg_date" />
+		<result property="sender_id" column="sender_id" />
+		<result property="receiver_id" column="receiver_id" />
+	</resultMap>
+	
+</mapper>

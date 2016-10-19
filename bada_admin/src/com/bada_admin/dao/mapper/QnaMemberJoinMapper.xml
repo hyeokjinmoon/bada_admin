@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="QnaMemberJoinMapper">
+	<resultMap type="com.bada_admin.model.QnaMemberJoin" id="qna_member_join">
+		<result property="id" column="id" />
+		<result property="subject" column="subject" />
+		<result property="req_type" column="req_type" />
+		<result property="content" column="content" />
+		<result property="answer" column="answer" />
+		<result property="answer_status" column="answer_status" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="request_id" column="request_id" />
+		<result property="request_name" column="request_name" />
+		<result property="answer_id" column="answer_id" />
+		<result property="answer_name" column="answer_name" />
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 문의 리스트 검색 -->
+	<select id="selectQnaMemberJoinList" parameterType="com.bada_admin.model.QnaMemberJoin" resultMap="qna_member_join">
+		SELECT
+			q.id AS id, q.subject AS subject, q.req_type AS req_type, q.answer_status AS answer_status, q.answer_id AS answer_id,  DATE_FORMAT(q.reg_date, '%Y-%m-%d') AS reg_date, m.name AS request_name
+		FROM
+			qna q
+		INNER JOIN 
+			member m
+		ON
+			q.request_id=m.id
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 문의 내용 보기 -->
+	<select id="selectQnaMemberJoin" parameterType="com.bada_admin.model.QnaMemberJoin" resultMap="qna_member_join">
+		SELECT
+			q.id AS id, q.subject AS subject, q.content AS content, q.req_type AS req_type, q.answer AS answer, q.answer_status AS answer_status, 
+			DATE_FORMAT(q.reg_date, '%Y-%m-%d') AS reg_date, DATE_FORMAT(q.edit_date, '%Y-%m-%d') AS edit_date, 
+			q.request_id AS request_id, m.name AS request_name, q.answer_id AS answer_id
+			<if test="answer_id != 0">
+			, m1.name AS answer_name
+			</if>
+		FROM
+			qna q
+		INNER JOIN
+			member m
+		ON
+			q.request_id=m.id
+		<if test="answer_id != 0">
+		INNER JOIN
+			member m1
+		ON
+			q.answer_id=m1.id
+		</if>
+		WHERE
+			q.id=#{id}
+	</select>
+	<!-- 문의 상태 가져오기 -->
+	<select id="selectAnswerStatus" parameterType="com.bada_admin.model.QnaMemberJoin" resultType="string">
+		SELECT
+			answer_status
+		FROM
+			qna
+		WHERE
+			id=#{id}
+	</select>
+	
+</mapper>
