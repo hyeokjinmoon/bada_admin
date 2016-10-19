@@ -1,6 +1,0 @@
-127.0.0.1 - - [14/Oct/2016:21:27:29 +0900] "GET / HTTP/1.1" 404 994
-0:0:0:0:0:0:0:1 - - [14/Oct/2016:21:27:30 +0900] "GET /bada_admin/admin_login.do HTTP/1.1" 200 2580
-0:0:0:0:0:0:0:1 - - [14/Oct/2016:21:27:30 +0900] "GET /bada_admin/plugins/sweetalert/sweetalert.min.js HTTP/1.1" 404 1088
-0:0:0:0:0:0:0:1 - - [14/Oct/2016:21:27:30 +0900] "GET /bada_admin/assets/css/admin_login.css HTTP/1.1" 304 -
-0:0:0:0:0:0:0:1 - - [14/Oct/2016:21:27:30 +0900] "GET /bada_admin/plugins/sweetalert/sweetalert.min.js HTTP/1.1" 404 1088
-0:0:0:0:0:0:0:1 - - [14/Oct/2016:21:27:30 +0900] "GET /favicon.ico HTTP/1.1" 404 1016
