@@ -16,4 +16,6 @@ public interface MemberService {
 	
 	public void updateMember(Member member) throws Exception;
 	
+	public String selectMemberName(Member member) throws Exception;
+	
 }

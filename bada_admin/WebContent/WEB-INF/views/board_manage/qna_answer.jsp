@@ -41,7 +41,7 @@
 	                <div class="text-right">
 		                <a href="${pageContext.request.contextPath}/board_manage/qna_list.do" class="btn btn-primary">목록</a>
 		                <button type="submit" class="btn btn-info">답변완료</button>
-		                <button type="reset" class="btn btn-warning">취소</button>
+		                <button type="reset" class="btn btn-warning" onclick="history.back();">취소</button>
 		            </div>
 	            </form>
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>

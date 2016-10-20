@@ -7,6 +7,68 @@
 		<result property="reg_date" column="reg_date" />
 		<result property="sender_id" column="sender_id" />
 		<result property="receiver_id" column="receiver_id" />
+		<result property="sender_name" column="sender_name"/>
+		<result property="receiver_name" column="receiver_name" />
 	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 쪽지 목록 검색 -->
+	<select id="selectMessageList" parameterType="com.bada_admin.model.Message" resultMap="message">
+		SELECT 
+			m.id AS id, m.content AS content, DATE_FORMAT(m.reg_date, '%Y-%m-%d') AS reg_date, 
+			m.sender_id AS sender_id, m.receiver_id AS receiver_id, m1.name AS sender_name, m2.name AS receiver_name
+		FROM
+			message m
+		INNER JOIN 
+			member m1
+		ON
+			m.sender_id=m1.id
+		INNER JOIN
+			member m2
+		ON
+			m.receiver_id=m2.id
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 쪽지 상세 보기 -->
+	<select id="selectMessage" parameterType="com.bada_admin.model.Message" resultMap="message">
+		SELECT
+			m.id AS id, m.content AS content, DATE_FORMAT(m.reg_date, '%Y-%m-%d') AS reg_date, 
+			m.sender_id AS sender_id, m.receiver_id AS receiver_id, m1.name AS sender_name, m2.name AS receiver_name
+		FROM
+			message m
+		INNER JOIN 
+			member m1
+		ON
+			m.sender_id=m1.id
+		INNER JOIN
+			member m2
+		ON
+			m.receiver_id=m2.id
+		WHERE
+			m.id=#{id}
+	</select>
+	<!-- 총 쪽지 카운트 -->
+	<select id="selectMessageCount" parameterType="com.bada_admin.model.Message" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			message
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 쪽지 보내기 -->
+	<insert id="insertMessage" parameterType="com.bada_admin.model.Message">
+		INSERT INTO
+			message(
+				content, sender_id, receiver_id, reg_date
+			)
+		VALUES(
+			#{content}, #{sender_id}, #{receiver_id}, now()
+		)
+		
+	</insert>
 	
 </mapper>

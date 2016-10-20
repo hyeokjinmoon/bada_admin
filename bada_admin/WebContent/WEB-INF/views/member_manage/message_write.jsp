@@ -5,23 +5,6 @@
 
 <head>
     <%@ include file="/WEB-INF/inc/head.jsp" %>
-	<script type="text/javascript">
-	    $(function() {
-	        $("#n_register").click(function() {
-	            swal({
-	                title: "공지사항 등록",
-	                text: "이대로 등록하시겠습니까?",
-	                showCancelButton: true,
-	                closeOnConfirm: false,
-	                showLoaderOnConfirm: true
-	            },function() {
-	                setTimeout(function(){
-	                    swal("등록되었습니다.");
-	                }, 1000);
-	            });
-	        });
-	    });
-	</script>
 </head>
 
 <body>
@@ -39,20 +22,22 @@
                 <div class="page-header">
                   <h1>쪽지 작성</h1>
                 </div>
-                <form class="form-horizontal" id="myform">
+                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/member_manage/message_write_ok.do">
+                    <input type="hidden" name="sender_id" value="${loginInfo.id}"/>
+                    <input type="hidden" name="receiver_id" value="${receiver_id}"/>
                     <div class="form-group">
-                        <label for="to_member" class="col-md-2">받는 사람</label>
-                        <div class="col-md-8"><input type="text" name="to_member" id="to_member" class="form-control"></div>
+                        <label for="receiver_id" class="col-md-2">받는 사람</label>
+                        <div class="col-md-8"><p>${receiver_name}</p></div>
                     </div>
                     <div class="form-group">
-                        <label for="m_content" class="col-md-2">내용</label>
+                        <label for="content" class="col-md-2">내용</label>
                         <div class="col-md-8">
-                            <textarea name="m_content" id="m_content" rows="10" class="form-control ckeditor"></textarea>
+                            <textarea name="content" id="content" rows="10" class="form-control ckeditor"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-8 text-right">
-                            <button type="button" class="btn btn-info btn-lg" id="n_register">보내기</button>
+                            <button type="submit" class="btn btn-info">보내기</button>
                         </div>
                     </div>
                 </form>

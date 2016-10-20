@@ -113,7 +113,6 @@
 					</ul>
 				</nav>
 				<!--// 페이지 번호 끝 -->
-				
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->
 			</div>

@@ -101,4 +101,21 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 
+	@Override
+	public String selectMemberName(Member member) throws Exception {
+		String result = null;
+		try {
+			result = sqlSession.selectOne("MemberMapper.selectMemberName", member);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 회원 이름이 없습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("회원 이름 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

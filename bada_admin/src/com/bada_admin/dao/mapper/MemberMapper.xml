@@ -99,6 +99,15 @@
 		FROM
 			member
 	</select>
+	<!-- 회원 이름 검색 -->
+	<select id="selectMemberName" parameterType="com.bada_admin.model.Member" resultType="String">
+		SELECT
+			name
+		FROM
+			member
+		WHERE
+			id=#{id}
+	</select>
 	
 	<!-- INSERT -->
 	<!-- 회원가입 -->

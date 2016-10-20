@@ -6,9 +6,23 @@ public class Message {
 	private String reg_date;
 	private int sender_id;
 	private int receiver_id;
+	private String sender_name;
+	private String receiver_name;
 	private int limitStart;
 	private int listCount;
 	
+	public String getSender_name() {
+		return sender_name;
+	}
+	public String getReceiver_name() {
+		return receiver_name;
+	}
+	public void setSender_name(String sender_name) {
+		this.sender_name = sender_name;
+	}
+	public void setReceiver_name(String receiver_name) {
+		this.receiver_name = receiver_name;
+	}
 	public int getId() {
 		return id;
 	}
@@ -54,7 +68,8 @@ public class Message {
 	@Override
 	public String toString() {
 		return "Message [id=" + id + ", content=" + content + ", reg_date=" + reg_date + ", sender_id=" + sender_id
-				+ ", receiver_id=" + receiver_id + ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
+				+ ", receiver_id=" + receiver_id + ", sender_name=" + sender_name + ", receiver_name=" + receiver_name
+				+ ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
 	}
 	
 }

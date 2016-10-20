@@ -13,62 +13,63 @@ import org.apache.logging.log4j.Logger;
 
 import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
+import com.bada_admin.helper.RegexHelper;
 import com.bada_admin.helper.WebHelper;
-import com.bada_admin.model.Member;
-import com.bada_admin.service.MemberService;
-import com.bada_admin.service.impl.MemberServiceImpl;
+import com.bada_admin.model.Message;
+import com.bada_admin.service.MessageService;
+import com.bada_admin.service.impl.MessageServiceImpl;
 
-@WebServlet("/member_manage/message_write.do")
-public class MessageWrite extends BaseController {
+@WebServlet("/member_manage/message_write_ok.do")
+public class MessageWriteOk extends BaseController {
 
-	private static final long serialVersionUID = 1528608535013275082L;
+	private static final long serialVersionUID = -88515476181031343L;
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
-	MemberService memberService;
+	RegexHelper regex;
+	MessageService messageService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		web = WebHelper.getInstance(request, response);
-		memberService = new MemberServiceImpl(sqlSession, logger);
+		regex = RegexHelper.getInstance();
+		messageService = new MessageServiceImpl(sqlSession, logger);
 		
-		Member loginInfo = (Member) web.getSession("loginInfo");
-		if(loginInfo == null) {
+		if(web.getSession("loginInfo") == null) {
 			sqlSession.close();
 			web.redirect(web.getRootPath() + "/index", "로그인 후 이용가능합니다.");
 			return null;
 		}
 		
-		int receiver_id = web.getInt("id");
-		if(loginInfo.getId() == receiver_id) {
+		int sender_id = web.getInt("sender_id");
+		int receiver_id = web.getInt("receiver_id");
+		String content = web.getString("content");
+		
+		if(!regex.isValue(content)) {
 			sqlSession.close();
-			web.redirect(null, "나에겐 답장을 보낼 수 없습니다.");
+			web.redirect(null, "내용을 입력해주세요.");
 			return null;
 		}
-		request.setAttribute("receiver_id", receiver_id);
 		
-		logger.debug("receiver_id : " + receiver_id);
-		
-		Member member = new Member();
-		member.setId(receiver_id);
-		
-		String receiver_name = null;
+		Message message = new Message();
+		message.setContent(content);
+		message.setSender_id(sender_id);
+		message.setReceiver_id(receiver_id);
 		
 		try {
-			receiver_name = memberService.selectMemberName(member);
-			logger.debug("receiver_name : " + receiver_name);
-			
+			messageService.insertMessage(message);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
 		} finally {
 			sqlSession.close();
 		}
-		request.setAttribute("receiver_name", receiver_name);
 		
-		return "member_manage/message_write";
+		web.redirect(web.getRootPath() + "/member_manage/message_list.do", "쪽지를 보냈습니다.");
+		
+		return null;
 	}
 
 }
