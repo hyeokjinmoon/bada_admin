@@ -4,10 +4,10 @@
 	<resultMap type="com.bada_admin.model.QnaMemberJoin" id="qna_member_join">
 		<result property="id" column="id" />
 		<result property="subject" column="subject" />
-		<result property="req_type" column="req_type" />
+		<result property="req_type" column="req_type" /> <!-- 문의 종류 : 판매="S", 환불="D", 배송="R", 기타="E" -->
 		<result property="content" column="content" />
 		<result property="answer" column="answer" />
-		<result property="answer_status" column="answer_status" />
+		<result property="answer_status" column="answer_status" /> <!-- 답변 상태 : 답변="A", 미답변="N" -->
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
 		<result property="request_id" column="request_id" />

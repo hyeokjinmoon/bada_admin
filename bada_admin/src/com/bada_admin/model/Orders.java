@@ -1,6 +1,6 @@
 package com.bada_admin.model;
 
-public class Order {
+public class Orders {
 	private int id;
 	private String order_date;
 	private int buyer_id;

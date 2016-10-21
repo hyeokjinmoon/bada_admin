@@ -1,6 +1,6 @@
 package com.bada_admin.model;
 
-public class Book {
+public class Product {
 	private int id;
 	private String name;
 	private int list_price;
@@ -13,7 +13,14 @@ public class Book {
 	private int seller_id;
 	private int limitStart;
 	private int listCount;
+	private String seller_name;
 	
+	public String getSeller_name() {
+		return seller_name;
+	}
+	public void setSeller_name(String seller_name) {
+		this.seller_name = seller_name;
+	}
 	public int getId() {
 		return id;
 	}
@@ -88,10 +95,10 @@ public class Book {
 	}
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", name=" + name + ", list_price=" + list_price + ", sale_price=" + sale_price
+		return "Product [id=" + id + ", name=" + name + ", list_price=" + list_price + ", sale_price=" + sale_price
 				+ ", book_img=" + book_img + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", seller="
 				+ seller + ", ok_status=" + ok_status + ", seller_id=" + seller_id + ", limitStart=" + limitStart
-				+ ", listCount=" + listCount + "]";
+				+ ", listCount=" + listCount + ", seller_name=" + seller_name + "]";
 	}
 	
 }

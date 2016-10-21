@@ -17,12 +17,12 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="com/bada_admin/dao/mapper/BookMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/ProductMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/CartMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/MemberMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/MessageMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/NoticeFaqMapper.xml"/>
-		<mapper resource="com/bada_admin/dao/mapper/OrderMapper.xml"/>
+		<mapper resource="com/bada_admin/dao/mapper/OrdersMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/QnaMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/QnaMemberJoinMapper.xml"/>
 		<mapper resource="com/bada_admin/dao/mapper/SalesRequestMapper.xml"/>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -49,7 +51,7 @@
 						<td>2016-10-10</td>
 					</tr>
 				</table>
-				<div class="pull-right">
+				<div class="text-right">
 					<a href="#" class="btn btn-primary">목록</a>
 					<a href="#" class="btn btn-warning">수정</a>
 					<a href="#" class="btn btn-danger">삭제</a>

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -24,84 +26,98 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <thead style="background-color : #eee;">
+                        <thead class="alert alert-info">
                             <tr>
-                                <th class="text-center" width="50%">제목</th>
-                                <th class="text-center" width="25%">가격</th>
-                                <th class="text-center" width="25%">작성일</th>
+                                <th class="text-center" width="20%">상품명</th>
+                                <th class="text-center" width="20%">판매자</th>
+                                <th class="text-center" width="20%">정가</th>
+                                <th class="text-center" width="20%">판매가</th>
+                                <th class="text-center" width="20%">등록일</th>
                              </tr>
                         </thead>
                         <tbody>
-                            <tr align="center">
-
-                                <td>제목입니다</td>
-                                <td>10,000</td>
-                                <td>2016.09.13</td>
-
-                            </tr>
-                            <tr align="center">
-
-                                <td>제목입니다</td>
-                                <td>10,000</td>
-                                <td>2016.09.13</td>
-
-                            </tr>
-                            <tr align="center">
-
-                                <td>제목입니다</td>
-                                <td>10,000</td>
-                                <td>2016.09.13</td>
-
-                            </tr>
-                            <tr align="center">
-
-                                <td>제목입니다</td>
-                                <td>10,000</td>
-                                <td>2016.09.13</td>
-
-                            </tr>
-                            <tr align="center">
-
-                                <td>제목입니다</td>
-                                <td>10,000</td>
-                                <td>2016.09.13</td>
-
-                            </tr>
-                            <tr align="center">
-
-                                <td>제목입니다</td>
-                                <td>10,000</td>
-                                <td>2016.09.13</td>
-
-                            </tr>
-                            <tr align="center">
-
-                                <td>제목입니다</td>
-                                <td>10,000</td>
-                                <td>2016.09.13</td>
-
-                            </tr>
+                        	<c:forEach var="product" items="${productList}">
+                        		 <tr align="center">
+									<td class="subject">
+										<c:url var="productUrl" value="/shop_manage/product_view.do">
+											<c:param name="id" value="${product.id}"/>
+										</c:url>
+										<a href="${productUrl}">${product.name}</a>
+									</td>
+	                                <td>${product.seller_name}</td>
+	                                <td>${product.list_price} 원</td>
+	                                <td>${product.sale_price} 원</td>
+	                                <td>${product.reg_date}</td>
+								</tr>
+                        	</c:forEach>
                         </tbody>
-                        <tfoot>
-                            <tr>
-                                <td colspan="5" class="text-center">
-                                    <nav aria-label="Page navigation">
-                                      <ul class="pagination">
-                                        <li class="previous disabled"><a href="#"><span aria-hidden="true">&larr;</span> 이전</a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#">4</a></li>
-                                        <li><a href="#">5</a></li>
-                                        <li class="next"><a href="#">다음 <span aria-hidden="true">&rarr;</span></a></li>
-                                      </ul>
-                                    </nav>
-                                </td>
-                            </tr>
-                        </tfoot>
                     </table>
-
+				</div>
+				<div class="text-right">
+                	<a href="${pageContext.request.contextPath}/shop_manage/product_register.do" class="btn btn-info" >상품등록</a>
                 </div>
+                <!-- 페이지 번호 시작 -->
+				<nav class="text-center">
+					<ul class="pagination">
+						<!-- 이전 그룹으로 이동 -->
+						<c:choose>
+							<c:when test="${pageHelper.prevPage > 0}">
+								<!-- 이전 그룹에 대한 페이지 번호가 존재한다면? -->
+								<!-- 이전 그룹으로 이동하기 위한 URL을 생성해서 "prevUrl"에 저장 -->
+								<c:url var="prevUrl" value="/shop_manage/product_list.do">
+									<c:param name="page" value="${pageHelper.prevPage}"></c:param>
+								</c:url>
+				
+								<li><a href="${prevUrl}">&laquo;</a></li>
+							</c:when>
+				
+							<c:otherwise>
+								<!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+								<li class='disabled'><a href="#">&laquo;</a></li>
+							</c:otherwise>
+						</c:choose>
+							
+						<!-- 페이지 번호 -->
+						<!-- 현재 그룹의 시작페이지~끝페이지 사이를 1씩 증가하면서 반복 -->
+						<c:forEach var="i" begin="${pageHelper.startPage}" end="${pageHelper.endPage}" step="1">
+				
+							<!-- 각 페이지 번호로 이동할 수 있는 URL을 생성하여 page_url에 저장 -->
+							<c:url var="pageUrl" value="/shop_manage/product_list.do" >
+								<c:param name="page" value="${i}"></c:param>
+							</c:url>
+								
+							<!-- 반복중의 페이지 번호와 현재 위치한 페이지 번호가 같은 경우에 대한 분기 -->
+							<c:choose>
+								<c:when test="${pageHelper.page == i}">
+									<li class='active'><a href="#">${i}</a></li>
+								</c:when>
+								<c:otherwise>
+									<li><a href="${pageUrl}">${i}</a></li>
+								</c:otherwise>
+							</c:choose>	
+				
+						</c:forEach>
+							
+						<!-- 다음 그룹으로 이동 -->
+						<c:choose>
+							<c:when test="${pageHelper.nextPage > 0}">
+								<!-- 다음 그룹에 대한 페이지 번호가 존재한다면? -->
+								<!-- 다음 그룹으로 이동하기 위한 URL을 생성해서 "nextUrl"에 저장 -->
+								<c:url var="nextUrl" value="/shop_manage/product_list.do">
+									<c:param name="page" value="${pageHelper.nextPage}"></c:param>
+								</c:url>
+				
+								<li><a href="${nextUrl}">&raquo;</a></li>
+							</c:when>
+				
+							<c:otherwise>
+								<!-- 이전 그룹에 대한 페이지 번호가 존재하지 않는다면? -->
+								<li class='disabled'><a href="#">&raquo;</a></li>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</nav>
+				<!--// 페이지 번호 끝 -->
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->
 

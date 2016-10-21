@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.bada_admin.helper.BaseController;
 
-@WebServlet("/shop_manage/order_update.do")
-public class OrderUpdate extends BaseController {
+@WebServlet("/shop_manage/orders_delete.do")
+public class OrdersDelete extends BaseController {
 
-	private static final long serialVersionUID = -4932037578215760101L;
+	private static final long serialVersionUID = 2623928470222052214L;
 
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		return "shop_manage/order_update";
+		return null;
 	}
 
 }

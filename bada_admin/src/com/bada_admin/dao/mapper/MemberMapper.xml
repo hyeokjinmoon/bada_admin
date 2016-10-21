@@ -14,8 +14,8 @@
 		<result property="profile_img" column="profile_img" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
-		<result property="is_admin" column="is_admin" />
-		<result property="is_active" column="is_active"/>
+		<result property="is_admin" column="is_admin" /> <!-- 어드민 플래그 : 어드민="T", 일반회원="F" -->
+		<result property="is_active" column="is_active"/> <!-- 회원 활성화 상태 : 활성="T", 비활성="F" -->
 	</resultMap>
 	
 	<!-- SELECT -->

@@ -1,5 +1,5 @@
 package com.bada_admin.service;
 
-public interface OrderService {
+public interface OrdersService {
 
 }

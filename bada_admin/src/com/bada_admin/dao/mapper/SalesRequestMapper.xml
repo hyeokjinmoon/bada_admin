@@ -3,13 +3,13 @@
 <mapper namespace="SalesRequestMapper">
 	<resultMap type="com.bada_admin.model.SalesRequest" id="sales_req">
 		<result property="id" column="id" />
-		<result property="sales_type" column="sales_type" />
+		<result property="sales_type" column="sales_type" /> <!-- 판매 종류 : 단품="S", 대량="B" -->
 		<result property="book_list" column="book_list" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
 		<result property="pickup_date" column="pickup_date" />
 		<result property="member_id" column="member_id" />
-		<result property="sales_ok" column="sales_ok" />
+		<result property="sales_ok" column="sales_ok" /> <!-- 바다에 판매 승인 : 승인대기="W", 승인="O", 거절="R" -->
 	</resultMap>
 	
 </mapper>
