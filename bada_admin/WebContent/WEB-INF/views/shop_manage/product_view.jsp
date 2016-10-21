@@ -2,6 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -28,33 +29,65 @@
                 <table class="table table-bordered">
 					<tr>
 						<th class="info text-center" width="100">상품일련번호</th>
-						<td>1</td>
+						<td>${product.id }</td>
 					</tr>
 					<tr>
 						<th class="info text-center">상품명</th>
-						<td>자바의 정석</td>
+						<td>${product.name }</td>
 					</tr>
 					<tr>
 						<th class="info text-center">판매자</th>
-						<td>문혁진</td>
+						<td>${product.seller_name }</td>
+					</tr>
+					<tr>
+						<th class="info text-center">정가</th>
+						<td><span class="text-danger"><fmt:formatNumber value="${product.list_price}" groupingUsed="true"/></span> 원</td>
 					</tr>
 					<tr>
 						<th class="info text-center">판매가</th>
-						<td>50,000 원</td>
+						<td><span class="text-info"><fmt:formatNumber value="${product.sale_price}" groupingUsed="true"/></span> 원</td>
 					</tr>
 					<tr>
 						<th class="info text-center" style="vertical-align:middle;">이미지</th>
-						<td><img class="thumbnail" src="../assets/img/profile.png" alt="프로필 이미지" width="150px" /></td>
+						<td>
+							<c:url var="imgUrl" value="/download.do">
+								<c:param name="file" value="${product.book_img }"/>
+							</c:url>
+							<c:choose>
+								<c:when test="${product.book_img == null }">
+									<img class="thumbnail" src="${pageContext.request.contextPath}/assets/img/basic_img.png" alt="상품 이미지" width="150px"/>상품 이미지가 없습니다.
+								</c:when>
+								<c:otherwise>
+									<img class="thumbnail" src="${imgUrl }" alt="상품 이미지" style="cursor: pointer;" width="150px"/>
+								</c:otherwise>
+							</c:choose>
+						</td>
 					</tr>
 					<tr>
 						<th class="info text-center">등록일</th>
-						<td>2016-10-10</td>
+						<td>${product.reg_date }</td>
+					</tr>
+					<tr>
+						<th class="info text-center">승인상태</th>
+						<td>
+							<c:choose>
+                             	<c:when test="${product.ok_status == 'O'}">
+                             		<span class="text-primary">승인</span>
+                             	</c:when>
+                             	<c:when test="${product.ok_status == 'W'}">
+                             		<span class="text-success">승인대기</span>
+                             	</c:when>
+                             	<c:when test="${product.ok_status == 'R'}">
+                            		<span class="text-danger">거절</span>
+                            	</c:when>
+                             </c:choose>
+						</td>
 					</tr>
 				</table>
 				<div class="text-right">
-					<a href="#" class="btn btn-primary">목록</a>
-					<a href="#" class="btn btn-warning">수정</a>
-					<a href="#" class="btn btn-danger">삭제</a>
+					<a href="${pageContext.request.contextPath}/shop_manage/product_list.do" class="btn btn-primary">목록</a>
+					<a href="${pageContext.request.contextPath}/shop_manage/product_update.do?id=${product.id}" class="btn btn-warning">수정</a>
+					<a href="${pageContext.request.contextPath}/shop_manage/product_delete.do?id=${product.id}" class="btn btn-danger">삭제</a>
 				</div>
 				<%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->

@@ -10,7 +10,7 @@
             <a href="#collapse-item-shop" data-toggle="collapse">쇼핑몰 관리</a>
             <ul class="nav nav-sidebar-inner collapse" id="collapse-item-shop">
                 <li>
-                    <a href="${pageContext.request.contextPath}/shop_manage/order_list.do">주문목록</a>
+                    <a href="${pageContext.request.contextPath}/shop_manage/orders_list.do">주문목록</a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath}/shop_manage/trade_list.do">거래목록</a>
@@ -19,7 +19,7 @@
                     <a href="${pageContext.request.contextPath}/shop_manage/product_list.do">상품목록</a>
                 </li>
                 <li>
-                    <a href="${pageContext.request.contextPath}/shop_manage/ok_request_list.do">승인요청목록</a>
+                    <a href="${pageContext.request.contextPath}/shop_manage/ok_request_list.do">승인대기목록</a>
                 </li>
                 <li>
                     <a href="${pageContext.request.contextPath}/shop_manage/deposit_list.do">입금현황</a>

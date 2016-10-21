@@ -1,27 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/inc/head.jsp" %>
-	<script type="text/javascript">
-            $(function() {
-                $("#p_update").click(function() {
-                    swal({
-                        title: "등록 상품 수정",
-                        text: "이대로 수정하시겠습니까?",
-                        showCancelButton: true,
-                        closeOnConfirm: false,
-                        showLoaderOnConfirm: true
-                    },function() {
-                        setTimeout(function(){
-                            swal("수정되었습니다.");
-                        }, 1000);
-                    });
-                });
-            });
-        </script>   
+	
 </head>
 
 <body>
@@ -37,34 +23,44 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>상품 수정(바다)</h1>
+                  <h1>상품 수정</h1>
                 </div>
-                <p class="col-md-offset-2 text-warning">*은 필수 입력입니다.</p>
-                <form class="form-horizontal" id="myform">
-                    <div class="form-group">
-                        <label for="b_title" class="col-md-2">도서명*</label>
-                        <div class="col-md-8"><input type="text" name="b_title" id="b_title" class="form-control"></div>
+                <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/shop_manage/product_update_ok.do" enctype="multipart/form-data">
+                	<input type="hidden" name="id" value="${product.id}"/>
+                	<div class="form-group">
+                        <label for="name" class="col-md-2 text-right">도서명</label>
+                        <div class="col-md-8"><input type="text" name="name" id="name" class="form-control" value="${product.name}"></div>
                     </div>
                     <div class="form-group">
-                        <label for="p_price" class="col-md-2">정가*</label>
-                        <div class="col-md-4"><input type="text" name="p_price" id="p_price" class="form-control"></div>
+                        <label for="list_price" class="col-md-2 text-right">정가</label>
+                        <div class="col-md-4"><input type="number" name="list_price" id="list_price" class="form-control" value="${product.list_price }"></div>
                     </div>
                     <div class="form-group">
-                        <label for="s_price" class="col-md-2">판매가*</label>
+                        <label for="sale_price" class="col-md-2 text-right">판매가</label>
                         <div class="col-md-4">
-                            <input type="text" name="s_price" id="s_price" class="form-control">
+                            <input type="number" name="sale_price" id="sale_price" class="form-control" value="${product.sale_price }">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="profile_img" class="col-md-2">도서 이미지</label>
+                        <label for="book_img" class="col-md-2 text-right">도서 이미지</label>
                         <div class="col-md-8">
-                            <img class="thumbnail" src="../assets/img/profile.png" alt="프로필 이미지" width="50px" />
-                            <input type="file" name="profile_img" id="profile_img" class="form-control">
+                        	<c:url var="imgUrl" value="/download.do">
+								<c:param name="file" value="${product.book_img }"/>
+							</c:url>
+                        	<c:choose>
+								<c:when test="${product.book_img == null }">
+									<img class="thumbnail" src="${pageContext.request.contextPath}/assets/img/basic_img.png" alt="상품 이미지" width="150px"/>
+								</c:when>
+								<c:otherwise>
+									<img class="thumbnail" src="${imgUrl }" alt="프로필 이미지" style="cursor: pointer;" width="200px"/>
+								</c:otherwise>
+							</c:choose>
+                        	<input type="file" name="book_img" id="book_img" class="form-control" value="${product.book_img }">
                         </div>
                     </div>
                     <div class="form-group">
-                        <div class="col-md-offset-2 col-md-8">
-                            <button type="button" class="btn btn-info btn-lg" id="p_update">상품수정</button>
+                        <div class="col-md-offset-2 col-md-8 text-right">
+                            <button type="submit" class="btn btn-info" >수정완료</button>
                         </div>
                     </div>
                 </form>

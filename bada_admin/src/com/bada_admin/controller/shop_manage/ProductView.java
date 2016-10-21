@@ -7,16 +7,59 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
+import com.bada_admin.helper.WebHelper;
+import com.bada_admin.model.Product;
+import com.bada_admin.service.ProductService;
+import com.bada_admin.service.impl.ProductServiceImpl;
 
 @WebServlet("/shop_manage/product_view.do")
 public class ProductView extends BaseController {
 
 	private static final long serialVersionUID = -7079403591831545180L;
-
+	SqlSession sqlSession;
+	Logger logger;
+	WebHelper web;
+	ProductService productService;
+	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		sqlSession = MyBatisConnectionFactory.getSqlSession();
+		logger = LogManager.getFormatterLogger(request.getRequestURI());
+		web = WebHelper.getInstance(request, response);
+		productService = new ProductServiceImpl(sqlSession, logger);
+		
+		if(web.getSession("loginInfo") == null) {
+			sqlSession.close();
+			web.redirect(web.getRootPath() + "/index", "로그인 후 이용가능합니다.");
+			return null;
+		}
+		
+		int id = web.getInt("id");
+		
+		Product product = new Product();
+		product.setId(id);
+		
+		Product productItem = null;
+		
+		try {
+			productItem = productService.selectProduct(product);
+		} catch (Exception e) {
+			web.redirect(null, e.getLocalizedMessage());
+			return null;
+		} finally {
+			sqlSession.close();
+		}
+		
+		logger.debug("book_img : " + productItem.getBook_img());
+		
+		request.setAttribute("product", productItem);
+		
 		return "shop_manage/product_view";
 	}
 

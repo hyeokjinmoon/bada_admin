@@ -35,7 +35,7 @@
                     <a href="#collapse-nav-item-shop" data-toggle="collapse">쇼핑몰 관리</a>
                     <ul class="nav navbar-nav-inner collapse" id="collapse-nav-item-shop">
                         <li>
-                            <a href="${pageContext.request.contextPath}/shop_manage/order_list.do">주문목록</a>
+                            <a href="${pageContext.request.contextPath}/shop_manage/orders_list.do">주문목록</a>
                         </li>
                         <li>
                             <a href="${pageContext.request.contextPath}/shop_manage/trade_list.do">거래목록</a>

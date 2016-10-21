@@ -25,25 +25,24 @@
                 <div class="page-header">
                   <h1>상품 등록</h1>
                 </div>
-                <p class="col-md-offset-2 text-warning">*은 필수 입력입니다.</p>
                 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/shop_manage/product_register_ok.do" enctype="multipart/form-data">
                 	<input type="hidden" name="seller_id" value="${loginInfo.id}"/>
                     <div class="form-group">
-                        <label for="name" class="col-md-2">도서명*</label>
+                        <label for="name" class="col-md-2 text-right">도서명</label>
                         <div class="col-md-8"><input type="text" name="name" id="name" class="form-control"></div>
                     </div>
                     <div class="form-group">
-                        <label for="list_price" class="col-md-2">정가*</label>
+                        <label for="list_price" class="col-md-2 text-right">정가</label>
                         <div class="col-md-4"><input type="number" name="list_price" id="list_price" class="form-control"></div>
                     </div>
                     <div class="form-group">
-                        <label for="sale_price" class="col-md-2">판매가*</label>
+                        <label for="sale_price" class="col-md-2 text-right">판매가</label>
                         <div class="col-md-4">
                             <input type="number" name="sale_price" id="sale_price" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="book_img" class="col-md-2">도서 이미지</label>
+                        <label for="book_img" class="col-md-2 text-right">도서 이미지</label>
                         <div class="col-md-8">
                             <input type="file" name="book_img" id="book_img" class="form-control">
                         </div>

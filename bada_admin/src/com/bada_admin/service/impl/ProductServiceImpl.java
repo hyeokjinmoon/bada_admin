@@ -80,6 +80,7 @@ public class ProductServiceImpl implements ProductService {
 		} catch (NullPointerException e) {
 			throw new Exception("조회할 상품이 없습니다.");
 		} catch (Exception e) {
+			e.printStackTrace();
 			throw new Exception("상품 조회에 실패했습니다.");
 		}
 		return result;
@@ -90,6 +91,85 @@ public class ProductServiceImpl implements ProductService {
 		int result = 0;
 		try {
 			result = sqlSession.selectOne("ProductMapper.selectProductCount", product);
+		} catch(Exception e) {
+			throw new Exception("상품수 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public void updateProduct(Product product) throws Exception {
+		try {
+			int result = sqlSession.update("ProductMapper.updateProduct", product);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("수정된 상품 정보가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("상품 정보 수정에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void updateProductOkStatus(Product product) throws Exception {
+		try {
+			int result = sqlSession.update("ProductMapper.updateProductOkStatus", product);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("수정된 상품 상태가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("상품 상태 수정에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public List<Product> selectProductOkStatusList(Product product) throws Exception {
+		List<Product> result = null;
+		try {
+			result = sqlSession.selectList("ProductMapper.selectProductOkStatusList", product);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch(NullPointerException e){
+			throw new Exception("조회할 승인 요청 목록이 없습니다.");
+		} catch (Exception e) {
+			throw new Exception("승인 요청 목록 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public Product selectProductOkStatus(Product product) throws Exception {
+		Product result = null;
+		try {
+			result = sqlSession.selectOne("ProductMapper.selectProductOkStatus", product);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch(NullPointerException e){
+			throw new Exception("조회할 승인 요청이 없습니다.");
+		} catch (Exception e) {
+			throw new Exception("승인 요청 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public int selectProductOkStatusCount(Product product) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("ProductMapper.selectProductOkStatusCount", product);
 		} catch(Exception e) {
 			throw new Exception("상품수 조회에 실패했습니다.");
 		}

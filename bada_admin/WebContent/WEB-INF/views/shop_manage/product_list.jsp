@@ -2,6 +2,7 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -29,10 +30,12 @@
                         <thead class="alert alert-info">
                             <tr>
                                 <th class="text-center" width="20%">상품명</th>
-                                <th class="text-center" width="20%">판매자</th>
-                                <th class="text-center" width="20%">정가</th>
-                                <th class="text-center" width="20%">판매가</th>
+                                <th class="text-center" width="15%">판매자</th>
+                                <th class="text-center" width="15%">정가</th>
+                                <th class="text-center" width="15%">판매가</th>
                                 <th class="text-center" width="20%">등록일</th>
+                                <th class="text-center" width="15%">승인상태</th>
+                                
                              </tr>
                         </thead>
                         <tbody>
@@ -45,9 +48,22 @@
 										<a href="${productUrl}">${product.name}</a>
 									</td>
 	                                <td>${product.seller_name}</td>
-	                                <td>${product.list_price} 원</td>
-	                                <td>${product.sale_price} 원</td>
+	                                <td><span class="text-danger"><fmt:formatNumber value="${product.list_price}" groupingUsed="true"/></span> 원</td>
+	                                <td><span class="text-info"><fmt:formatNumber value="${product.sale_price}" groupingUsed="true"/></span> 원</td>
 	                                <td>${product.reg_date}</td>
+	                                <td>
+	                                	<c:choose>
+			                             	<c:when test="${product.ok_status == 'O'}">
+			                             		<span class="text-primary">승인</span>
+			                             	</c:when>
+			                             	<c:when test="${product.ok_status == 'W'}">
+			                             		<span class="text-success">승인대기</span>
+			                             	</c:when>
+			                             	<c:when test="${product.ok_status == 'R'}">
+			                            		<span class="text-danger">거절</span>
+			                            	</c:when>
+			                             </c:choose>
+	                                </td>
 								</tr>
                         	</c:forEach>
                         </tbody>

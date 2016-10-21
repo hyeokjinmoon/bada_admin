@@ -18,10 +18,10 @@ import com.bada_admin.model.Product;
 import com.bada_admin.service.ProductService;
 import com.bada_admin.service.impl.ProductServiceImpl;
 
-@WebServlet("/shop_manage/ok_request_view.do")
-public class OkRequestView extends BaseController {
+@WebServlet("/shop_manage/ok_request_answer.do")
+public class OkRequestAnswer extends BaseController {
 
-	private static final long serialVersionUID = 6103137953682435243L;
+	private static final long serialVersionUID = -5293502761108583252L;
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
@@ -41,14 +41,14 @@ public class OkRequestView extends BaseController {
 		}
 		
 		int id = web.getInt("id");
+		String ok_status = web.getString("ok_status");
 		
 		Product product = new Product();
 		product.setId(id);
-		
-		Product productItem = null;
+		product.setOk_status(ok_status);
 		
 		try {
-			productItem = productService.selectProduct(product);
+			productService.updateProductOkStatus(product);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -56,11 +56,9 @@ public class OkRequestView extends BaseController {
 			sqlSession.close();
 		}
 		
-		logger.debug("book_img : " + productItem.getBook_img());
+		web.redirect(web.getRootPath() + "/shop_manage/product_list.do", "승인 상태가 변경되었습니다.");
 		
-		request.setAttribute("product", productItem);
-		
-		return "shop_manage/ok_request_view";
+		return null;
 	}
 
 }

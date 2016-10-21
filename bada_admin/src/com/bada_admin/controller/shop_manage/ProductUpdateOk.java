@@ -23,10 +23,10 @@ import com.bada_admin.model.Product;
 import com.bada_admin.service.ProductService;
 import com.bada_admin.service.impl.ProductServiceImpl;
 
-@WebServlet("/shop_manage/product_register_ok.do")
-public class ProductRegisterOk extends BaseController {
+@WebServlet("/shop_manage/product_update_ok.do")
+public class ProductUpdateOk extends BaseController {
 
-	private static final long serialVersionUID = 1956304767922969860L;
+	private static final long serialVersionUID = -2462958732963965903L;
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
@@ -57,7 +57,7 @@ public class ProductRegisterOk extends BaseController {
 		}
 		
 		Map<String, String> paramMap = upload.getParamMap();
-		int seller_id = Integer.parseInt(paramMap.get("seller_id"));
+		int id = Integer.parseInt(paramMap.get("id"));
 		String name = paramMap.get("name");
 		String list_price = paramMap.get("list_price");
 		String sale_price = paramMap.get("sale_price");
@@ -88,7 +88,7 @@ public class ProductRegisterOk extends BaseController {
 			return null;
 		}
 
-		logger.debug("seller_id : " + seller_id);
+		logger.debug("id : " + id);
 		logger.debug("name : " + name);
 		logger.debug("list_price : " + list_price);
 		logger.debug("sale_price : " + sale_price);
@@ -101,14 +101,14 @@ public class ProductRegisterOk extends BaseController {
 		}
 		
 		Product product = new Product();
+		product.setId(id);
 		product.setName(name);
 		product.setList_price(Integer.parseInt(list_price));
 		product.setSale_price(Integer.parseInt(sale_price));
-		product.setSeller_id(seller_id);
 		product.setBook_img(book_img);
 		
 		try {
-			productService.insertProductBada(product);
+			productService.updateProduct(product);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -116,7 +116,10 @@ public class ProductRegisterOk extends BaseController {
 			sqlSession.close();
 		}
 		
-		web.redirect(web.getRootPath() +"/shop_manage/product_view.do?id=" + product.getId(), "상품이 등록되었습니다.");
+		String url = "%s/shop_manage/product_view.do?id=%d";
+		url = String.format(url, web.getRootPath(), id);
+		
+		web.redirect(url, "수정되었습니다.");
 		
 		return null;
 	}

@@ -30,7 +30,6 @@ public class ProductList extends BaseController {
 	PageHelper pageHelper;
 	ProductService productService;
 	
-	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();

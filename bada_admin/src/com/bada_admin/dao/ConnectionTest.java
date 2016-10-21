@@ -5,11 +5,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.bada_admin.model.Message;
-import com.bada_admin.model.Qna;
 import com.bada_admin.service.MessageService;
-import com.bada_admin.service.QnaService;
 import com.bada_admin.service.impl.MessageServiceImpl;
-import com.bada_admin.service.impl.QnaServiceImpl;
 
 public class ConnectionTest {
 	public static void main(String[] args) {
