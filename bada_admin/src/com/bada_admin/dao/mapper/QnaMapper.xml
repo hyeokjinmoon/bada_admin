@@ -18,8 +18,8 @@
 	<!-- 문의 리스트 검색 -->
 	<select id="selectQnaList" parameterType="com.bada_admin.model.Qna" resultMap="qna">
 		SELECT
-			id, subject, req_type, content, answer, answer_status, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date, 
-			DATE_FORMAT(edit_date, '%Y-%m-%d') AS edit_date, request_id, answer_id
+			id, subject, req_type, content, answer, answer_status, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i') AS reg_date, 
+			DATE_FORMAT(edit_date, '%Y-%m-%d %h:%i') AS edit_date, request_id, answer_id
 		FROM
 			qna
 		ORDER BY

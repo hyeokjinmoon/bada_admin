@@ -28,8 +28,8 @@
                 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/shop_manage/product_update_ok.do" enctype="multipart/form-data">
                 	<input type="hidden" name="id" value="${product.id}"/>
                 	<div class="form-group">
-                        <label for="name" class="col-md-2 text-right">도서명</label>
-                        <div class="col-md-8"><input type="text" name="name" id="name" class="form-control" value="${product.name}"></div>
+                        <label for="product_name" class="col-md-2 text-right">도서명</label>
+                        <div class="col-md-8"><input type="text" name="product_name" id="product_name" class="form-control" value="${product.name}"></div>
                     </div>
                     <div class="form-group">
                         <label for="list_price" class="col-md-2 text-right">정가</label>
@@ -42,20 +42,20 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="book_img" class="col-md-2 text-right">도서 이미지</label>
+                        <label for="product_img" class="col-md-2 text-right">도서 이미지</label>
                         <div class="col-md-8">
                         	<c:url var="imgUrl" value="/download.do">
-								<c:param name="file" value="${product.book_img }"/>
+								<c:param name="file" value="${product.product_img }"/>
 							</c:url>
                         	<c:choose>
-								<c:when test="${product.book_img == null }">
+								<c:when test="${product.product_img == null }">
 									<img class="thumbnail" src="${pageContext.request.contextPath}/assets/img/basic_img.png" alt="상품 이미지" width="150px"/>
 								</c:when>
 								<c:otherwise>
 									<img class="thumbnail" src="${imgUrl }" alt="프로필 이미지" style="cursor: pointer;" width="200px"/>
 								</c:otherwise>
 							</c:choose>
-                        	<input type="file" name="book_img" id="book_img" class="form-control" value="${product.book_img }">
+                        	<input type="file" name="product_img" id="product_img" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">

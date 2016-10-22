@@ -32,7 +32,7 @@
 						</tr>
 						<tr>
 							<th class="info text-center">상품명</th>
-							<td>${product.name }</td>
+							<td>${product.product_name }</td>
 						</tr>
 						<tr>
 							<th class="info text-center">판매자</th>
@@ -50,10 +50,10 @@
 							<th class="info text-center" style="vertical-align:middle;">이미지</th>
 							<td>
 								<c:url var="imgUrl" value="/download.do">
-									<c:param name="file" value="${product.book_img }"/>
+									<c:param name="file" value="${product.product_img }"/>
 								</c:url>
 								<c:choose>
-									<c:when test="${product.book_img == null }">
+									<c:when test="${product.product_img == null }">
 										<img class="thumbnail" src="${pageContext.request.contextPath}/assets/img/basic_img.png" alt="상품 이미지" width="150px"/>상품 이미지가 없습니다.
 									</c:when>
 									<c:otherwise>
@@ -74,7 +74,7 @@
 	                             		<span class="text-primary">승인</span>
 	                             	</c:when>
 	                             	<c:when test="${product.ok_status == 'W'}">
-	                             		<span class="text-success">승인대기</span>
+	                             		<span class="text-warning">승인대기</span>
 	                             	</c:when>
 	                             	<c:when test="${product.ok_status == 'R'}">
 	                            		<span class="text-danger">거절</span>

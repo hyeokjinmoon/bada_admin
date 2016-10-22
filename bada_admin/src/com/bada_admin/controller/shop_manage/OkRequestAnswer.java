@@ -47,6 +47,12 @@ public class OkRequestAnswer extends BaseController {
 		product.setId(id);
 		product.setOk_status(ok_status);
 		
+		if(ok_status.equals("O")) {
+			product.setProduct_status("S");
+		} else {
+			product.setProduct_status("R");
+		}
+		
 		try {
 			productService.updateProductOkStatus(product);
 		} catch (Exception e) {
@@ -56,7 +62,7 @@ public class OkRequestAnswer extends BaseController {
 			sqlSession.close();
 		}
 		
-		web.redirect(web.getRootPath() + "/shop_manage/product_list.do", "승인 상태가 변경되었습니다.");
+		web.redirect(web.getRootPath() + "/shop_manage/ok_request_list.do", "승인 상태가 변경되었습니다.");
 		
 		return null;
 	}

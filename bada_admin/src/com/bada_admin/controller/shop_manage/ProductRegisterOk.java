@@ -58,11 +58,11 @@ public class ProductRegisterOk extends BaseController {
 		
 		Map<String, String> paramMap = upload.getParamMap();
 		int seller_id = Integer.parseInt(paramMap.get("seller_id"));
-		String name = paramMap.get("name");
+		String product_name = paramMap.get("product_name");
 		String list_price = paramMap.get("list_price");
 		String sale_price = paramMap.get("sale_price");
 		
-		if(!regex.isValue(name)) {
+		if(!regex.isValue(product_name)) {
 			sqlSession.close();
 			web.redirect(null, "상품명을 입력해주세요.");
 			return null;
@@ -89,23 +89,23 @@ public class ProductRegisterOk extends BaseController {
 		}
 
 		logger.debug("seller_id : " + seller_id);
-		logger.debug("name : " + name);
+		logger.debug("product_name : " + product_name);
 		logger.debug("list_price : " + list_price);
 		logger.debug("sale_price : " + sale_price);
 		
-		String book_img = null;
+		String product_img = null;
 		List<FileInfo> fileList = upload.getFileList();
 		for(int i = 0; i < fileList.size(); i++) {
 			FileInfo f = fileList.get(i);
-			book_img = f.getFileDir() + "/" + f.getFileName();
+			product_img = f.getFileDir() + "/" + f.getFileName();
 		}
 		
 		Product product = new Product();
-		product.setName(name);
+		product.setProduct_name(product_name);;
 		product.setList_price(Integer.parseInt(list_price));
 		product.setSale_price(Integer.parseInt(sale_price));
 		product.setSeller_id(seller_id);
-		product.setBook_img(book_img);
+		product.setProduct_img(product_img);
 		
 		try {
 			productService.insertProductBada(product);

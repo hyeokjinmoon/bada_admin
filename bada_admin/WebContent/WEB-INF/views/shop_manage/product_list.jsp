@@ -30,12 +30,12 @@
                         <thead class="alert alert-info">
                             <tr>
                                 <th class="text-center" width="20%">상품명</th>
-                                <th class="text-center" width="15%">판매자</th>
+                                <th class="text-center" width="10%">판매자</th>
                                 <th class="text-center" width="15%">정가</th>
                                 <th class="text-center" width="15%">판매가</th>
-                                <th class="text-center" width="20%">등록일</th>
+                                <th class="text-center" width="15%">등록일</th>
                                 <th class="text-center" width="15%">승인상태</th>
-                                
+                                <th class="text-center" width="10%">판매상태</th>
                              </tr>
                         </thead>
                         <tbody>
@@ -45,7 +45,7 @@
 										<c:url var="productUrl" value="/shop_manage/product_view.do">
 											<c:param name="id" value="${product.id}"/>
 										</c:url>
-										<a href="${productUrl}">${product.name}</a>
+										<a href="${productUrl}">${product.product_name}</a>
 									</td>
 	                                <td>${product.seller_name}</td>
 	                                <td><span class="text-danger"><fmt:formatNumber value="${product.list_price}" groupingUsed="true"/></span> 원</td>
@@ -57,10 +57,23 @@
 			                             		<span class="text-primary">승인</span>
 			                             	</c:when>
 			                             	<c:when test="${product.ok_status == 'W'}">
-			                             		<span class="text-success">승인대기</span>
+			                             		<span class="text-warning">승인대기</span>
 			                             	</c:when>
 			                             	<c:when test="${product.ok_status == 'R'}">
 			                            		<span class="text-danger">거절</span>
+			                            	</c:when>
+			                             </c:choose>
+	                                </td>
+	                                <td>
+	                                	<c:choose>
+			                             	<c:when test="${product.product_status == 'S'}">
+			                             		<span class="text-success">판매중</span>
+			                             	</c:when>
+			                             	<c:when test="${product.product_status == 'W'}">
+			                             		<span class="text-warning">판매대기</span>
+			                             	</c:when>
+			                             	<c:when test="${product.product_status == 'C'}">
+			                            		<span class="text-danger">판매완료</span>
 			                            	</c:when>
 			                             </c:choose>
 	                                </td>

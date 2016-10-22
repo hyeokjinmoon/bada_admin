@@ -22,7 +22,7 @@
 	<!-- 로그인 정보 -->
 	<select id="selectLoginInfo" parameterType="com.bada_admin.model.Member" resultMap="member">
 		SELECT
-			id, user_id, user_pw, name, email, tel, postcode, addr1, addr2, profile_img, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date, DATE_FORMAT(edit_date, '%Y-%m-%d') AS edit_date, is_admin, is_active
+			id, user_id, user_pw, name, email, tel, postcode, addr1, addr2, profile_img, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i') AS reg_date, DATE_FORMAT(edit_date, '%Y-%m-%d %h:%i') AS edit_date, is_admin, is_active
 		FROM
 			member
 		WHERE
@@ -35,7 +35,7 @@
 	<!-- 관리자 로그인 정보 -->
 	<select id="selectAdminLoginInfo" parameterType="com.bada_admin.model.Member" resultMap="member">
 		SELECT
-			id, user_id, user_pw, name, email, tel, postcode, addr1, addr2, profile_img, DATE_FORMAT(reg_date, '%Y-%m-%d') AS reg_date, DATE_FORMAT(edit_date, '%Y-%m-%d') AS edit_date, is_admin, is_active
+			id, user_id, user_pw, name, email, tel, postcode, addr1, addr2, profile_img, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i') AS reg_date, DATE_FORMAT(edit_date, '%Y-%m-%d %h:%i') AS edit_date, is_admin, is_active
 		FROM
 			member
 		WHERE

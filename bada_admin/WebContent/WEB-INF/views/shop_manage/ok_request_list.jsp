@@ -44,7 +44,7 @@
 										<c:url var="productUrl" value="/shop_manage/ok_request_view.do">
 											<c:param name="id" value="${product.id}"/>
 										</c:url>
-										<a href="${productUrl}">${product.name}</a>
+										<a href="${productUrl}">${product.product_name}</a>
 									</td>
 	                                <td>${product.seller_name}</td>
 	                                <td><span class="text-danger"><fmt:formatNumber value="${product.list_price}" groupingUsed="true"/></span> 원</td>

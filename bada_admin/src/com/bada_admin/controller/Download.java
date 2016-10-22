@@ -30,13 +30,13 @@ public class Download extends BaseController {
 		upload = UploadHelper.getInstance();
 		
 		String filePath = web.getString("file");
-		// String originName = web.getString("origin");
+		String originName = web.getString("origin");
 		
 		if(filePath != null) {
 			try {
 				logger.debug("Create Thumbnail Image : " + filePath);
-				upload.printFileStream(response, filePath, 320, 180, true);
-				// upload.printFileStream(response, filePath, originName);
+				//upload.printFileStream(response, filePath, 320, 180, true);
+				upload.printFileStream(response, filePath, originName);
 			} catch(Exception e) {
 				logger.debug(e.getLocalizedMessage());
 			}

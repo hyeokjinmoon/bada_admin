@@ -3,14 +3,15 @@
 <mapper namespace="ProductMapper">
 	<resultMap type="com.bada_admin.model.Product" id="product">
 		<result property="id" column="id" />
-		<result property="name" column="name" />
+		<result property="product_name" column="product_name" />
 		<result property="list_price" column="list_price" />
 		<result property="sale_price" column="sale_price" />
-		<result property="book_img" column="book_img" />
+		<result property="product_img" column="product_img" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
 		<result property="seller" column="seller" /> <!-- 판매자 : 회원="M", 바다="B" -->
 		<result property="ok_status" column="ok_status" /> <!-- 승인 상태 : 승인="O", 승인대기="W", 거절="R" -->
+		<result property="product_status" column="product_status" /> <!-- 제품 상태 : 판매중="S", 판매대기="W", 판매완료="C", 판매거절="R" -->
 		<result property="seller_id" column="seller_id" />
 		<result property="seller_name" column="seller_name" />
 		
@@ -20,15 +21,15 @@
 	<!-- 상품 목록 조회 -->
 	<select id="selectProductList" parameterType="com.bada_admin.model.Product" resultMap="product">
 		SELECT
-			p.id AS id, p.name AS name, p.list_price AS list_price, p.sale_price AS sale_price, p.book_img AS book_img,
-			DATE_FORMAT(p.reg_date, '%Y-%m-%d') AS reg_date, DATE_FORMAT(p.edit_date, '%Y-%m-%d') AS edit_date, 
-			p.seller AS seller, p.ok_status AS ok_status, p.seller_id AS seller_id, m.name AS seller_name
+			p.id AS id, product_name, list_price, sale_price, product_img,
+			DATE_FORMAT(p.reg_date, '%Y-%m-%d %h:%i') AS reg_date, DATE_FORMAT(p.edit_date, '%Y-%m-%d %h:%i') AS edit_date, 
+			seller, ok_status,product_status, seller_id, m.name AS seller_name
 		FROM
 			product p
-		INNER JOIN
-			member m
-		ON
-			p.seller_id=m.id
+			INNER JOIN
+				member m
+			ON
+				p.seller_id=m.id
 		ORDER BY
 			id DESC
 		LIMIT
@@ -37,17 +38,17 @@
 	<!-- 승인 요청 목록 조회 -->
 	<select id="selectProductOkStatusList" parameterType="com.bada_admin.model.Product" resultMap="product">
 		SELECT
-			p.id AS id, p.name AS name, p.list_price AS list_price, p.sale_price AS sale_price, p.book_img AS book_img,
-			DATE_FORMAT(p.reg_date, '%Y-%m-%d') AS reg_date, DATE_FORMAT(p.edit_date, '%Y-%m-%d') AS edit_date, 
-			p.seller AS seller, p.ok_status AS ok_status, p.seller_id AS seller_id, m.name AS seller_name
+			p.id AS id, product_name, list_price, sale_price, product_img,
+			DATE_FORMAT(p.reg_date, '%Y-%m-%d %h:%i') AS reg_date, DATE_FORMAT(p.edit_date, '%Y-%m-%d %h:%i') AS edit_date, 
+			seller, ok_status,product_status, seller_id, m.name AS seller_name
 		FROM
 			product p
 		INNER JOIN
 			member m
-		ON
-			p.seller_id=m.id
-		WHERE
-			p.ok_status='W'
+			ON
+				p.seller_id=m.id
+			WHERE
+				p.ok_status='W'
 		ORDER BY
 			id DESC
 		LIMIT
@@ -56,30 +57,30 @@
 	<!-- 상품 상세 조회 -->
 	<select id="selectProduct" parameterType="com.bada_admin.model.Product" resultMap="product">
 		SELECT
-			p.id AS id, p.name AS name, p.list_price AS list_price, p.sale_price AS sale_price, p.book_img AS book_img,
-			DATE_FORMAT(p.reg_date, '%Y-%m-%d') AS reg_date, DATE_FORMAT(p.edit_date, '%Y-%m-%d') AS edit_date, 
-			p.seller AS seller, p.ok_status AS ok_status, p.seller_id AS seller_id, m.name AS seller_name
+			p.id AS id, product_name, list_price, sale_price, product_img,
+			DATE_FORMAT(p.reg_date, '%Y-%m-%d %h:%i') AS reg_date, DATE_FORMAT(p.edit_date, '%Y-%m-%d %h:%i') AS edit_date, 
+			seller, ok_status,product_status, seller_id, m.name AS seller_name
 		FROM
 			product p
-		INNER JOIN
-			member m
-		ON
-			p.seller_id=m.id
+			INNER JOIN
+				member m
+			ON
+				p.seller_id=m.id
 		WHERE
 			p.id=#{id}
 	</select>
 	<!-- 승인 요청 상세 조회 -->
 	<select id="selectProductOkStatus" parameterType="com.bada_admin.model.Product" resultMap="product">
 		SELECT
-			p.id AS id, p.name AS name, p.list_price AS list_price, p.sale_price AS sale_price, p.book_img AS book_img,
-			DATE_FORMAT(p.reg_date, '%Y-%m-%d') AS reg_date, DATE_FORMAT(p.edit_date, '%Y-%m-%d') AS edit_date, 
-			p.seller AS seller, p.ok_status AS ok_status, p.seller_id AS seller_id, m.name AS seller_name
+			p.id AS id, product_name, list_price, sale_price, product_img,
+			DATE_FORMAT(p.reg_date, '%Y-%m-%d %h:%i') AS reg_date, DATE_FORMAT(p.edit_date, '%Y-%m-%d %h:%i') AS edit_date, 
+			seller, ok_status,product_status, seller_id, m.name AS seller_name
 		FROM
 			product p
-		INNER JOIN
-			member m
-		ON
-			p.seller_id=m.id
+			INNER JOIN
+				member m
+			ON
+				p.seller_id=m.id
 		WHERE
 			p.id=#{id} AND p.ok_status='W'
 	</select>
@@ -105,20 +106,20 @@
 	<insert id="insertProductMember" parameterType="com.bada_admin.model.Product" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 			product(
-				name, list_price, sale_price, book_img, reg_date, edit_date, seller, ok_status, seller_id	
+				product_name, list_price, sale_price, product_img, reg_date, edit_date, seller, ok_status, product_status, seller_id	
 			)
 		VALUES(
-			#{name}, #{list_price}, #{sale_price}, #{book_img}, now(), now(), 'M', 'W', #{seller_id}
+			#{product_name}, #{list_price}, #{sale_price}, #{product_img}, now(), now(), 'M', 'W', 'W', #{seller_id}
 		)
 	</insert>
 	<!-- 바다 상품 -->
 	<insert id="insertProductBada" parameterType="com.bada_admin.model.Product" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 			product(
-				name, list_price, sale_price, book_img, reg_date, edit_date, seller, ok_status, seller_id	
+				product_name, list_price, sale_price, product_img, reg_date, edit_date, seller, ok_status, product_status, seller_id	
 			)
 		VALUES(
-			#{name}, #{list_price}, #{sale_price}, #{book_img}, now(), now(), 'B', 'O', #{seller_id}
+			#{product_name}, #{list_price}, #{sale_price}, #{product_img}, now(), now(), 'B', 'O', 'S', #{seller_id}
 		)
 	</insert>
 	
@@ -128,9 +129,9 @@
 		UPDATE
 			product
 		SET
-			name=#{name}, list_price=#{list_price}, sale_price=#{sale_price}, edit_date=now()
-			<if test="book_img != null">
-				, book_img=#{book_img}
+			product_name=#{product_name}, list_price=#{list_price}, sale_price=#{sale_price}, edit_date=now()
+			<if test="product_img != null">
+				, procuct_img=#{product_img}
 			</if>
 		WHERE
 			id=#{id}
@@ -140,7 +141,7 @@
 		UPDATE
 			product
 		SET
-			ok_status=#{ok_status}
+			ok_status=#{ok_status} , product_status=#{product_status}
 		WHERE
 			id=#{id}
 	</update>

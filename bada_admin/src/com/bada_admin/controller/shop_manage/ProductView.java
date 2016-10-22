@@ -56,8 +56,6 @@ public class ProductView extends BaseController {
 			sqlSession.close();
 		}
 		
-		logger.debug("book_img : " + productItem.getBook_img());
-		
 		request.setAttribute("product", productItem);
 		
 		return "shop_manage/product_view";

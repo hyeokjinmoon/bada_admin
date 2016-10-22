@@ -3,16 +3,16 @@
 <mapper namespace="CartMapper">
 	<resultMap type="com.bada_admin.model.Cart" id="cart">
 		<result property="id" column="id" />
-		<result property="name" column="name" />
+		<result property="product_name" column="product_name" />
 		<result property="list_price" column="list_price" />
 		<result property="sale_price" column="sale_price" />
-		<result property="book_img" column="book_img" />
+		<result property="product_img" column="product_img" />
 		<result property="reg_date" column="reg_date" />
 		<result property="edit_date" column="edit_date" />
 		<result property="seller" column="seller" /> <!-- 판매자 : 회원 = "M", 바다="B" -->
 		<result property="ok_status" column="ok_status" /> <!-- 승인 상태 : 승인="O", 승인대기="W", 거절="R" -->
 		<result property="seller_id" column="seller_id" />
-		<result property="book_status" column="book_status" /> <!-- 제품 상태 : 판매중="W", 판매완료="C" -->
+		<result property="product_status" column="product_status" /> <!-- 제품 상태 : 판매중="S", 판매대기="W", 판매완료="C", 판매거절="R" -->
 		<result property="order_id" column="order_id" />
 	</resultMap>
 	

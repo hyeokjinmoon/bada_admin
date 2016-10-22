@@ -28,8 +28,8 @@
                 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/shop_manage/product_register_ok.do" enctype="multipart/form-data">
                 	<input type="hidden" name="seller_id" value="${loginInfo.id}"/>
                     <div class="form-group">
-                        <label for="name" class="col-md-2 text-right">도서명</label>
-                        <div class="col-md-8"><input type="text" name="name" id="name" class="form-control"></div>
+                        <label for="product_name" class="col-md-2 text-right">도서명</label>
+                        <div class="col-md-8"><input type="text" name="product_name" id="product_name" class="form-control"></div>
                     </div>
                     <div class="form-group">
                         <label for="list_price" class="col-md-2 text-right">정가</label>
@@ -42,9 +42,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="book_img" class="col-md-2 text-right">도서 이미지</label>
+                        <label for="product_img" class="col-md-2 text-right">도서 이미지</label>
                         <div class="col-md-8">
-                            <input type="file" name="book_img" id="book_img" class="form-control">
+                            <input type="file" name="product_img" id="product_img" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
