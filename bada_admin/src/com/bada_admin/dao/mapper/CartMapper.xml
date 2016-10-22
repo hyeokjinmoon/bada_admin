@@ -12,8 +12,59 @@
 		<result property="seller" column="seller" /> <!-- 판매자 : 회원 = "M", 바다="B" -->
 		<result property="ok_status" column="ok_status" /> <!-- 승인 상태 : 승인="O", 승인대기="W", 거절="R" -->
 		<result property="seller_id" column="seller_id" />
+		<result property="seller_name" column="seller_name" />
+		<result property="buyer_name" column="buyer_name" />
 		<result property="product_status" column="product_status" /> <!-- 제품 상태 : 판매중="S", 판매대기="W", 판매완료="C", 판매거절="R" -->
 		<result property="order_id" column="order_id" />
+		<result property="payment_price" column="payment_price" />
 	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 장바구니 목록 -->
+	<select id="selectCartList" parameterType="com.bada_admin.model.Cart" resultMap="cart">
+		SELECT
+			c.id, product_name, list_price, sale_price, product_img ,DATE_FORMAT(c.reg_date, '%Y-%m-%d %h:%i') AS reg_date, 
+			DATE_FORMAT(c.edit_date, '%Y-%m-%d %h:%i') AS edit_date, 
+			seller, ok_status, seller_id, product_status, order_id, m.name AS seller_name
+		FROM
+			cart c
+			INNER JOIN
+				member m
+			ON
+				c.seller_id=m.id
+		ORDER BY
+		 	c.id DESC
+	</select>
+	<!-- 주문 목록 -->
+	<select id="selectOrderList" parameterType="com.bada_admin.model.Cart" resultMap="cart">
+		SELECT
+			c.id, product_name, list_price, sale_price, product_img ,DATE_FORMAT(c.reg_date, '%Y-%m-%d %h:%i') AS reg_date, 
+			DATE_FORMAT(c.edit_date, '%Y-%m-%d %h:%i') AS edit_date, 
+			seller, ok_status, seller_id, product_status, order_id, m.name AS seller_name, o.buyer_name AS buyer_name, 
+			o.payment_price AS payment_price
+		FROM
+			cart c
+			INNER JOIN
+				member m
+			ON
+				c.seller_id=m.id
+			INNER JOIN
+				orders o
+			ON
+				c.order_id=o.id
+		ORDER BY
+			c.id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 총 주문 수 -->
+	<select id="selectOrderCount" parameterType="com.bada_admin.model.Cart" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			cart
+		WHERE
+			order_id!='null'
+	</select>
 	
 </mapper>

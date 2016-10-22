@@ -24,7 +24,7 @@
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
-                        <thead style="background-color : #eee;">
+                        <thead class="alert alert-info">
                             <tr>
 								<th class="text-center" width="25%">상품명</th>
                                 <th class="text-center" width="15%">판매자</th>

@@ -5,10 +5,11 @@
 		<result property="id" column="id" />
 		<result property="order_date" column="order_date" />
 		<result property="buyer_id" column="buyer_id" />
+		<result property="buyer_name" column="buyer_name" />
+		<result property="buyer_tel" column="buyer_tel" />
+		<result property="buyer_addr" column="buyer_addr" />
 		<result property="deposit_status" column="deposit_status" /> <!-- 입금 상태 : 입금대기="W", 입금완료="C" -->
 		<result property="delivery_status" column="delivery_status" /> <!-- 배송상태 : 배송대기="W", 배송중="S", 배송완료="C" -->
-		<result property="buyer_addr" column="buyer_addr" />
-		<result property="seller_addr" column="seller_addr" />
 		<result property="payment_type" column="payment_type" /> <!-- 결제 종류 : 현금결제="P", 카드결제="C" -->
 		<result property="payment_price" column="payment_price" />
 	</resultMap>

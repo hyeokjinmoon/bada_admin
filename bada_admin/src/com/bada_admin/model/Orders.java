@@ -4,14 +4,28 @@ public class Orders {
 	private int id;
 	private String order_date;
 	private int buyer_id;
+	private String buyer_name;
+	private String buyer_tel;
 	private String deposit_status;
 	private String delivery_status;
 	private String buyer_addr;
-	private String seller_addr;
 	private String payment_type;
 	private int payment_price;
 	private int limitStart;
 	private int listCount;
+	
+	public String getBuyer_name() {
+		return buyer_name;
+	}
+	public String getBuyer_tel() {
+		return buyer_tel;
+	}
+	public void setBuyer_name(String buyer_name) {
+		this.buyer_name = buyer_name;
+	}
+	public void setBuyer_tel(String buyer_tel) {
+		this.buyer_tel = buyer_tel;
+	}
 	
 	public int getId() {
 		return id;
@@ -30,9 +44,6 @@ public class Orders {
 	}
 	public String getBuyer_addr() {
 		return buyer_addr;
-	}
-	public String getSeller_addr() {
-		return seller_addr;
 	}
 	public String getPayment_type() {
 		return payment_type;
@@ -64,9 +75,6 @@ public class Orders {
 	public void setBuyer_addr(String buyer_addr) {
 		this.buyer_addr = buyer_addr;
 	}
-	public void setSeller_addr(String seller_addr) {
-		this.seller_addr = seller_addr;
-	}
 	public void setPayment_type(String payment_type) {
 		this.payment_type = payment_type;
 	}
@@ -81,10 +89,10 @@ public class Orders {
 	}
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", order_date=" + order_date + ", buyer_id=" + buyer_id + ", deposit_status="
-				+ deposit_status + ", delivery_status=" + delivery_status + ", buyer_addr=" + buyer_addr
-				+ ", seller_addr=" + seller_addr + ", payment_type=" + payment_type + ", payment_price=" + payment_price
-				+ ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
+		return "Orders [id=" + id + ", order_date=" + order_date + ", buyer_id=" + buyer_id + ", buyer_name="
+				+ buyer_name + ", buyer_tel=" + buyer_tel + ", deposit_status=" + deposit_status + ", delivery_status="
+				+ delivery_status + ", buyer_addr=" + buyer_addr + ", payment_type=" + payment_type + ", payment_price="
+				+ payment_price + ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
 	}
 	
 }

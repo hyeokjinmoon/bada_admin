@@ -11,7 +11,44 @@ public class Cart {
 	private String seller;
 	private String ok_status;
 	private int seller_id;
+	private String seller_name;
 	private String product_status;
+	private int order_id;
+	private String buyer_name;
+	private int limitStart;
+	private int listCount;
+	private int payment_price;
+	
+	public int getLimitStart() {
+		return limitStart;
+	}
+	public int getPayment_price() {
+		return payment_price;
+	}
+	public void setPayment_price(int payment_price) {
+		this.payment_price = payment_price;
+	}
+	public int getListCount() {
+		return listCount;
+	}
+	public void setLimitStart(int limitStart) {
+		this.limitStart = limitStart;
+	}
+	public void setListCount(int listCount) {
+		this.listCount = listCount;
+	}
+	public String getBuyer_name() {
+		return buyer_name;
+	}
+	public void setBuyer_name(String buyer_name) {
+		this.buyer_name = buyer_name;
+	}
+	public String getSeller_name() {
+		return seller_name;
+	}
+	public void setSeller_name(String seller_name) {
+		this.seller_name = seller_name;
+	}
 	public String getProduct_name() {
 		return product_name;
 	}
@@ -31,8 +68,6 @@ public class Cart {
 		this.product_status = product_status;
 	}
 
-	private int order_id;
-	
 	public int getId() {
 		return id;
 	}
@@ -92,8 +127,10 @@ public class Cart {
 	public String toString() {
 		return "Cart [id=" + id + ", product_name=" + product_name + ", list_price=" + list_price + ", sale_price="
 				+ sale_price + ", product_img=" + product_img + ", reg_date=" + reg_date + ", edit_date=" + edit_date
-				+ ", seller=" + seller + ", ok_status=" + ok_status + ", seller_id=" + seller_id + ", product_status="
-				+ product_status + ", order_id=" + order_id + "]";
+				+ ", seller=" + seller + ", ok_status=" + ok_status + ", seller_id=" + seller_id + ", seller_name="
+				+ seller_name + ", product_status=" + product_status + ", order_id=" + order_id + ", buyer_name="
+				+ buyer_name + ", limitStart=" + limitStart + ", listCount=" + listCount + ", payment_price="
+				+ payment_price + "]";
 	}
 	
 }
