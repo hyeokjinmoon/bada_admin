@@ -51,4 +51,21 @@ public class CartServiceImpl implements CartService {
 		return result;
 	}
 
+	@Override
+	public List<Cart> selectCartInOrdersList(Cart cart) throws Exception {
+		List<Cart> result = null;
+		try {
+			result = sqlSession.selectList("CartMapper.selectCartInOrdersList", cart);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회할 장바구니 목록이 없습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("장바구니 목록 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

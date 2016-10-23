@@ -118,4 +118,21 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public List<Member> selectMemberDashboard(Member member) throws Exception {
+		List<Member> result = null;
+		try {
+			result = sqlSession.selectList("MemberMapper.selectMemberDashboard", member);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 회원 목록이 없습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("회원 목록 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

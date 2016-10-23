@@ -108,6 +108,17 @@
 		WHERE
 			id=#{id}
 	</select>
+	<!-- 대시보드 표시 회원 목록 -->
+	<select id="selectMemberDashboard" parameterType="com.bada_admin.model.Member" resultMap="member">
+		SELECT
+			id, name, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i') AS reg_date
+		FROM
+			member
+		ORDER BY
+			id DESC
+		LIMIT
+			0, 5
+	</select>
 	
 	<!-- INSERT -->
 	<!-- 회원가입 -->

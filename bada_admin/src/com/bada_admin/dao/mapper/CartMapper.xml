@@ -66,5 +66,27 @@
 		WHERE
 			order_id!='null'
 	</select>
+	<!-- 주문에 포함된 장바구니 -->
+	<select id="selectCartInOrdersList" parameterType="com.bada_admin.model.Cart" resultMap="cart">
+		SELECT
+			c.id, product_name, list_price, sale_price, product_img ,DATE_FORMAT(c.reg_date, '%Y-%m-%d %h:%i') AS reg_date, 
+			DATE_FORMAT(c.edit_date, '%Y-%m-%d %h:%i') AS edit_date, 
+			seller, ok_status, seller_id, product_status, order_id, m.name AS seller_name, o.buyer_name AS buyer_name, 
+			o.payment_price AS payment_price
+		FROM
+			cart c
+			INNER JOIN
+				member m
+			ON
+				c.seller_id=m.id
+			INNER JOIN
+				orders o
+			ON
+				c.order_id=o.id
+		WHERE
+			order_id=#{order_id}
+		ORDER BY
+			c.id DESC
+	</select>
 	
 </mapper>

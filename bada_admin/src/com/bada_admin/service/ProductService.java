@@ -26,4 +26,6 @@ public interface ProductService {
 	
 	public int selectProductOkStatusCount(Product product) throws Exception;
 	
+	public List<Product> selectProductDashboard(Product product) throws Exception;
+	
 }

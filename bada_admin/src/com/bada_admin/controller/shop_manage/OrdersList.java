@@ -17,8 +17,11 @@ import com.bada_admin.helper.BaseController;
 import com.bada_admin.helper.PageHelper;
 import com.bada_admin.helper.WebHelper;
 import com.bada_admin.model.Cart;
+import com.bada_admin.model.Orders;
 import com.bada_admin.service.CartService;
+import com.bada_admin.service.OrdersService;
 import com.bada_admin.service.impl.CartServiceImpl;
+import com.bada_admin.service.impl.OrdersServiceImpl;
 
 @WebServlet("/shop_manage/orders_list.do")
 public class OrdersList extends BaseController {
@@ -29,6 +32,7 @@ public class OrdersList extends BaseController {
 	WebHelper web;
 	PageHelper pageHelper;
 	CartService cartService;
+	OrdersService ordersService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,6 +41,7 @@ public class OrdersList extends BaseController {
 		web = WebHelper.getInstance(request, response);
 		pageHelper = PageHelper.getInstance();
 		cartService = new CartServiceImpl(sqlSession, logger);
+		ordersService = new OrdersServiceImpl(sqlSession, logger);
 		
 		if(web.getSession("loginInfo") == null){
 			sqlSession.close();
@@ -47,16 +52,29 @@ public class OrdersList extends BaseController {
 		int page = web.getInt("page", 1);
 		int totalCount = 0;
 		
-		List<Cart> orderList = null;
-		Cart cart = new Cart();
+		List<Cart> cartList = null;
+		List<Orders> ordersList = null;
+		Orders orders = new Orders();
+		try {
+			totalCount = ordersService.selectOrdersCount(orders);
+			pageHelper.pageProcess(page, totalCount, 7, 5);
+			orders.setLimitStart(pageHelper.getLimitStart());
+			orders.setListCount(pageHelper.getListCount());
+			
+			ordersList = ordersService.selectOrdersList(orders);
+		} catch (Exception e) {
+			sqlSession.close();
+			web.redirect(null, e.getLocalizedMessage());
+			return null;
+		} 
 		
 		try {
-			totalCount = cartService.selectOrderCount(cart);
-			pageHelper.pageProcess(page, totalCount, 7, 5);
-			cart.setLimitStart(pageHelper.getLimitStart());
-			cart.setListCount(pageHelper.getListCount());
-			
-			orderList = cartService.selectOrderList(cart);
+			for(int i = 0; i < ordersList.size(); i++){
+				Cart cart = new Cart();
+				cart.setOrder_id(ordersList.get(i).getId());
+				cartList = cartService.selectCartInOrdersList(cart);
+				ordersList.get(i).setCartList(cartList);
+			}
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -64,7 +82,7 @@ public class OrdersList extends BaseController {
 			sqlSession.close();
 		}
 		
-		request.setAttribute("orderList", orderList);
+		request.setAttribute("ordersList", ordersList);
 		request.setAttribute("pageHelper", pageHelper);
 		
 		return "shop_manage/orders_list";

@@ -18,4 +18,6 @@ public interface MemberService {
 	
 	public String selectMemberName(Member member) throws Exception;
 	
+	public List<Member> selectMemberDashboard(Member member) throws Exception;
+	
 }

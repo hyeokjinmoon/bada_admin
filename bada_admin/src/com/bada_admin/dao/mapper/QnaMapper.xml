@@ -34,6 +34,17 @@
 		FROM
 			qna
 	</select>
+	<!-- 대시보드 표시 문의 목록 -->
+	<select id="selectQnaDashboard" parameterType="com.bada_admin.model.Qna" resultMap="qna">
+		SELECT
+			id, subject, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i') AS reg_date
+		FROM
+			qna
+		ORDER BY
+			id DESC
+		LIMIT
+			0, 5
+	</select>
 	
 	<!-- INSERT -->
 	<!-- 문의 입력 -->

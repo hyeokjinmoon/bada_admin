@@ -176,4 +176,20 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	@Override
+	public List<Product> selectProductDashboard(Product product) throws Exception {
+		List<Product> result = null;
+		try {
+			result = sqlSession.selectList("ProductMapper.selectProductDashboard", product);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch(NullPointerException e){
+			throw new Exception("조회할 상품 목록이 없습니다.");
+		} catch (Exception e) {
+			throw new Exception("상품 목록 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
 }

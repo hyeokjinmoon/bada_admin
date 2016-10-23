@@ -14,4 +14,36 @@
 		<result property="payment_price" column="payment_price" />
 	</resultMap>
 	
+	<!-- SELECT -->
+	<!-- 주문 목록 -->
+	<select id="selectOrdersList" parameterType="com.bada_admin.model.Orders" resultMap="orders">
+		SELECT
+			id, DATE_FORMAT(order_date, '%Y-%m-%d %h:%i') AS order_date, buyer_id, buyer_name, buyer_tel, buyer_addr, 
+			deposit_status, delivery_status, payment_type, payment_price
+		FROM 
+			orders
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 총 주문 수 -->
+	<select id="selectOrdersCount" parameterType="com.bada_admin.model.Orders" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM 
+			orders
+	</select>
+	<!-- 대시보드 표시 주문 목록 -->
+	<select id="selectOrdersDashboard" parameterType="com.bada_admin.model.Orders" resultMap="orders">
+		SELECT
+			id, deposit_status, delivery_status, DATE_FORMAT(order_date, '%Y-%m-%d %h:%i') AS order_date
+		FROM
+			orders
+		ORDER BY
+			id DESC
+		LIMIT
+			0, 5
+	</select>
+	
 </mapper>

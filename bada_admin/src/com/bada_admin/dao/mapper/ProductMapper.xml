@@ -100,6 +100,17 @@
 		WHERE
 			ok_status='W'
 	</select>
+	<!-- 대시보드 표시 상품 목록 -->
+	<select id="selectProductDashboard" parameterType="com.bada_admin.model.Product" resultMap="product">
+		SELECT
+			id, product_name, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i') AS reg_date
+		FROM
+			product
+		ORDER BY
+			id DESC
+		LIMIT
+			0, 5
+	</select>
 	
 	<!-- INSERT -->
 	<!-- 회원 상품 -->

@@ -70,7 +70,7 @@ public class QnaServiceImpl implements QnaService {
 				throw new NullPointerException();
 			}
 		} catch (NullPointerException e) {
-			sqlSession.close();
+			sqlSession.rollback();
 			throw new Exception("답변할 문의가 없습니다.");
 		} catch (Exception e) {
 			sqlSession.rollback();
@@ -88,7 +88,7 @@ public class QnaServiceImpl implements QnaService {
 				throw new NullPointerException();
 			}
 		} catch (NullPointerException e) {
-			sqlSession.close();
+			sqlSession.rollback();
 			throw new Exception("수정할 문의가 없습니다.");
 		} catch (Exception e) {
 			sqlSession.rollback();
@@ -106,7 +106,7 @@ public class QnaServiceImpl implements QnaService {
 				throw new NullPointerException();
 			}
 		} catch (NullPointerException e) {
-			sqlSession.close();
+			sqlSession.rollback();
 			throw new Exception("삭제할 문의가 없습니다.");
 		} catch (Exception e) {
 			sqlSession.rollback();
@@ -114,6 +114,22 @@ public class QnaServiceImpl implements QnaService {
 		} finally {
 			sqlSession.commit();
 		}
+	}
+
+	@Override
+	public List<Qna> selectQnaDashboard(Qna qna) throws Exception {
+		List<Qna> result = null;
+		try {
+			result = sqlSession.selectList("QnaMapper.selectQnaDashboard", qna);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 문의 목록이 없습니다.");
+		} catch (Exception e) {
+			throw new Exception("문의 목록 조회에 실패했습니다.");
+		}
+		return result;
 	}
 
 }

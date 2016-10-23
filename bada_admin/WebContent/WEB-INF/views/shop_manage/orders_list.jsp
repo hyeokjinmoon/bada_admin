@@ -24,7 +24,7 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>주문내역</h1>
+                  <h1>주문목록</h1>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-hover">
@@ -35,18 +35,46 @@
                                 <th class="text-center" width="10%">판매자</th>
                                 <th class="text-center" width="10%">구매자</th>
                                 <th class="text-center" width="20%">주문날짜</th>
-                                <th class="text-center" width="15%">판매상태</th>
                             </tr>
                         </thead>
                         <tbody>
-                        	<c:forEach var="order" items="${orderList}">
+                        	<c:forEach var="orders" items="${ordersList}">
                         		<tr align="center">
-	                                <td class="subject">${order.product_name }</td>
-	                                <td><span class="text-info"><fmt:formatNumber value="${order.payment_price}" groupingUsed="true"/></span> 원</td>
-	                                <td>${order.seller_name}</td>
-	                                <td>${order.buyer_name }</td>
-	                                <td>${order.reg_date }</td>
-	                                <td>${order.product_status }</td>
+	                                <td class="subject">
+		                                <c:forEach var="cart" items="${orders.cartList }" varStatus="status">
+		                                	<c:choose>
+		                                		<c:when test="${status.index eq 0}">
+		                                			<c:if test="${status.last }">
+		                                				${cart.product_name }
+		                                			</c:if>
+		                                		</c:when>
+		                                		<c:otherwise>
+		                                			<c:if test="${status.last }">
+				                                		${cart.product_name } 외 ${status.index } 건	
+				                                	</c:if>
+		                                		</c:otherwise>
+		                                	</c:choose>
+		                                </c:forEach>
+		                            </td>
+	                                <td><span class="text-info"><fmt:formatNumber value="${orders.payment_price}" groupingUsed="true"/></span> 원</td>
+	                                <td>
+	                                	<c:forEach var="cart" items="${orders.cartList }" varStatus="status">
+		                                	<c:choose>
+		                                		<c:when test="${status.index eq 0}">
+		                                			<c:if test="${status.last }">
+		                                				${cart.seller_name }
+		                                			</c:if>
+		                                		</c:when>
+		                                		<c:otherwise>
+		                                			<c:if test="${status.last }">
+				                                		${cart.seller_name }
+				                                	</c:if>
+		                                		</c:otherwise>
+		                                	</c:choose>
+		                                </c:forEach>
+	                                </td>
+	                                <td>${orders.buyer_name}</td>
+	                                <td>${orders.order_date}</td>
 	                            </tr>
                         	</c:forEach>
                         </tbody>

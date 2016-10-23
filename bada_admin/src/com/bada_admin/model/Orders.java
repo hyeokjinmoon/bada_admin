@@ -1,5 +1,7 @@
 package com.bada_admin.model;
 
+import java.util.List;
+
 public class Orders {
 	private int id;
 	private String order_date;
@@ -13,7 +15,14 @@ public class Orders {
 	private int payment_price;
 	private int limitStart;
 	private int listCount;
+	private List<Cart> cartList;
 	
+	public List<Cart> getCartList() {
+		return cartList;
+	}
+	public void setCartList(List<Cart> cartList) {
+		this.cartList = cartList;
+	}
 	public String getBuyer_name() {
 		return buyer_name;
 	}
@@ -92,7 +101,8 @@ public class Orders {
 		return "Orders [id=" + id + ", order_date=" + order_date + ", buyer_id=" + buyer_id + ", buyer_name="
 				+ buyer_name + ", buyer_tel=" + buyer_tel + ", deposit_status=" + deposit_status + ", delivery_status="
 				+ delivery_status + ", buyer_addr=" + buyer_addr + ", payment_type=" + payment_type + ", payment_price="
-				+ payment_price + ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
+				+ payment_price + ", limitStart=" + limitStart + ", listCount=" + listCount + ", cartList=" + cartList
+				+ "]";
 	}
 	
 }
