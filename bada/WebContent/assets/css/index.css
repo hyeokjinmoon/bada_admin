@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+.top-menu {
+	position: fixed;
+	top:20px;
+	right:50px;
+}
+.cover {
+	position:fixed; 
+	top:50%; 
+	left:50%; 
+	margin-top:-200px; 
+	margin-left:-200px;
+}
+.logo {
+	font-size : 8em; 
+	color: #2372b5;
+}

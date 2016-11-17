@@ -1,0 +1,188 @@
+@CHARSET "UTF-8";
+body {
+    padding-top: 20px;
+}
+
+.side-menu {
+    position: fixed;
+    margin-top: 30px;
+}
+
+.list-title {
+    margin-top: 40px;
+}
+
+.dropdown-btn {
+    width: 110px !important;
+}
+
+.dropdown-toggle .caret {
+    position: absolute;
+    right: 10px;
+    top: calc(50% - 2px);
+}
+
+.side-menu .nav-side-menu>li>a:focus,
+.side-menu .nav-side-menu>li>a:hover {
+    color: #fff;
+    background: #2372b5;
+}
+
+.navbar-menu {
+    border-top: 1px solid #fff;
+}
+
+.side-menu .nav-side-menu>.active>a,
+.side-menu .nav-side-menu>.active>a:focus,
+.side-menu .nav-side-menu>.active>a:hover {
+    color: #fff;
+    background: #2372b5;
+}
+
+.search-bar {
+    width: 500px;
+}
+
+@media (max-width:767px) {
+    .side-menu {
+        display: none;
+    }
+    .top-input {
+        width: auto;
+    }
+}
+
+@media (min-width:768px) and (max-width:991px) {
+    ..top-input {
+        width: 300px !important;
+    }
+}
+@media (min-width:992px) {
+    .top-input {
+        width: 400px !important;
+    }
+}
+
+@media (min-width:768px) {
+    .navbar-nav {
+        display: none;
+    }
+}
+
+      /*상단바 시작*/
+.navbar-topbar {
+    background-color: #428bca;
+    border-color: #2372b5;
+}
+
+.navbar-topbar .navbar-brand {
+    color: #cdddeb;
+}
+
+.navbar-topbar .navbar-brand:focus,
+.navbar-topbar .navbar-brand:hover {
+    color: #fff;
+    background-color: transparent;
+}
+
+.navbar-topbar .navbar-text {
+    color: #cdddeb;
+}
+
+.navbar-topbar .navbar-nav>li>a {
+    color: #cdddeb;
+}
+
+.navbar-topbar .navbar-nav>li>a:focus,
+.navbar-topbar .navbar-nav>li>a:hover {
+    color: #fff;
+    background-color: #2372b5;
+}
+
+.navbar-topbar .navbar-nav>.active>a,
+.navbar-topbar .navbar-nav>.active>a:focus,
+.navbar-topbar .navbar-nav>.active>a:hover {
+    color: #fff;
+    background-color: #2372b5;
+}
+
+.navbar-topbar .navbar-nav>.disabled>a,
+.navbar-topbar .navbar-nav>.disabled>a:focus,
+.navbar-topbar .navbar-nav>.disabled>a:hover {
+    color: #ddd;
+    background-color: transparent;
+}
+
+.navbar-topbar .navbar-toggle {
+    border-color: #fff;
+}
+
+.navbar-topbar .navbar-toggle:focus,
+.navbar-topbar .navbar-toggle:hover {
+    background-color: #2372b5;
+}
+
+.navbar-topbar .navbar-toggle .icon-bar {
+    background-color: #fff;
+}
+
+.navbar-topbar .navbar-collapse,
+.navbar-topbar .navbar-form {
+    border-color: #fff;
+}
+
+.navbar-topbar .navbar-nav>.open>a,
+.navbar-topbar .navbar-nav>.open>a:focus,
+.navbar-topbar .navbar-nav>.open>a:hover {
+    color: #fff;
+    background-color: #2372b5;
+    ;
+}
+
+@media (max-width:767px) {
+    .navbar-topbar .navbar-nav .open .dropdown-menu>li>a {
+        color: #cdddeb;
+    }
+    .navbar-topbar .navbar-nav .open .dropdown-menu>li>a:focus,
+    .navbar-topbar .navbar-nav .open .dropdown-menu>li>a:hover {
+        color: #fff;
+        background-color: transparent;
+    }
+    .navbar-topbar .navbar-nav .open .dropdown-menu>.active>a,
+    .navbar-topbar .navbar-nav .open .dropdown-menu>.active>a:focus,
+    .navbar-topbar .navbar-nav .open .dropdown-menu>.active>a:hover {
+        color: #555;
+        background-color: #e7e7e7
+    }
+    .navbar-topbar .navbar-nav .open .dropdown-menu>.disabled>a,
+    .navbar-topbar .navbar-nav .open .dropdown-menu>.disabled>a:focus,
+    .navbar-topbar .navbar-nav .open .dropdown-menu>.disabled>a:hover {
+        color: #ddd;
+        background-color: transparent;
+    }
+}
+/*상단바 끝*/
+/** 반응형 메뉴 영역의 높이 제한 해제 */
+.navbar-fixed-top .navbar-collapse {
+	max-height: 100%;
+}
+td.content,
+td.subject {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+h4.subject,
+h5.subject {
+	max-width: 100px;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* autocomplete */
+.autocomplete-suggestions { border: 1px solid #3399FF; background: #FFF; overflow: auto; }
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }

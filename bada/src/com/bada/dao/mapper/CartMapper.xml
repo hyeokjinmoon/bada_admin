@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CartMapper">
+	<resultMap type="com.bada.model.Cart" id="cart">
+		<result property="id" column="id" />
+		<result property="product_name" column="product_name" />
+		<result property="list_price" column="list_price" />
+		<result property="sale_price" column="sale_price" />
+		<result property="product_img" column="product_img" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="seller" column="seller" /> <!-- 판매자 : 회원 = "M", 바다="B" -->
+		<result property="ok_status" column="ok_status" /> <!-- 승인 상태 : 승인="O", 승인대기="W", 거절="R" -->
+		<result property="product_status" column="product_status" /> <!-- 제품 상태 : 판매중="S", 판매대기="W", 판매완료="C", 판매거절="R" -->
+		<result property="seller_id" column="seller_id" />
+		<result property="seller_name" column="seller_name" />
+		<result property="category" column="category" /> <!-- 카테고리 : 미지정="E", 학문="S", 소설="N", 자기계발="D", 정기 간행물="M", 어린이 도서="C" -->
+		<result property="add_id" column="add_id" />
+		<result property="order_id" column="order_id" />
+		<result property="product_id" column="product_id" />
+		<result property="seller_user_id" column="seller_user_id" />
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 회원 장바구니 목록 -->
+	<select id="selectCartListByAddId" parameterType="com.bada.model.Cart" resultMap="cart">
+		SELECT
+			c.id, product_name, sale_price, product_img, DATE_FORMAT(c.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, seller, m.name AS seller_name, product_id, m.user_id AS seller_user_id, seller_id
+		FROM
+			cart c
+			INNER JOIN
+				member m
+			ON 
+				seller_id=m.id
+		WHERE
+			add_id=#{add_id} AND product_status='S'
+	</select>
+	<!-- 회원 구매 목록 -->
+	<select id="selectCartListOrder" parameterType="com.bada.model.Cart" resultMap="cart">
+		SELECT
+			c.id, product_name, sale_price, product_img, DATE_FORMAT(c.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, seller, m.name AS seller_name, product_id, m.user_id AS seller_user_id, seller_id
+		FROM
+			cart c
+			INNER JOIN
+				member m
+			ON 
+				seller_id=m.id
+		WHERE
+			add_id=#{add_id} AND order_id=#{order_id} AND product_status='S'
+	</select>
+	<!-- 주문내역 -->
+	<select id="selectCartByOrdersList" parameterType="com.bada.model.Cart" resultMap="cart">
+		SELECT
+			c.id, product_name, sale_price, product_img, seller, m.name AS seller_name, product_id, order_id, m.user_id AS seller_user_id, seller_id
+		FROM
+			cart c
+			INNER JOIN
+				member m
+			ON 
+				seller_id=m.id
+		WHERE
+			add_id=#{add_id} AND product_status='C'
+		ORDER BY
+			c.id DESC
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 장바구니 담기 -->
+	<insert id="insertCart" parameterType="com.bada.model.Cart" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			cart(
+				product_name, list_price, sale_price, product_img, reg_date, edit_date, seller, ok_status, product_status, seller_id, category, add_id, order_id, product_id
+			)
+		VALUES(
+			#{product_name}, #{list_price}, #{sale_price}, #{product_img}, now(), now(), #{seller}, #{ok_status}, #{product_status}, #{seller_id}, #{category}, #{add_id}, null, #{product_id}
+		)
+	</insert>
+	
+	<!-- UPDATE -->
+	<!-- 주문 하기 -->
+	<update id="updateCartByOrders" parameterType="com.bada.model.Cart">
+		UPDATE
+			cart
+		SET
+			order_id=#{order_id}
+		WHERE
+			id=#{id}
+	</update>
+	<!-- 결제하기 -->
+	<update id="updateCartByPayment" parameterType="com.bada.model.Cart">
+		UPDATE
+			cart
+		SET
+			product_status=#{product_status}
+		WHERE
+			id=#{id}
+	</update>
+	
+	<!-- DELETE -->
+	<!-- 장바구니 삭제 -->
+	<delete id="deleteCart" parameterType="com.bada.model.Cart">
+		DELETE FROM
+			cart
+		WHERE
+			id=#{id} AND product_status='S'
+	</delete>
+</mapper>

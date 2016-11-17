@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductMapper">
+	<resultMap type="com.bada.model.Product" id="product">
+		<result property="id" column="id" />
+		<result property="product_name" column="product_name" />
+		<result property="list_price" column="list_price" />
+		<result property="sale_price" column="sale_price" />
+		<result property="product_img" column="product_img" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="seller" column="seller" /> <!-- 판매자 : 회원="M", 바다="B" -->
+		<result property="ok_status" column="ok_status" /> <!-- 승인 상태 : 승인="O", 승인대기="W", 거절="R" -->
+		<result property="product_status" column="product_status" /> <!-- 제품 상태 : 판매중="S", 판매대기="W", 판매완료="C", 판매거절="R" -->
+		<result property="seller_id" column="seller_id" />
+		<result property="seller_name" column="seller_name" />
+		<result property="category" column="category" /> <!-- 카테고리 : 미지정="E", 학문="S", 소설="N", 자기계발="D", 정기 간행물="M", 어린이 도서="C" -->
+		<result property="seller_user_id" column="seller_user_id" />
+		<result property="keyword" column="keyword" />
+		<result property="value" column="value" />
+		
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 회원 판매 신청 내역 목록 -->
+	<select id="selectProductListByMember" parameterType="com.bada.model.Product" resultMap="product">
+		SELECT
+			id, product_name, DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, ok_status, product_status
+		FROM
+			product
+		WHERE
+			seller_id=#{seller_id}
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 회원 판매 신청 카운트 -->
+	<select id="selectProductCountByMember" parameterType="com.bada.model.Product" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			product
+		WHERE
+			seller_id=#{seller_id}
+	</select>
+	<!-- 판매 신청 상품 상세보기 -->
+	<select id="selectProductView" parameterType="com.bada.model.Product" resultMap="product">
+		SELECT
+			id, product_name, list_price, sale_price, product_img, DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, ok_status, product_status, category
+		FROM
+			product
+		WHERE
+			id=#{id} 
+	</select>
+	<!-- 판매중인 모든 상품 -->
+	<select id="selectProductSaleAll" parameterType="com.bada.model.Product" resultMap="product">
+		SELECT
+			p.id, product_name, sale_price, product_img, DATE_FORMAT(p.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, m.name AS seller_name, seller, m.user_id AS seller_user_id
+		FROM
+			product p
+			INNER JOIN
+				member m
+			ON
+				p.seller_id=m.id
+		WHERE
+			ok_status='O' AND product_status='S'
+		ORDER BY
+			p.id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 판매중인 모든 상품 카운트 -->
+	<select id="selectProductSaleAllCount" parameterType="com.bada.model.Product" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			product
+		WHERE
+			ok_status='O' AND product_status='S'
+	</select>
+	<!-- 카테고리별 판매중인 상품 -->
+	<select id="selectProductSaleCategory" parameterType="com.bada.model.Product" resultMap="product">
+		SELECT
+			p.id, product_name, sale_price, product_img, DATE_FORMAT(p.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, m.name AS seller_name, seller, m.user_id AS seller_user_id
+		FROM
+			product p
+			INNER JOIN
+				member m
+			ON
+				p.seller_id=m.id
+		<where>
+			ok_status='O' AND product_status='S'
+			<if test="category != null">
+				AND category=#{category}	
+			</if>
+			<if test="keyword != null">
+				AND product_name LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+		ORDER BY
+			p.id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 카테고리별 판매중인 상품 카운트 -->
+	<select id="selectProductSaleCategoryCount" parameterType="com.bada.model.Product" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			product
+		<where>
+			ok_status='O' AND product_status='S'
+			<if test="category != null">
+				AND category=#{category}	
+			</if>
+			<if test="keyword != null">
+				AND product_name LIKE CONCAT('%', #{keyword}, '%')
+			</if>
+		</where>
+	</select>
+	<!-- 상품 상세 -->
+	<select id="selectProductDetail" parameterType="com.bada.model.Product" resultMap="product"> 
+		SELECT
+			p.id, product_name, list_price, sale_price, product_img, DATE_FORMAT(p.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, 
+			m.name AS seller_name, product_status, seller_id, seller, m.user_id AS seller_user_id
+		FROM
+			product p
+			INNER JOIN
+				member m
+			ON
+				p.seller_id=m.id
+		WHERE
+			p.id=#{id}
+	</select>
+	<!-- 장바구니 담을 상품 조회 -->
+	<select id="selectProductCartInsert" parameterType="com.bada.model.Product" resultMap="product">
+		SELECT
+			id, product_name, list_price, sale_price, product_img, reg_date, edit_date, seller, ok_status, product_status, seller_id, category
+		FROM
+			product
+		WHERE
+			id=#{id} 
+	</select>
+	
+	<!-- 상품명 조회 -->
+	<select id="selectProductName" parameterType="com.bada.model.Product" resultType="hashmap">
+		SELECT
+			DISTINCT product_name AS value
+		FROM
+			product
+		WHERE
+			product_name LIKE CONCAT('%', #{keyword}, '%') AND product_status='S'
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 상품 판매 신청 -->
+	<insert id="insertProduct" parameterType="com.bada.model.Product" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			product(
+				product_name, list_price, sale_price, product_img, reg_date, edit_date, category, seller, ok_status, product_status, seller_id	
+			)
+		VALUES(
+			#{product_name}, #{list_price}, #{sale_price}, #{product_img}, now(), now(), #{category}, 'M', 'W', 'W', #{seller_id}
+		)
+	</insert>
+	
+	<!-- UPDATE -->
+	<!-- 결제하기 -->
+	<update id="updateProductByPayment" parameterType="com.bada.model.Product">
+		UPDATE
+			product
+		SET
+			product_status=#{product_status}
+		WHERE
+			id=#{id}
+	</update>
+	
+	<!-- DELETE -->
+	<!-- 상품 삭제 -->
+	<delete id="deleteProduct" parameterType="com.bada.model.Product">
+		DELETE FROM
+			product
+		WHERE
+			id=#{id}
+	</delete>
+	
+</mapper>

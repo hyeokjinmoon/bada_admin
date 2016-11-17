@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="OrdersMapper">
+	<resultMap type="com.bada.model.Orders" id="orders">
+		<result property="id" column="id" />
+		<result property="order_date" column="order_date" />
+		<result property="buyer_id" column="buyer_id" />
+		<result property="buyer_name" column="buyer_name" />
+		<result property="buyer_tel" column="buyer_tel" />
+		<result property="buyer_addr" column="buyer_addr" />
+		<result property="deposit_status" column="deposit_status" /> <!-- 입금 상태 : 결제대기="W", 결제완료="C", 결제취소="E" -->
+		<result property="delivery_status" column="delivery_status" /> <!-- 배송상태 : 배송대기="W", 배송중="S", 배송완료="C" -->
+		<result property="payment_type" column="payment_type" /> <!-- 결제 종류 : 현금결제="P", 카드결제="C" -->
+		<result property="payment_price" column="payment_price" />
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 주문 내역 -->
+	<select id="selectOrders" parameterType="com.bada.model.Orders" resultMap="orders">
+		SELECT 
+			id, DATE_FORMAT(order_date, '%Y-%m-%d %H:%i:%s') AS order_date, deposit_status, delivery_status, payment_type, payment_price
+		FROM
+			orders
+		WHERE
+			buyer_id=#{buyer_id}
+		ORDER BY
+			id DESC
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 주문하기 -->
+	<insert id="insertOrders" parameterType="com.bada.model.Orders" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			orders(
+				order_date, buyer_id, buyer_name, buyer_tel, buyer_addr, deposit_status, delivery_status, payment_type, payment_price	
+			)
+		VALUES(
+			now(), #{buyer_id}, #{buyer_name}, #{buyer_tel}, #{buyer_addr}, #{deposit_status}, #{delivery_status}, #{payment_type}, #{payment_price}
+		)
+	</insert>
+	
+	<!-- UPDATE -->
+	<!-- 결제하기 -->
+	<update id="updateOrdersByPayment" parameterType="com.bada.model.Orders">
+		UPDATE 
+			orders
+		SET
+			order_date=now(), buyer_id=#{buyer_id}, buyer_name=#{buyer_name}, buyer_tel=#{buyer_tel}, buyer_addr=#{buyer_addr}, 
+			deposit_status=#{deposit_status}, delivery_status='W', payment_type=#{payment_type}, payment_price=#{payment_price}
+		WHERE
+			id=#{id}
+	</update>
+	
+</mapper>

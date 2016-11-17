@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeFaqMapper">
+	<resultMap type="com.bada.model.NoticeFaq" id="notice_faq">
+		<result property="id" column="id" />
+		<result property="category" column="category" />
+		<result property="subject" column="subject" />
+		<result property="content" column="content" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="admin_id" column="admin_id" />
+		<result property="admin_name" column="admin_name" />
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 게시물 리스트 조회 -->
+	<select id="selectNoticeFaqList" parameterType="com.bada.model.NoticeFaq" resultMap="notice_faq">
+		SELECT
+			n.id, category, subject, DATE_FORMAT(n.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, m.name AS admin_name
+		FROM
+			noti_faq n
+		INNER JOIN
+			member m
+		ON
+			n.admin_id=m.id
+		WHERE
+			category=#{category}
+		ORDER BY
+			n.id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 총 게시물 카운트 -->
+	<select id="selectNoticeFaqCount" parameterType="com.bada.model.NoticeFaq" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			noti_faq
+		WHERE
+			category=#{category}
+	</select>
+	<!-- 게시물 상세 보기 -->
+	<select id="selectNoticeFaqView" parameterType="com.bada.model.NoticeFaq" resultMap="notice_faq">
+		SELECT
+			n.id, category, subject, content, DATE_FORMAT(n.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, m.name AS admin_name
+		FROM
+			noti_faq n
+		INNER JOIN
+			member m
+		ON
+			n.admin_id=m.id
+		WHERE
+			category=#{category} AND n.id=#{id}
+	</select>
+	
+</mapper>

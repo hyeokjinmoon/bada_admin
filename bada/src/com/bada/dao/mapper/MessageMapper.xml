@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MessageMapper">
+	<resultMap type="com.bada.model.Message" id="message">
+		<result property="id" column="id" />
+		<result property="content" column="content" />
+		<result property="reg_date" column="reg_date" />
+		<result property="sender_id" column="sender_id" />
+		<result property="receiver_id" column="receiver_id" />
+		<result property="sender_name" column="sender_name"/>
+		<result property="receiver_name" column="receiver_name" />
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 보낸 쪽지 목록 검색 -->
+	<select id="selectSendMessageList" parameterType="com.bada.model.Message" resultMap="message">
+		SELECT 
+			m.id AS id, content, DATE_FORMAT(m.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, 
+			sender_id, receiver_id, m2.name AS receiver_name
+		FROM
+			message m
+			INNER JOIN
+				member m2
+			ON
+				receiver_id=m2.id
+		WHERE 
+			sender_id=#{sender_id}
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 보낸 쪽지 카운트 -->
+	<select id="selectSendMessageCount" parameterType="com.bada.model.Message" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			message
+		WHERE
+			sender_id=#{sender_id}
+	</select>
+	<!-- 받은 쪽지 목록 검색 -->
+	<select id="selectReceiveMessageList" parameterType="com.bada.model.Message" resultMap="message">
+		SELECT 
+			m.id AS id, content, DATE_FORMAT(m.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, 
+			sender_id, receiver_id, m1.name AS sender_name
+		FROM
+			message m
+			INNER JOIN 
+				member m1
+			ON
+				sender_id=m1.id
+		WHERE 
+			receiver_id=#{receiver_id}
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 받은 쪽지 카운트 -->
+	<select id="selectReceiveMessageCount" parameterType="com.bada.model.Message" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			message
+		WHERE
+			receiver_id=#{receiver_id}
+	</select>
+	<!-- 쪽지 상세 보기 -->
+	<select id="selectMessage" parameterType="com.bada.model.Message" resultMap="message">
+		SELECT
+			m.id AS id, m.content AS content, DATE_FORMAT(m.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, 
+			m.sender_id AS sender_id, m.receiver_id AS receiver_id, m1.name AS sender_name, m2.name AS receiver_name
+		FROM
+			message m
+			INNER JOIN 
+				member m1
+			ON
+				m.sender_id=m1.id
+			INNER JOIN
+				member m2
+			ON
+				m.receiver_id=m2.id
+		WHERE
+			m.id=#{id}
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 쪽지 보내기 -->
+	<insert id="insertMessage" parameterType="com.bada.model.Message">
+		INSERT INTO
+			message(
+				content, sender_id, receiver_id, reg_date
+			)
+		VALUES(
+			#{content}, #{sender_id}, #{receiver_id}, now()
+		)
+		
+	</insert>
+	
+	<!-- DELETE -->
+	<!-- 쪽지 삭제 -->
+	<delete id="deleteMessage" parameterType="com.bada.model.Message">
+		DELETE FROM
+			message
+		WHERE
+			id=#{id}
+	</delete>
+</mapper>

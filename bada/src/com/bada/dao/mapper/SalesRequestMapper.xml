@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="SalesRequestMapper">
+	<resultMap type="com.bada.model.SalesRequest" id="sales_req">
+		<result property="id" column="id" />
+		<result property="sales_type" column="sales_type" /> <!-- 판매 종류 : 단품="S", 대량="B" -->
+		<result property="book_list" column="book_list" />
+		<result property="reg_date" column="reg_date" />
+		<result property="edit_date" column="edit_date" />
+		<result property="pickup_date" column="pickup_date" />
+		<result property="member_id" column="member_id" />
+		<result property="sales_ok" column="sales_ok" /> <!-- 바다에 판매 승인 : 승인대기="W", 승인="O", 거절="R" -->
+		<result property="pickup_addr" column="pickup_addr" />
+	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 판매 신청 목록 -->
+	<select id="selectSalesRequestList" parameterType="com.bada.model.SalesRequest" resultMap="sales_req">
+		SELECT
+			id, sales_type, book_list, pickup_date, reg_date, sales_ok
+		FROM
+			sales_req
+		WHERE
+			member_id=#{member_id}
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 판매 신청 카운트 -->
+	<select id="selectSalesRequestCount" parameterType="com.bada.model.SalesRequest" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			sales_req
+		WHERE
+			member_id=#{member_id}
+	</select>
+	<!-- 판매 신청 상세 -->
+	<select id="selectSaleRequestView" parameterType="com.bada.model.SalesRequest" resultMap="sales_req">
+		SELECT
+			id, sales_type, book_list, pickup_date, reg_date, sales_ok, pickup_addr
+		FROM
+			sales_req
+		WHERE
+			id=#{id}
+	</select>
+	
+	<!-- INSERT -->
+	<!-- 판매 신청 입력 -->
+	<insert id="insertSalesRequest" parameterType="com.bada.model.SalesRequest" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+			sales_req(
+				sales_type, book_list, reg_date, edit_date, pickup_date, member_id, sales_ok, pickup_addr	
+			)
+		VALUES(
+			#{sales_type}, #{book_list}, now(), now(), #{pickup_date}, #{member_id}, 'W', #{pickup_addr}
+		)	
+	</insert>
+	
+	<!-- UPDATE -->
+	<!-- 판매 신청 수정 -->
+	<update id="updateSalesRequest" parameterType="com.bada.model.SalesRequest">
+		UPDATE
+			sales_req
+		SET
+			sales_type=#{sales_type}, book_list=#{book_list}, edit_date=now(), pickup_date=#{pickup_date}, pickup_addr=#{pickup_addr}
+		WHERE
+			id=#{id} AND member_id=#{member_id}
+	</update>
+	
+	<!-- DELETE -->
+	<!-- 판매 신청 삭제 -->
+	<delete id="deleteSalesRequest" parameterType="com.bada.model.SalesRequest">
+		DELETE FROM
+			sales_req
+		WHERE
+			id=#{id}
+	</delete>
+	
+</mapper>
