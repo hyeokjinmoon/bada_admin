@@ -45,12 +45,19 @@
 		                                	<c:choose>
 		                                		<c:when test="${status.index eq 0}">
 		                                			<c:if test="${status.last }">
-		                                				${cart.product_name }
+		                                				<c:url var="ordersUrl" value="/shop_manage/orders_view.do">
+		                                					<c:param name="id" value="${orders.id}" />
+		                                				</c:url>
+		                                				<a href="${ordersUrl}">${cart.product_name }</a>
 		                                			</c:if>
 		                                		</c:when>
 		                                		<c:otherwise>
 		                                			<c:if test="${status.last }">
-				                                		${cart.product_name } 외 ${status.index } 건	
+				                                		<c:url var="ordersUrl" value="/shop_manage/orders_view.do">
+		                                					<c:param name="id" value="${orders.id}" />
+		                                				</c:url>
+		                                				<a href="${ordersUrl}">${cart.product_name } 외 ${status.index } 건</a>
+				                                		
 				                                	</c:if>
 		                                		</c:otherwise>
 		                                	</c:choose>
@@ -150,6 +157,24 @@
         </div>
     </div>
     <!-- 컨테이너 끝 -->
+    <script type="text/javascript">
+		$(function(){
+			$("#month_change").on('change', function(e){
+				e.preventDefault();
+				var month = $(this).find("option:selected").val();
+				console.log(month);
+				if(!month) {
+					return false;
+				}
+				
+				$.get("orders_before_month.do", {
+					month : month
+				}, function(req){
+					console.log(req.ordersList[7].id);
+				});
+			});
+		});
+	</script>
 </body>
 
 </html>

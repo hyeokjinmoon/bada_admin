@@ -68,4 +68,74 @@ public class CartServiceImpl implements CartService {
 		return result;
 	}
 
+	@Override
+	public List<Cart> selectTradeList(Cart cart) throws Exception {
+		List<Cart> result = null;
+		try {
+			result = sqlSession.selectList("CartMapper.selectTradeList", cart);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회할 거래 목록이 없습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("거래 목록 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public int selectTradeCount(Cart cart) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.selectOne("CartMapper.selectTradeCount", cart);
+			if(result == 0){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 거래수가 없습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			
+			throw new Exception("거래수 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public List<Cart> selectTradeListInOrders(Cart cart) throws Exception {
+		List<Cart> result = null;
+		try {
+			result = sqlSession.selectList("CartMapper.selectTradeListInOrders", cart);
+			if(result == null){
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회할 거래 목록이 없습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("거래 목록 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public void deleteCartUserOut(Cart cart) throws Exception {
+		try {
+			int result = sqlSession.delete("CartMapper.deleteCartUserOut", cart);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제된 장바구니가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("장바구니 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
 }

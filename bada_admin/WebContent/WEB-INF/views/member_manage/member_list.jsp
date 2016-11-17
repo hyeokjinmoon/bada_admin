@@ -67,7 +67,7 @@
                         </tbody>
                     </table>
 				</div>
-				
+				<a href="${pageContext.request.contextPath}/member_manage/delete_member_sp.do" class="btn btn-danger">삭제 대기 회원 삭제</a>
 				<!-- 페이지 번호 시작 -->
 				<nav class="text-center">
 					<ul class="pagination">

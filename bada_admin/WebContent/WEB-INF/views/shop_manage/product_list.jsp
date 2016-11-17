@@ -31,9 +31,9 @@
                             <tr>
                                 <th class="text-center" width="20%">상품명</th>
                                 <th class="text-center" width="10%">판매자</th>
-                                <th class="text-center" width="15%">정가</th>
-                                <th class="text-center" width="15%">판매가</th>
-                                <th class="text-center" width="15%">등록일</th>
+                                <th class="text-center" width="10%">정가</th>
+                                <th class="text-center" width="10%">판매가</th>
+                                <th class="text-center" width="25%">등록일</th>
                                 <th class="text-center" width="15%">승인상태</th>
                                 <th class="text-center" width="10%">판매상태</th>
                              </tr>

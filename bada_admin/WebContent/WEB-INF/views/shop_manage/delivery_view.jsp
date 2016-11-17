@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
@@ -20,37 +23,50 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>배송 상황</h1>
+                  <h1>배송 현황 상세</h1>
                 </div>
                 <table class="table table-bordered">
 					<tr>
-						<th class="info text-center" width="100">상품명</th>
-						<td>자바의 정석</td>
+						<th class="info text-center" width="100">주문자 이름</th>
+						<td>${orders.buyer_name}</td>
 					</tr>
 					<tr>
-						<th class="info text-center">판매자</th>
-						<td>유아인</td>
+						<th class="info text-center">주문자 연락처</th>
+						<td>${orders.buyer_tel}</td>
 					</tr>
 					<tr>
-						<th class="info text-center">구매자</th>
-						<td>문혁진</td>
+						<th class="info text-center">주문자 주소</th>
+						<td>${orders.buyer_addr}</td>
 					</tr>
 					<tr>
-						<th class="info text-center">금액</th>
-						<td>50,000 원</td>
+						<th class="info text-center">주문금액</th>
+						<td><span class="text-danger"><fmt:formatNumber value="${orders.payment_price}" groupingUsed="true"/></span> 원</td>
 					</tr>
 					<tr>
-						<th class="info text-center">거래일시</th>
-						<td>2016-10-10 12:00:00</td>
+						<th class="info text-center">주문일시</th>
+						<td>${orders.order_date }</td>
 					</tr>
 					<tr>
 						<th class="info text-center">배송상황</th>
-						<td>배송중</td>
+						<td>
+							<c:choose>
+                             	<c:when test="${orders.delivery_status == 'S'}">
+                             		<span class="text-success">배송중</span>
+                             	</c:when>
+                             	<c:when test="${orders.delivery_status == 'W'}">
+                             		<span class="text-warning">배송대기</span>
+                             	</c:when>
+                             	<c:when test="${orders.delivery_status == 'C'}">
+                            		<span class="text-danger">배송완료</span>
+                            	</c:when>
+                             </c:choose>
+						</td>
 					</tr>
 				</table>
-				<div class="pull-right">
-					<a href="#" class="btn btn-primary">목록</a>
-					<a href="#" class="btn btn-danger">삭제</a>
+				<div class="text-right">
+					<a href="${pageContext.request.contextPath}/shop_manage/delivery_list.do" class="btn btn-primary">목록</a>
+					<a href="${pageContext.request.contextPath}/shop_manage/delivery_update.do?id=${orders.id}&delivery_status=S" class="btn btn-warning">배송시작</a>
+					<a href="${pageContext.request.contextPath}/shop_manage/delivery_update.do?id=${orders.id}&delivery_status=C" class="btn btn-danger">배송완료</a>
 				</div>
 				<%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->

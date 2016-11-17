@@ -28,4 +28,8 @@ public interface ProductService {
 	
 	public List<Product> selectProductDashboard(Product product) throws Exception;
 	
+	public void deleteProduct(Product product) throws Exception;
+	
+	public void deleteProductUserOut(Product product) throws Exception;
+	
 }

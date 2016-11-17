@@ -135,4 +135,72 @@ public class MemberServiceImpl implements MemberService {
 		return result;
 	}
 
+	@Override
+	public int deleteMember(Member member) throws Exception {
+		int result = 0;
+		try {
+			result = sqlSession.delete("MemberMapper.deleteMember", member);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제할 회원 정보가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			e.printStackTrace();
+			throw new Exception("회원 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<Integer> selectDeleteMember(Member member) throws Exception {
+		List<Integer> result = null;
+		try {
+			result = sqlSession.selectList("MemberMapper.selectDeleteMember", member);
+			if(result == null) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			throw new Exception("조회된 삭제 회원 목록이 없습니다.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("삭제 회원 목록 조회에 실패했습니다.");
+		}
+		return result;
+	}
+
+	@Override
+	public void deleteForce(Member member) throws Exception {
+		
+		try {
+			int result = sqlSession.delete("MemberMapper.deleteForce", member);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제할 회원 정보가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			e.printStackTrace();
+			throw new Exception("회원 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteMemberSP(Member member) throws Exception {
+		try {
+			sqlSession.selectOne("MemberMapper.deleteMemberSP", member);
+		} catch (Exception e) {
+			throw new Exception();
+		}
+	}
+
 }

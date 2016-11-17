@@ -19,4 +19,8 @@ public interface QnaService {
 	public void deleteQna(Qna qna) throws Exception;
 	
 	public List<Qna> selectQnaDashboard(Qna qna) throws Exception;
+	
+	public void updateQnaUserOut(Qna qna) throws Exception;
+	
+	public void deleteQnaUserOut(Qna qna) throws Exception;
 }

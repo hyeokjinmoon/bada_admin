@@ -14,25 +14,25 @@ import org.apache.logging.log4j.Logger;
 import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
 import com.bada_admin.helper.WebHelper;
-import com.bada_admin.model.Message;
-import com.bada_admin.service.MessageService;
-import com.bada_admin.service.impl.MessageServiceImpl;
+import com.bada_admin.model.SalesRequest;
+import com.bada_admin.service.SalesRequestService;
+import com.bada_admin.service.impl.SalesRequestServiceImpl;
 
-@WebServlet("/member_manage/message_delete.do")
-public class MessageDelete extends BaseController {
+@WebServlet("/member_manage/sales_request_view.do")
+public class SalesRequestView extends BaseController {
 
-	private static final long serialVersionUID = 360282813236103165L;
+	private static final long serialVersionUID = 3212331174454253301L;
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
-	MessageService messageService;
+	SalesRequestService salesRequestService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		web = WebHelper.getInstance(request, response);
-		messageService = new MessageServiceImpl(sqlSession, logger);
+		salesRequestService = new SalesRequestServiceImpl(sqlSession, logger);
 		
 		if(web.getSession("loginInfo") == null) {
 			sqlSession.close();
@@ -42,11 +42,19 @@ public class MessageDelete extends BaseController {
 		
 		int id = web.getInt("id");
 		
-		Message message = new Message();
-		message.setId(id);
+		if(id == 0) {
+			sqlSession.close();
+			web.redirect(null, "조회할 판매 신청이 없습니다.");
+			return null;
+		}
+		
+		SalesRequest salesRequest = new SalesRequest();
+		salesRequest.setId(id);
+		
+		SalesRequest salesRequestView = null;
 		
 		try {
-			messageService.deleteMessage(message);
+			salesRequestView = salesRequestService.selectSalesRequestView(salesRequest);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -54,10 +62,9 @@ public class MessageDelete extends BaseController {
 			sqlSession.close();
 		}
 		
-		String url = web.getRootPath() + "/member_manage/message_list.do";
-		web.redirect(url, "삭제되었습니다.");
+		request.setAttribute("salesRequest", salesRequestView);
 		
-		return null;
+		return "member_manage/sales_request_view";
 	}
 
 }

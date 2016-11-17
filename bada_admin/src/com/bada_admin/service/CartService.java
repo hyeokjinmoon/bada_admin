@@ -11,4 +11,12 @@ public interface CartService {
 	public int selectOrderCount(Cart cart) throws Exception;
 	
 	public List<Cart> selectCartInOrdersList(Cart cart) throws Exception;
+	
+	public List<Cart> selectTradeList(Cart cart) throws Exception;
+	
+	public int selectTradeCount(Cart cart) throws Exception;
+	
+	public List<Cart> selectTradeListInOrders(Cart cart) throws Exception;
+	
+	public void deleteCartUserOut(Cart cart) throws Exception;
 }

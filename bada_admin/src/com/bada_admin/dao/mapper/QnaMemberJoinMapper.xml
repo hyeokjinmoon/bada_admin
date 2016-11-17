@@ -20,7 +20,7 @@
 	<!-- 문의 리스트 검색 -->
 	<select id="selectQnaMemberJoinList" parameterType="com.bada_admin.model.QnaMemberJoin" resultMap="qna_member_join">
 		SELECT
-			q.id AS id, q.subject AS subject, q.req_type AS req_type, q.answer_status AS answer_status, q.answer_id AS answer_id,  DATE_FORMAT(q.reg_date, '%Y-%m-%d %h:%i') AS reg_date, m.name AS request_name
+			q.id AS id, q.subject AS subject, q.req_type AS req_type, q.answer_status AS answer_status, q.answer_id AS answer_id,  DATE_FORMAT(q.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, m.name AS request_name
 		FROM
 			qna q
 		INNER JOIN 
@@ -36,7 +36,7 @@
 	<select id="selectQnaMemberJoin" parameterType="com.bada_admin.model.QnaMemberJoin" resultMap="qna_member_join">
 		SELECT
 			q.id AS id, q.subject AS subject, q.content AS content, q.req_type AS req_type, q.answer AS answer, q.answer_status AS answer_status, 
-			DATE_FORMAT(q.reg_date, '%Y-%m-%d %h:%i') AS reg_date, DATE_FORMAT(q.edit_date, '%Y-%m-%d %h:%i') AS edit_date, 
+			DATE_FORMAT(q.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, DATE_FORMAT(q.edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date, 
 			q.request_id AS request_id, m.name AS request_name, q.answer_id AS answer_id
 			<if test="answer_id != 0">
 			, m1.name AS answer_name

@@ -14,25 +14,25 @@ import org.apache.logging.log4j.Logger;
 import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
 import com.bada_admin.helper.WebHelper;
-import com.bada_admin.model.Message;
-import com.bada_admin.service.MessageService;
-import com.bada_admin.service.impl.MessageServiceImpl;
+import com.bada_admin.model.Member;
+import com.bada_admin.service.MemberService;
+import com.bada_admin.service.impl.MemberServiceImpl;
 
-@WebServlet("/member_manage/message_delete.do")
-public class MessageDelete extends BaseController {
+@WebServlet("/member_manage/force_delete.do")
+public class MemberForceDelete extends BaseController {
 
-	private static final long serialVersionUID = 360282813236103165L;
+	private static final long serialVersionUID = 1496755000667947148L;
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
-	MessageService messageService;
+	MemberService memberService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		web = WebHelper.getInstance(request, response);
-		messageService = new MessageServiceImpl(sqlSession, logger);
+		memberService = new MemberServiceImpl(sqlSession, logger);
 		
 		if(web.getSession("loginInfo") == null) {
 			sqlSession.close();
@@ -41,12 +41,17 @@ public class MessageDelete extends BaseController {
 		}
 		
 		int id = web.getInt("id");
+		if(id == 0) {
+			sqlSession.close();
+			web.redirect(null, "회원번호가 없습니다.");
+			return null;
+		}
 		
-		Message message = new Message();
-		message.setId(id);
+		Member member = new Member();
+		member.setId(id);
 		
 		try {
-			messageService.deleteMessage(message);
+			memberService.deleteForce(member);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -54,8 +59,7 @@ public class MessageDelete extends BaseController {
 			sqlSession.close();
 		}
 		
-		String url = web.getRootPath() + "/member_manage/message_list.do";
-		web.redirect(url, "삭제되었습니다.");
+		web.redirect(web.getRootPath() + "/member_manage/member_list.do", "삭제되었습니다.");
 		
 		return null;
 	}

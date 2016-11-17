@@ -18,8 +18,8 @@
 	<!-- 문의 리스트 검색 -->
 	<select id="selectQnaList" parameterType="com.bada_admin.model.Qna" resultMap="qna">
 		SELECT
-			id, subject, req_type, content, answer, answer_status, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i') AS reg_date, 
-			DATE_FORMAT(edit_date, '%Y-%m-%d %h:%i') AS edit_date, request_id, answer_id
+			id, subject, req_type, content, answer, answer_status, DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, 
+			DATE_FORMAT(edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date, request_id, answer_id
 		FROM
 			qna
 		ORDER BY
@@ -37,7 +37,7 @@
 	<!-- 대시보드 표시 문의 목록 -->
 	<select id="selectQnaDashboard" parameterType="com.bada_admin.model.Qna" resultMap="qna">
 		SELECT
-			id, subject, DATE_FORMAT(reg_date, '%Y-%m-%d %h:%i') AS reg_date
+			id, subject, DATE_FORMAT(reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date
 		FROM
 			qna
 		ORDER BY
@@ -77,6 +77,15 @@
 		WHERE
 			id=#{id}
 	</update>
+	<!-- 회원 탈퇴시 변경해야할 질문 -->
+	<update id="updateQnaUserOut" parameterType="com.bada_admin.model.Qna">
+		UPDATE
+			qna
+		SET
+			answer_id=null
+		WHERE
+			request_id=#{request_id}
+	</update>
 	
 	<!-- DELETE -->
 	<!-- 문의 삭제 -->
@@ -85,6 +94,13 @@
 			qna
 		WHERE
 			id=#{id}
+	</delete>
+	<!-- 회원 탈퇴시 삭제해야할 문의 -->
+	<delete id="deleteQnaUserOut" parameterType="com.bada_admin.model.Qna">
+		DELETE FROM
+			qna
+		WHERE
+			request_id=#{request_id}
 	</delete>
 	
 </mapper>

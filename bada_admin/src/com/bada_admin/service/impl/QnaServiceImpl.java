@@ -132,4 +132,40 @@ public class QnaServiceImpl implements QnaService {
 		return result;
 	}
 
+	@Override
+	public void updateQnaUserOut(Qna qna) throws Exception {
+		try {
+			int result = sqlSession.update("QnaMapper.updateQnaUserOut", qna);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("수정할 문의가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("문의 답변 수정에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteQnaUserOut(Qna qna) throws Exception {
+		try {
+			int result = sqlSession.delete("QnaMapper.deleteQnaUserOut", qna);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제할 문의가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("문의 답변 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
 }

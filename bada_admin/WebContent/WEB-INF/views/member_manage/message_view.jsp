@@ -81,7 +81,7 @@
 				<div class="text-right">
 					<a href="${pageContext.request.contextPath}/member_manage/message_list.do" class="btn btn-primary">목록</a>
 					<a href="${pageContext.request.contextPath}/member_manage/message_write.do?id=${readMessage.sender_id}" class="btn btn-info">답장보내기</a>
-					<a href="#" class="btn btn-danger">삭제</a>
+					<a href="${pageContext.request.contextPath}/member_manage/message_delete.do?id=${readMessage.id}" class="btn btn-danger">삭제</a>
 				</div>
 				<%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->

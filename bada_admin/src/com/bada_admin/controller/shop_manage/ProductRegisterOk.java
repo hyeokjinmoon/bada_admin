@@ -61,6 +61,7 @@ public class ProductRegisterOk extends BaseController {
 		String product_name = paramMap.get("product_name");
 		String list_price = paramMap.get("list_price");
 		String sale_price = paramMap.get("sale_price");
+		String category = paramMap.get("category");
 		
 		if(!regex.isValue(product_name)) {
 			sqlSession.close();
@@ -87,6 +88,11 @@ public class ProductRegisterOk extends BaseController {
 			web.redirect(null, "숫자만 입력가능합니다.");
 			return null;
 		}
+		if(!regex.isValue(category)) {
+			sqlSession.close();
+			web.redirect(null, "카테고리를 선택해주세요.");
+			return null;
+		}
 
 		logger.debug("seller_id : " + seller_id);
 		logger.debug("product_name : " + product_name);
@@ -106,7 +112,7 @@ public class ProductRegisterOk extends BaseController {
 		product.setSale_price(Integer.parseInt(sale_price));
 		product.setSeller_id(seller_id);
 		product.setProduct_img(product_img);
-		
+		product.setCategory(category);
 		try {
 			productService.insertProductBada(product);
 		} catch (Exception e) {

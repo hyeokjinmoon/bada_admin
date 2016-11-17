@@ -25,12 +25,22 @@
             <form class="form-login" method="post" action="${pageContext.request.contextPath}/login_ok.do">
                 <h2 class="form-login-heading text-center">BaDa ADMIN</h2>
                 <label for="user_id" class="sr-only">아이디</label>
-                <input type="text" name="user_id" id="user_id" class="form-control" placeholder="아이디">
+                <input type="text" name="user_id" id="user_id" class="form-control" placeholder="아이디" autofocus required>
                 <label for="user_pw" class="sr-only">비밀번호</label>
-                <input type="password" name="user_pw" id="user_pw" class="form-control" placeholder="비밀번호">
+                <input type="password" name="user_pw" id="user_pw" class="form-control" placeholder="비밀번호" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit">로그인</button>
             </form>
 		</div>
         <!-- 컨테이너 끝 -->
+        <!-- google analytics -->
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	
+	ga('create', 'UA-85741327-1', 'auto');
+	ga('send', 'pageview');
+</script>
     </body>
 </html>

@@ -17,7 +17,14 @@ public class Member {
 	private String is_active;
 	private int limitStart;
 	private int listCount;
+	private int result;
 	
+	public int getResult() {
+		return result;
+	}
+	public void setResult(int result) {
+		this.result = result;
+	}
 	public String getIs_active() {
 		return is_active;
 	}
@@ -121,7 +128,7 @@ public class Member {
 				+ email + ", tel=" + tel + ", postcode=" + postcode + ", addr1=" + addr1 + ", addr2=" + addr2
 				+ ", profile_img=" + profile_img + ", reg_date=" + reg_date + ", edit_date=" + edit_date + ", is_admin="
 				+ is_admin + ", is_active=" + is_active + ", limitStart=" + limitStart + ", listCount=" + listCount
-				+ "]";
+				+ ", result=" + result + "]";
 	}
 	
 }

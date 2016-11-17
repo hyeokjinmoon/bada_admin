@@ -15,7 +15,14 @@ public class Product {
 	private int limitStart;
 	private int listCount;
 	private String seller_name;
+	private String category;
 	
+	public String getCategory() {
+		return category;
+	}
+	public void setCategory(String category) {
+		this.category = category;
+	}
 	public String getSeller_name() {
 		return seller_name;
 	}
@@ -106,7 +113,7 @@ public class Product {
 				+ sale_price + ", product_img=" + product_img + ", reg_date=" + reg_date + ", edit_date=" + edit_date
 				+ ", seller=" + seller + ", ok_status=" + ok_status + ", product_status=" + product_status
 				+ ", seller_id=" + seller_id + ", limitStart=" + limitStart + ", listCount=" + listCount
-				+ ", seller_name=" + seller_name + "]";
+				+ ", seller_name=" + seller_name + ", category=" + category + "]";
 	}
 	
 }

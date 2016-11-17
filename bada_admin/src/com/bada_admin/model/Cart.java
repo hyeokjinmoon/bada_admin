@@ -18,7 +18,14 @@ public class Cart {
 	private int limitStart;
 	private int listCount;
 	private int payment_price;
+	private int add_id;
 	
+	public int getAdd_id() {
+		return add_id;
+	}
+	public void setAdd_id(int add_id) {
+		this.add_id = add_id;
+	}
 	public int getLimitStart() {
 		return limitStart;
 	}
@@ -130,7 +137,7 @@ public class Cart {
 				+ ", seller=" + seller + ", ok_status=" + ok_status + ", seller_id=" + seller_id + ", seller_name="
 				+ seller_name + ", product_status=" + product_status + ", order_id=" + order_id + ", buyer_name="
 				+ buyer_name + ", limitStart=" + limitStart + ", listCount=" + listCount + ", payment_price="
-				+ payment_price + "]";
+				+ payment_price + ", add_id=" + add_id + "]";
 	}
 	
 }

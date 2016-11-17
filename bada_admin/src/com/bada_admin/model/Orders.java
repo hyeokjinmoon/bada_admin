@@ -16,7 +16,14 @@ public class Orders {
 	private int limitStart;
 	private int listCount;
 	private List<Cart> cartList;
+	private int month;
 	
+	public int getMonth() {
+		return month;
+	}
+	public void setMonth(int month) {
+		this.month = month;
+	}
 	public List<Cart> getCartList() {
 		return cartList;
 	}
@@ -102,7 +109,7 @@ public class Orders {
 				+ buyer_name + ", buyer_tel=" + buyer_tel + ", deposit_status=" + deposit_status + ", delivery_status="
 				+ delivery_status + ", buyer_addr=" + buyer_addr + ", payment_type=" + payment_type + ", payment_price="
 				+ payment_price + ", limitStart=" + limitStart + ", listCount=" + listCount + ", cartList=" + cartList
-				+ "]";
+				+ ", month=" + month + "]";
 	}
 	
 }

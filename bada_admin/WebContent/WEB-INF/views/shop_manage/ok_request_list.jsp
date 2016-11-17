@@ -38,20 +38,31 @@
                              </tr>
                         </thead>
                         <tbody>
-                        	<c:forEach var="product" items="${productList}">
-                        		 <tr align="center">
-									<td class="subject">
-										<c:url var="productUrl" value="/shop_manage/ok_request_view.do">
-											<c:param name="id" value="${product.id}"/>
-										</c:url>
-										<a href="${productUrl}">${product.product_name}</a>
-									</td>
-	                                <td>${product.seller_name}</td>
-	                                <td><span class="text-danger"><fmt:formatNumber value="${product.list_price}" groupingUsed="true"/></span> 원</td>
-	                                <td><span class="text-info"><fmt:formatNumber value="${product.sale_price}" groupingUsed="true"/></span> 원</td>
-	                                <td>${product.reg_date}</td>
-								</tr>
-                        	</c:forEach>
+	                        <c:choose>
+	                        	<c:when test="${fn:length(productList) == 0 }">
+	                        		<tr align="center"  valign="middle">
+                        				<td colspan="5" height="150">
+                        					<h4>판매 신청 목록이 없습니다.</h4>
+                        				</td>
+                        			</tr>
+	                        	</c:when>
+	                        	<c:otherwise>
+		                        	<c:forEach var="product" items="${productList}">
+		                        		 <tr align="center">
+											<td class="subject">
+												<c:url var="productUrl" value="/shop_manage/ok_request_view.do">
+													<c:param name="id" value="${product.id}"/>
+												</c:url>
+												<a href="${productUrl}">${product.product_name}</a>
+											</td>
+			                                <td>${product.seller_name}</td>
+			                                <td><span class="text-danger"><fmt:formatNumber value="${product.list_price}" groupingUsed="true"/></span> 원</td>
+			                                <td><span class="text-info"><fmt:formatNumber value="${product.sale_price}" groupingUsed="true"/></span> 원</td>
+			                                <td>${product.reg_date}</td>
+										</tr>
+		                        	</c:forEach>
+	                        	</c:otherwise>
+	                        </c:choose>
                         </tbody>
                     </table>
 				</div>

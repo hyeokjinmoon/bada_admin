@@ -40,6 +40,31 @@
 						<td>${product.seller_name }</td>
 					</tr>
 					<tr>
+						<th class="info text-center">카테고리</th>
+						<td>
+							<c:choose>
+                             	<c:when test="${product.category == 'E'}">
+                             		<span class="text-primary">미지정</span>
+                             	</c:when>
+                             	<c:when test="${product.category == 'S'}">
+                             		<span class="text-primary">학문</span>
+                             	</c:when>
+                             	<c:when test="${product.category == 'N'}">
+                            		<span class="text-primary">소설</span>
+                            	</c:when>
+                            	<c:when test="${product.category == 'D'}">
+                             		<span class="text-primary">자기계발</span>
+                             	</c:when>
+                             	<c:when test="${product.category == 'M'}">
+                             		<span class="text-primary">정기 간행물</span>
+                             	</c:when>
+                             	<c:when test="${product.category == 'C'}">
+                            		<span class="text-primary">어린이 도서</span>
+                            	</c:when>
+                             </c:choose>
+						</td>
+					</tr>
+					<tr>
 						<th class="info text-center">정가</th>
 						<td><span class="text-danger"><fmt:formatNumber value="${product.list_price}" groupingUsed="true"/></span> 원</td>
 					</tr>

@@ -29,7 +29,7 @@
                 	<input type="hidden" name="id" value="${product.id}"/>
                 	<div class="form-group">
                         <label for="product_name" class="col-md-2 text-right">도서명</label>
-                        <div class="col-md-8"><input type="text" name="product_name" id="product_name" class="form-control" value="${product.name}"></div>
+                        <div class="col-md-8"><input type="text" name="product_name" id="product_name" class="form-control" value="${product.product_name}"></div>
                     </div>
                     <div class="form-group">
                         <label for="list_price" class="col-md-2 text-right">정가</label>

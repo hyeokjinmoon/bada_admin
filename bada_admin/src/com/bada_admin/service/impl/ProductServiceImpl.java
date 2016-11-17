@@ -192,4 +192,40 @@ public class ProductServiceImpl implements ProductService {
 		return result;
 	}
 
+	@Override
+	public void deleteProduct(Product product) throws Exception {
+		try {
+			int result = sqlSession.delete("ProductMapper.deleteProduct", product);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제된 상품이 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("상품 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteProductUserOut(Product product) throws Exception {
+		try {
+			int result = sqlSession.delete("ProductMapper.deleteProductUserOut", product);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제된 상품이 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("상품 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
 }

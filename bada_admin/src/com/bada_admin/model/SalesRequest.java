@@ -11,7 +11,14 @@ public class SalesRequest {
 	private String sales_ok;
 	private int limitStart;
 	private int listCount;
+	private String member_name;
 	
+	public String getMember_name() {
+		return member_name;
+	}
+	public void setMember_name(String member_name) {
+		this.member_name = member_name;
+	}
 	public int getLimitStart() {
 		return limitStart;
 	}
@@ -76,7 +83,8 @@ public class SalesRequest {
 	public String toString() {
 		return "SalesRequest [id=" + id + ", sales_type=" + sales_type + ", book_list=" + book_list + ", reg_date="
 				+ reg_date + ", edit_date=" + edit_date + ", pickup_date=" + pickup_date + ", member_id=" + member_id
-				+ ", sales_ok=" + sales_ok + ", limitStart=" + limitStart + ", listCount=" + listCount + "]";
+				+ ", sales_ok=" + sales_ok + ", limitStart=" + limitStart + ", listCount=" + listCount
+				+ ", member_name=" + member_name + "]";
 	}
 	
 }

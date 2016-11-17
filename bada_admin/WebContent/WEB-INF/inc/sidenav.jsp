@@ -52,6 +52,9 @@
                 <li>
                     <a href="${pageContext.request.contextPath}/member_manage/message_list.do">쪽지목록</a>
                 </li>
+                <li>
+                    <a href="${pageContext.request.contextPath}/member_manage/sales_request_list.do">판매신청목록</a>
+                </li>
             </ul>
         </li>
     </ul>

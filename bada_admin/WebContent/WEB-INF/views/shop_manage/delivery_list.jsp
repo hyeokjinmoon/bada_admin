@@ -45,12 +45,19 @@
 		                                	<c:choose>
 		                                		<c:when test="${status.index eq 0}">
 		                                			<c:if test="${status.last }">
-		                                				${cart.product_name }
+		                                				<c:url var="deliveryUrl" value="/shop_manage/delivery_view.do">
+		                                					<c:param name="id" value="${orders.id}" />
+		                                				</c:url>
+		                                				<a href="${deliveryUrl}">${cart.product_name }</a>
 		                                			</c:if>
 		                                		</c:when>
 		                                		<c:otherwise>
 		                                			<c:if test="${status.last }">
-				                                		${cart.product_name } 외 ${status.index } 건	
+		                                				<c:url var="deliveryUrl" value="/shop_manage/delivery_view.do">
+		                                					<c:param name="id" value="${orders.id}" />
+		                                				</c:url>
+		                                				<a href="${deliveryUrl}">${cart.product_name } 외 ${status.index } 건</a>
+				                                			
 				                                	</c:if>
 		                                		</c:otherwise>
 		                                	</c:choose>

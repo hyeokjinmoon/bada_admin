@@ -73,7 +73,10 @@
 							</c:when>
 							<c:otherwise>
 								<td>
-									<img src="${readMember.profile_img}" alt="프로필 이미지" class="thumbnail"/>
+									<c:url var="imgUrl" value="/download.do">
+										<c:param name="file" value="${readMember.profile_img}"/>
+									</c:url>
+									<img src="${imgUrl}" alt="프로필 이미지" class="thumbnail" width="150"/>
 								</td>
 							</c:otherwise>
 						</c:choose>
@@ -93,7 +96,7 @@
 				<div class="text-right">
 					<a href="${pageContext.request.contextPath}/member_manage/member_list.do" class="btn btn-primary">목록</a>
 					<a href="${pageContext.request.contextPath}/member_manage/member_update.do?id=${readMember.id}" class="btn btn-warning">수정</a>
-					<a href="#" class="btn btn-danger">삭제</a>
+					<a href="${pageContext.request.contextPath}/member_manage/force_delete.do?id=${readMember.id}" class="btn btn-danger">삭제</a>
 				</div>
                 <!-- 작성 영역 끝 -->
                 <%@ include file="/WEB-INF/inc/footer.jsp" %>

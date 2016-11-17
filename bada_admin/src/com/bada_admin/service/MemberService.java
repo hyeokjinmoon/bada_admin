@@ -20,4 +20,12 @@ public interface MemberService {
 	
 	public List<Member> selectMemberDashboard(Member member) throws Exception;
 	
+	public int deleteMember(Member member) throws Exception;
+	
+	public List<Integer> selectDeleteMember(Member member) throws Exception;
+	
+	public void deleteForce(Member member) throws Exception;
+	
+	public void deleteMemberSP(Member member) throws Exception;
+	
 }

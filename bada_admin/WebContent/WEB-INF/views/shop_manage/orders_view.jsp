@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
 <head>
     <%@ include file="/WEB-INF/inc/head.jsp" %>
-    
 </head>
 
 <body>
@@ -21,37 +23,61 @@
 
                 <!-- 작성 영역 -->
                 <div class="page-header">
-                  <h1>주문 상세 정보</h1>
+                  <h1>주문 상세</h1>
                 </div>
                 <table class="table table-bordered">
 					<tr>
-						<th class="info text-center" width="100">주문일련번호</th>
-						<td>1</td>
+						<th class="info text-center" width="100">주문자 이름</th>
+						<td>${orders.buyer_name}</td>
 					</tr>
 					<tr>
-						<th class="info text-center">상품명</th>
-						<td>자바의 정석</td>
+						<th class="info text-center">주문자 연락처</th>
+						<td>${orders.buyer_tel}</td>
 					</tr>
 					<tr>
-						<th class="info text-center">판매자</th>
-						<td>문혁진</td>
+						<th class="info text-center">주문자 주소</th>
+						<td>${orders.buyer_addr}</td>
 					</tr>
 					<tr>
-						<th class="info text-center">구매자</th>
-						<td>문혁진</td>
+						<th class="info text-center">주문금액</th>
+						<td><span class="text-danger"><fmt:formatNumber value="${orders.payment_price}" groupingUsed="true"/></span> 원</td>
 					</tr>
 					<tr>
-						<th class="info text-center">금액</th>
-						<td>50,000 원</td>
+						<th class="info text-center">주문일시</th>
+						<td>${orders.order_date }</td>
 					</tr>
 					<tr>
-						<th class="info text-center">주문일</th>
-						<td>2016-10-10</td>
+						<th class="info text-center">입금상황</th>
+						<td>
+							<c:choose>
+                             	<c:when test="${orders.deposit_status == 'W'}">
+                             		<span class="text-success">입금대기</span>
+                             	</c:when>
+                             	<c:when test="${orders.deposit_status == 'C'}">
+                            		<span class="text-danger">입금완료</span>
+                            	</c:when>
+                             </c:choose>
+						</td>
+					</tr>
+					<tr>
+						<th class="info text-center">배송상황</th>
+						<td>
+							<c:choose>
+                             	<c:when test="${orders.delivery_status == 'S'}">
+                             		<span class="text-success">배송중</span>
+                             	</c:when>
+                             	<c:when test="${orders.delivery_status == 'W'}">
+                             		<span class="text-warning">배송대기</span>
+                             	</c:when>
+                             	<c:when test="${orders.delivery_status == 'C'}">
+                            		<span class="text-danger">배송완료</span>
+                            	</c:when>
+                             </c:choose>
+						</td>
 					</tr>
 				</table>
-				<div class="pull-right">
-					<a href="#" class="btn btn-primary">목록</a>
-					<a href="#" class="btn btn-danger">삭제</a>
+				<div class="text-right">
+					<a href="${pageContext.request.contextPath}/shop_manage/orders_list.do" class="btn btn-primary">목록</a>
 				</div>
 				<%@ include file="/WEB-INF/inc/footer.jsp" %>
                 <!-- 작성 영역 끝 -->

@@ -32,6 +32,19 @@
                         <div class="col-md-8"><input type="text" name="product_name" id="product_name" class="form-control"></div>
                     </div>
                     <div class="form-group">
+                        <label for="category" class="col-md-2 text-right">카테고리</label>
+                        <div class="col-md-8">
+                        	<select name="category" id="category" class="form-control">
+                        		<option value="E">미지정</option>
+                        		<option value="S">학문</option>
+                        		<option value="N">소설</option>
+                        		<option value="D">자기계발</option>
+                        		<option value="M">정기 간행물</option>
+                        		<option value="C">어린이 도서</option>
+                        	</select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="list_price" class="col-md-2 text-right">정가</label>
                         <div class="col-md-4"><input type="number" name="list_price" id="list_price" class="form-control"></div>
                     </div>

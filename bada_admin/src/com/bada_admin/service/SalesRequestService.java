@@ -1,5 +1,19 @@
 package com.bada_admin.service;
 
-public interface SalesRequestService {
+import java.util.List;
 
+import com.bada_admin.model.SalesRequest;
+
+public interface SalesRequestService {
+	
+	public List<SalesRequest> selectSalesRequestList(SalesRequest salesRequest) throws Exception;
+	
+	public int selectSalesRequestCount(SalesRequest salesRequest) throws Exception;
+	
+	public SalesRequest selectSalesRequestView(SalesRequest salesRequest) throws Exception;
+	
+	public void updateSalesRequest(SalesRequest salesRequest) throws Exception;
+	
+	public void deleteSalesRequestUserOut(SalesRequest salesRequest) throws Exception;
+	
 }

@@ -9,7 +9,67 @@
 		<result property="edit_date" column="edit_date" />
 		<result property="pickup_date" column="pickup_date" />
 		<result property="member_id" column="member_id" />
+		<result property="member_name" column="member_name" />
 		<result property="sales_ok" column="sales_ok" /> <!-- 바다에 판매 승인 : 승인대기="W", 승인="O", 거절="R" -->
 	</resultMap>
+	
+	<!-- SELECT -->
+	<!-- 판매 신청 목록 -->
+	<select id="selectSalesRequestList" parameterType="com.bada_admin.model.SalesRequest" resultMap="sales_req">
+		SELECT
+			s.id, sales_type, book_list, DATE_FORMAT(s.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, DATE_FORMAT(s.edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
+			DATE_FORMAT(pickup_date, '%Y-%m-%d %H:%i:%s') AS pickup_date, sales_ok, m.name AS member_name
+		FROM
+			sales_req s
+			INNER JOIN
+				member m
+			ON
+				member_id=m.id
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}  
+	</select>
+	<!-- 판매 신청 카운트 -->
+	<select id="selectSalesRequestCount" parameterType="com.bada_admin.model.SalesRequest" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM
+			sales_req
+	</select>
+	<!-- 판매 신청 상세 -->
+	<select id="selectSalesRequestView" parameterType="com.bada_admin.model.SalesRequest" resultMap="sales_req">
+		SELECT
+			s.id, sales_type, book_list, DATE_FORMAT(s.reg_date, '%Y-%m-%d %H:%i:%s') AS reg_date, DATE_FORMAT(s.edit_date, '%Y-%m-%d %H:%i:%s') AS edit_date,
+			DATE_FORMAT(pickup_date, '%Y-%m-%d %H:%i:%s') AS pickup_date, sales_ok, m.name AS member_name
+		FROM
+			sales_req s
+			INNER JOIN
+				member m
+			ON
+				member_id=m.id
+		WHERE
+			s.id=#{id}
+	</select>
+	
+	<!-- UPDATE -->
+	<!-- 승인 변경 -->
+	<update id="updateSalesRequest" parameterType="com.bada_admin.model.SalesRequest">
+		UPDATE
+			sales_req
+		SET
+			sales_ok=#{sales_ok}
+		WHERE
+			id=#{id}
+	</update>
+	
+	<!-- DELETE -->
+	<!-- 회원 탈퇴시 삭제해야할 판매 문의 -->
+	<delete id="deleteSalesRequestUserOut" parameterType="com.bada_admin.model.SalesRequest">
+		DELETE FROM
+			sales_req
+		WHERE
+			member_id=#{member_id}
+	</delete>
 	
 </mapper>

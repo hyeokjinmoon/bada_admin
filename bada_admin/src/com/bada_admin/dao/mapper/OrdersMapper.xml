@@ -18,10 +18,24 @@
 	<!-- 주문 목록 -->
 	<select id="selectOrdersList" parameterType="com.bada_admin.model.Orders" resultMap="orders">
 		SELECT
-			id, DATE_FORMAT(order_date, '%Y-%m-%d %h:%i') AS order_date, buyer_id, buyer_name, buyer_tel, buyer_addr, 
+			id, DATE_FORMAT(order_date, '%Y-%m-%d %H:%i:%s') AS order_date, buyer_id, buyer_name, buyer_tel, buyer_addr, 
 			deposit_status, delivery_status, payment_type, payment_price
 		FROM 
 			orders
+		ORDER BY
+			id DESC
+		LIMIT
+			#{limitStart}, #{listCount}
+	</select>
+	<!-- 거래 완료 목록 -->
+	<select id="selectOrdersTradeList" parameterType="com.bada_admin.model.Orders" resultMap="orders">
+		SELECT
+			id, DATE_FORMAT(order_date, '%Y-%m-%d %H:%i:%s') AS order_date, buyer_id, buyer_name, buyer_tel, buyer_addr, 
+			deposit_status, delivery_status, payment_type, payment_price
+		FROM 
+			orders
+		WHERE
+			deposit_status='C' AND delivery_status='C'
 		ORDER BY
 			id DESC
 		LIMIT
@@ -34,10 +48,19 @@
 		FROM 
 			orders
 	</select>
+	<!-- 총 주문 수 -->
+	<select id="selectOrdersTradeCount" parameterType="com.bada_admin.model.Orders" resultType="int">
+		SELECT
+			COUNT(id)
+		FROM 
+			orders
+		WHERE
+			deposit_status='C' AND delivery_status='C'
+	</select>
 	<!-- 대시보드 표시 주문 목록 -->
 	<select id="selectOrdersDashboard" parameterType="com.bada_admin.model.Orders" resultMap="orders">
 		SELECT
-			id, deposit_status, delivery_status, DATE_FORMAT(order_date, '%Y-%m-%d %h:%i') AS order_date
+			id, deposit_status, delivery_status, DATE_FORMAT(order_date, '%Y-%m-%d %H:%i:%s') AS order_date
 		FROM
 			orders
 		ORDER BY
@@ -45,5 +68,65 @@
 		LIMIT
 			0, 5
 	</select>
+	<!-- 주문 상세 -->
+	<select id="selectOrderDetail" parameterType="com.bada_admin.model.Orders" resultMap="orders">
+		SELECT
+			id, DATE_FORMAT(order_date, '%Y-%m-%d %H:%i:%s') AS order_date, buyer_id, buyer_name, buyer_tel, buyer_addr, 
+			deposit_status, delivery_status, payment_type, payment_price
+		FROM 
+			orders
+		WHERE
+			id=#{id}
+		ORDER BY
+			id DESC
+		LIMIT
+			0, 1
+	</select>
+	
+	<!-- 기간 검색 1개월 전 -->
+	<select id="selectOrderListBeforeMonth" parameterType="com.bada_admin.model.Orders" resultMap="orders">
+		<![CDATA[
+		SELECT
+			id, DATE_FORMAT(order_date, '%Y-%m-%d %H:%i:%s') AS order_date, buyer_id, buyer_name, buyer_tel, buyer_addr, 
+			deposit_status, delivery_status, payment_type, payment_price
+		FROM 
+			orders
+		WHERE
+			DATE_FORMAT(order_date, '%Y-%m-%d %H:%i:%s') <= DATE_ADD(now(), INTERVAL #{month} DAY)
+		ORDER BY
+			id DESC
+		]]>
+	</select>
+	<!-- 기간 검색 3개월 전 -->
+	<!-- 기간 검색 6개월 전 -->
+	
+	<!-- UPDATE -->
+	<!-- 배송 상황 업데이트 -->
+	<update id="updateDeliveryStatus" parameterType="com.bada_admin.model.Orders">
+		UPDATE
+			orders
+		SET
+			delivery_status=#{delivery_status}
+		WHERE
+			id=#{id}
+	</update>
+	<!-- 입금 상황 업데이트 -->
+	<update id="updateDepositStatus" parameterType="com.bada_admin.model.Orders">
+		UPDATE
+			orders
+		SET
+			deposit_status=#{deposit_status}
+		WHERE
+			id=#{id}
+	</update>
+	<!-- 회원 탈퇴시 변경해야할 주문 -->
+	<update id="updateOrdersUserOut" parameterType="com.bada_admin.model.Orders">
+		UPDATE
+			orders
+		SET
+			buyer_id=null
+		WHERE
+			buyer_id=#{buyer_id}
+	</update>
 	
 </mapper>

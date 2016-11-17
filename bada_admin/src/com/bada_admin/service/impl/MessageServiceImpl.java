@@ -88,4 +88,58 @@ public class MessageServiceImpl implements MessageService {
 		return result;
 	}
 
+	@Override
+	public void deleteMessage(Message message) throws Exception {
+		try {
+			int result = sqlSession.delete("MessageMapper.deleteMessage", message);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제할 쪽지가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("쪽지 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void updateMessageUserOut(Message message) throws Exception {
+		try {
+			int result = sqlSession.update("MessageMapper.updateMessageUserOut", message);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("수정된 쪽지가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("쪽지 수정에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
+	@Override
+	public void deleteMessageUserOut(Message message) throws Exception {
+		try {
+			int result = sqlSession.delete("MessageMapper.deleteMessageUserOut", message);
+			if(result == 0) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException e) {
+			sqlSession.rollback();
+			throw new Exception("삭제할 쪽지가 없습니다.");
+		} catch (Exception e) {
+			sqlSession.rollback();
+			throw new Exception("쪽지 삭제에 실패했습니다.");
+		} finally {
+			sqlSession.commit();
+		}
+	}
+
 }

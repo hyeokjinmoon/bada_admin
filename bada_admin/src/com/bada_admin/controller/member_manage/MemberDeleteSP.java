@@ -14,25 +14,25 @@ import org.apache.logging.log4j.Logger;
 import com.bada_admin.dao.MyBatisConnectionFactory;
 import com.bada_admin.helper.BaseController;
 import com.bada_admin.helper.WebHelper;
-import com.bada_admin.model.Message;
-import com.bada_admin.service.MessageService;
-import com.bada_admin.service.impl.MessageServiceImpl;
+import com.bada_admin.model.Member;
+import com.bada_admin.service.MemberService;
+import com.bada_admin.service.impl.MemberServiceImpl;
 
-@WebServlet("/member_manage/message_delete.do")
-public class MessageDelete extends BaseController {
+@WebServlet("/member_manage/delete_member_sp.do")
+public class MemberDeleteSP extends BaseController {
 
-	private static final long serialVersionUID = 360282813236103165L;
+	private static final long serialVersionUID = -7312176228251520737L;
 	SqlSession sqlSession;
 	Logger logger;
 	WebHelper web;
-	MessageService messageService;
+	MemberService memberService;
 	
 	@Override
 	public String doRun(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		sqlSession = MyBatisConnectionFactory.getSqlSession();
 		logger = LogManager.getFormatterLogger(request.getRequestURI());
 		web = WebHelper.getInstance(request, response);
-		messageService = new MessageServiceImpl(sqlSession, logger);
+		memberService = new MemberServiceImpl(sqlSession, logger);
 		
 		if(web.getSession("loginInfo") == null) {
 			sqlSession.close();
@@ -40,13 +40,10 @@ public class MessageDelete extends BaseController {
 			return null;
 		}
 		
-		int id = web.getInt("id");
-		
-		Message message = new Message();
-		message.setId(id);
+		Member member = new Member();
 		
 		try {
-			messageService.deleteMessage(message);
+			memberService.deleteMemberSP(member);
 		} catch (Exception e) {
 			web.redirect(null, e.getLocalizedMessage());
 			return null;
@@ -54,8 +51,12 @@ public class MessageDelete extends BaseController {
 			sqlSession.close();
 		}
 		
-		String url = web.getRootPath() + "/member_manage/message_list.do";
-		web.redirect(url, "삭제되었습니다.");
+		if(member.getResult() == 0) {
+			web.redirect(null, "삭제된 회원이 없습니다.");
+			return null;
+		}
+		
+		web.redirect(web.getRootPath() + "/member_manage/member_list.do", member.getResult() + " 명 삭제되었습니다.");
 		
 		return null;
 	}
